@@ -15,8 +15,8 @@ interface GiscusCommentsProps {
  */
 export function GiscusComments({ slug }: GiscusCommentsProps) {
   return (
-    <section className="mt-16 pt-8 border-t border-[var(--color-grey-200)]">
-      <h2 className="text-xl font-bold text-[var(--color-grey-900)] mb-6">
+    <section className="mt-16 pt-8 border-t border-grey-200">
+      <h2 className="text-xl font-bold text-grey-900 mb-6">
         댓글
       </h2>
       <Giscus

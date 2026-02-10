@@ -18,10 +18,10 @@ export default function BlogPage() {
       <main className="py-16">
         <Container size="md">
           <header className="mb-12">
-            <h1 className="text-3xl md:text-4xl font-bold text-[var(--color-grey-900)]">
+            <h1 className="text-3xl md:text-4xl font-bold text-grey-900">
               Blog
             </h1>
-            <p className="mt-4 text-lg text-[var(--color-grey-600)]">
+            <p className="mt-4 text-lg text-grey-600">
               개발과 일상에 대한 이야기를 나눕니다
             </p>
           </header>

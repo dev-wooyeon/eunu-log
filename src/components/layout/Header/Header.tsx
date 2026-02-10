@@ -22,12 +22,12 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-[var(--z-sticky)] bg-white/80 backdrop-blur-md border-b border-[var(--color-grey-100)]">
+    <header className="sticky top-0 z-[200] bg-white/80 backdrop-blur-md border-b border-grey-100">
       <div className="max-w-[800px] mx-auto px-6 h-16 relative flex items-center justify-between">
         {/* Left: Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2 text-xl font-bold text-[var(--color-grey-900)] hover:text-[var(--color-toss-blue)] transition-colors z-10"
+          className="flex items-center gap-2 text-xl font-bold text-grey-900 hover:text-toss-blue transition-colors z-10"
         >
           <Logo />
           <span>eunu.log</span>
@@ -42,8 +42,8 @@ export default function Header() {
               className={clsx(
                 'text-base font-medium transition-colors',
                 pathname === item.href
-                  ? 'text-[var(--color-toss-blue)]'
-                  : 'text-[var(--color-grey-600)] hover:text-[var(--color-toss-blue)]'
+                  ? 'text-toss-blue'
+                  : 'text-grey-600 hover:text-toss-blue'
               )}
             >
               {item.label}
@@ -54,7 +54,7 @@ export default function Header() {
         {/* Mobile: Hamburger Button */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden p-2 text-[var(--color-grey-700)] hover:bg-[var(--color-grey-100)] rounded-[var(--radius-sm)] transition-colors z-10"
+          className="md:hidden p-2 text-grey-700 hover:bg-grey-100 rounded-sm transition-colors z-10"
           aria-label={isMenuOpen ? '메뉴 닫기' : '메뉴 열기'}
           aria-expanded={isMenuOpen}
         >
@@ -95,7 +95,7 @@ export default function Header() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }} // Toss easing
-            className="md:hidden border-t border-[var(--color-grey-100)] bg-white overflow-hidden absolute w-full left-0 top-16 shadow-xl rounded-b-[var(--radius-lg)]"
+            className="md:hidden border-t border-grey-100 bg-white overflow-hidden absolute w-full left-0 top-16 shadow-xl rounded-b-lg"
           >
             <div className="max-w-[800px] mx-auto px-6 py-8 flex flex-col gap-8">
               {/* Main Nav Links */}
@@ -107,8 +107,8 @@ export default function Header() {
                     className={clsx(
                       'block text-3xl font-bold transition-all duration-200 hover:translate-x-2',
                       pathname === '/'
-                        ? 'text-[var(--color-toss-blue)]'
-                        : 'text-[var(--color-grey-900)]'
+                        ? 'text-toss-blue'
+                        : 'text-grey-900'
                     )}
                   >
                     홈
@@ -122,8 +122,8 @@ export default function Header() {
                       className={clsx(
                         'block text-3xl font-bold transition-all duration-200 hover:translate-x-2',
                         pathname === item.href
-                          ? 'text-[var(--color-toss-blue)]'
-                          : 'text-[var(--color-grey-900)] hover:text-[var(--color-toss-blue)]'
+                          ? 'text-toss-blue'
+                          : 'text-grey-900 hover:text-toss-blue'
                       )}
                     >
                       {item.label}
@@ -133,14 +133,14 @@ export default function Header() {
               </ul>
 
               {/* Social Links */}
-              <div className="border-t border-[var(--color-grey-100)] pt-6 flex gap-6">
+              <div className="border-t border-grey-100 pt-6 flex gap-6">
                 {socialLinks.map((link) => (
                   <a
                     key={link.name}
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-base font-medium text-[var(--color-grey-600)] hover:text-[var(--color-toss-blue)] transition-colors flex items-center gap-2"
+                    className="text-base font-medium text-grey-600 hover:text-toss-blue transition-colors flex items-center gap-2"
                   >
                     {link.name}
                     <span className="text-xs" aria-hidden="true">

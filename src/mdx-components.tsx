@@ -40,7 +40,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h1: (props) => (
       <h1
         {...props}
-        className="text-3xl font-bold mt-16 mb-8 text-[var(--color-grey-900)]"
+        className="text-3xl font-bold mt-16 mb-8 text-grey-900"
       >
         {props.children}
       </h1>
@@ -48,7 +48,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h2: (props) => (
       <h2
         {...props}
-        className="mt-12 mb-6 text-2xl font-bold text-[var(--color-grey-900)]"
+        className="mt-12 mb-6 text-2xl font-bold text-grey-900"
       >
         {props.children}
       </h2>
@@ -56,7 +56,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h3: (props) => (
       <h3
         {...props}
-        className="mt-8 mb-4 text-xl font-bold text-[var(--color-grey-900)]"
+        className="mt-8 mb-4 text-xl font-bold text-grey-900"
       >
         {props.children}
       </h3>
@@ -64,7 +64,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     p: (props) => (
       <p
         {...props}
-        className="text-base leading-relaxed mb-6 text-[var(--color-grey-700)]"
+        className="text-base leading-relaxed mb-6 text-grey-700"
       >
         {props.children}
       </p>
@@ -90,7 +90,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
             className="rounded-[16px]"
           />
           {props.alt && (
-            <span className="block text-center text-sm text-[var(--color-grey-600)] mt-4 mb-2 px-4">
+            <span className="block text-center text-sm text-grey-600 mt-4 mb-2 px-4">
               {props.alt}
             </span>
           )}

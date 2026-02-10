@@ -85,17 +85,17 @@ export default async function BlogPostPage({
         <Container size="md">
           {/* Header */}
           <header className="mb-12 text-center">
-            <span className="inline-block px-3 py-1 text-sm font-medium text-[var(--color-toss-blue)] bg-[var(--color-toss-blue)]/10 rounded-full mb-4">
+            <span className="inline-block px-3 py-1 text-sm font-medium text-toss-blue bg-toss-blue/10 rounded-full mb-4">
               {post.category}
             </span>
-            <h1 className="text-3xl md:text-4xl font-bold text-[var(--color-grey-900)] leading-tight">
+            <h1 className="text-3xl md:text-4xl font-bold text-grey-900 leading-tight">
               {post.title}
             </h1>
-            <div className="mt-6 flex items-center justify-center gap-4 text-sm text-[var(--color-grey-500)]">
+            <div className="mt-6 flex items-center justify-center gap-4 text-sm text-grey-500">
               <time>{formattedDate}</time>
               {post.readingTime && (
                 <>
-                  <span className="w-1 h-1 bg-[var(--color-grey-300)] rounded-full" />
+                  <span className="w-1 h-1 bg-grey-300 rounded-full" />
                   <span>{post.readingTime}분 읽기</span>
                 </>
               )}
@@ -105,7 +105,7 @@ export default async function BlogPostPage({
                 {post.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs text-[var(--color-grey-500)] bg-[var(--color-grey-100)] px-2 py-1 rounded"
+                    className="text-xs text-grey-500 bg-grey-100 px-2 py-1 rounded"
                   >
                     #{tag}
                   </span>

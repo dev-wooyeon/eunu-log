@@ -11,11 +11,11 @@ export default function HeroSection() {
         size="md"
         className="flex-grow flex flex-col items-center text-center justify-center"
       >
-        <h1 className="text-5xl md:text-6xl font-bold text-[var(--color-grey-900)] leading-tight">
+        <h1 className="text-5xl md:text-6xl font-bold text-grey-900 leading-tight">
           안녕하세요, 우연입니다
         </h1>
 
-        <div className="mt-6 text-lg text-[var(--color-grey-800)] leading-tight font-mono">
+        <div className="mt-6 text-lg text-grey-800 leading-tight font-mono">
           <p>
             Make Creative, Data, Systems things. <br />
             Currently working as a Software Engineer{' '}

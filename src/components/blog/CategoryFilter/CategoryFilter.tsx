@@ -25,8 +25,8 @@ export default function CategoryFilter({
             'px-4 py-2 text-sm rounded-full transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)]',
             'active:scale-95',
             activeCategory === category
-              ? 'bg-[var(--color-toss-blue)] text-white font-bold shadow-md'
-              : 'bg-[var(--color-grey-50)] text-[var(--color-grey-600)] hover:bg-[var(--color-grey-100)] font-medium'
+              ? 'bg-toss-blue text-white font-bold shadow-md'
+              : 'bg-grey-50 text-grey-600 hover:bg-grey-100 font-medium'
           )}
         >
           {category}

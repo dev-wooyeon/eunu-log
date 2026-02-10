@@ -12,17 +12,17 @@ import {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    'bg-[var(--color-toss-blue)] text-white hover:opacity-80 active:scale-[0.98]',
+    'bg-toss-blue text-white hover:opacity-80 active:scale-[0.98]',
   secondary:
-    'bg-[var(--color-grey-100)] text-[var(--color-grey-900)] hover:bg-[var(--color-grey-200)] active:scale-[0.98]',
+    'bg-grey-100 text-grey-900 hover:bg-grey-200 active:scale-[0.98]',
   tertiary:
-    'bg-transparent text-[var(--color-toss-blue)] hover:bg-[var(--color-grey-50)] active:scale-[0.98]',
+    'bg-transparent text-toss-blue hover:bg-grey-50 active:scale-[0.98]',
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: 'h-9 px-3 text-sm rounded-[var(--radius-sm)]',
-  md: 'h-11 px-4 text-base rounded-[var(--radius-sm)]',
-  lg: 'h-13 px-6 text-lg rounded-[var(--radius-sm)]',
+  sm: 'h-9 px-3 text-sm rounded-sm',
+  md: 'h-11 px-4 text-base rounded-sm',
+  lg: 'h-13 px-6 text-lg rounded-sm',
 };
 
 const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
@@ -43,8 +43,8 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
     const baseStyles = clsx(
       'inline-flex items-center justify-center gap-2',
       'font-medium transition-all',
-      'duration-[var(--duration-150)] ease-[var(--ease-default)]',
-      'focus-visible:outline-2 focus-visible:outline-[var(--color-toss-blue)] focus-visible:outline-offset-2',
+      'duration-150 ease-default',
+      'focus-visible:outline-2 focus-visible:outline-toss-blue focus-visible:outline-offset-2',
       'disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none',
       variantStyles[variant],
       sizeStyles[size],

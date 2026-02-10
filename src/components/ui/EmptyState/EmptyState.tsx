@@ -31,17 +31,17 @@ export default function EmptyState({
     >
       {icon && (
         <div
-          className="mb-4 text-[var(--color-grey-300)] text-5xl"
+          className="mb-4 text-grey-300 text-5xl"
           aria-hidden="true"
         >
           {icon}
         </div>
       )}
-      <h3 className="text-lg font-semibold text-[var(--color-grey-900)] mb-2">
+      <h3 className="text-lg font-semibold text-grey-900 mb-2">
         {title}
       </h3>
       {description && (
-        <p className="text-sm text-[var(--color-grey-600)] mb-6 max-w-sm">
+        <p className="text-sm text-grey-600 mb-6 max-w-sm">
           {description}
         </p>
       )}

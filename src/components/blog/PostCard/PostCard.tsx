@@ -19,9 +19,9 @@ export default function PostCard({ post, variant = 'default' }: PostCardProps) {
       <Link
         href={`/blog/${post.slug}`}
         className={clsx(
-          'group block p-8 rounded-[var(--radius-lg)] bg-gradient-to-br from-[var(--color-toss-blue)] to-[var(--color-toss-blue-dark)]',
-          'text-white transition-all duration-[var(--duration-300)]',
-          'hover:shadow-[var(--shadow-xl)] hover:-translate-y-1'
+          'group block p-8 rounded-lg bg-gradient-to-br from-toss-blue to-toss-blue-dark',
+          'text-white transition-all duration-300',
+          'hover:shadow-xl hover:-translate-y-1'
         )}
       >
         <span className="text-sm font-medium opacity-80">{post.category}</span>
@@ -43,27 +43,27 @@ export default function PostCard({ post, variant = 'default' }: PostCardProps) {
     <Link
       href={`/blog/${post.slug}`}
       className={clsx(
-        'group flex flex-col h-full p-6 rounded-[var(--radius-md)] border border-[var(--color-grey-200)] bg-white',
-        'transition-all duration-[var(--duration-200)] ease-[var(--ease-default)]',
-        'hover:border-[var(--color-grey-300)] hover:shadow-[var(--shadow-md)] hover:-translate-y-0.5'
+        'group flex flex-col h-full p-6 rounded-md border border-grey-200 bg-white',
+        'transition-all duration-200 ease-default',
+        'hover:border-grey-300 hover:shadow-md hover:-translate-y-0.5'
       )}
     >
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-xs font-medium text-[var(--color-toss-blue)] bg-[var(--color-toss-blue)]/10 px-2 py-1 rounded-[4px]">
+        <span className="text-xs font-medium text-toss-blue bg-toss-blue/10 px-2 py-1 rounded-[4px]">
           {post.category}
         </span>
-        <time className="text-xs text-[var(--color-grey-500)]">
+        <time className="text-xs text-grey-500">
           {formattedDate}
         </time>
       </div>
-      <h3 className="text-lg font-semibold text-[var(--color-grey-900)] group-hover:text-[var(--color-toss-blue)] transition-colors leading-snug line-clamp-2">
+      <h3 className="text-lg font-semibold text-grey-900 group-hover:text-toss-blue transition-colors leading-snug line-clamp-2">
         {post.title}
       </h3>
-      <p className="mt-2 text-sm text-[var(--color-grey-600)] line-clamp-2 flex-grow">
+      <p className="mt-2 text-sm text-grey-600 line-clamp-2 flex-grow">
         {post.description}
       </p>
       {post.readingTime && (
-        <div className="mt-4 text-xs text-[var(--color-grey-500)]">
+        <div className="mt-4 text-xs text-grey-500">
           {post.readingTime}분 읽기
         </div>
       )}

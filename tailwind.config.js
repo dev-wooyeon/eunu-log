@@ -9,20 +9,46 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: 'var(--bg-primary)',
-        'text-primary': 'var(--text-primary)',
-        'text-secondary': 'var(--text-secondary)',
-        'text-tertiary': 'var(--text-tertiary)',
-        accent: {
-          DEFAULT: 'var(--accent-primary)',
-          secondary: 'var(--accent-secondary)',
-          tertiary: 'var(--accent-tertiary)',
+        // Toss Blue
+        'toss-blue': {
+          DEFAULT: 'var(--color-toss-blue)',
+          light: 'var(--color-toss-blue-light)',
+          dark: 'var(--color-toss-blue-dark)',
         },
-        code: {
-          bg: 'var(--bg-code)',
-          text: 'var(--text-code)',
+        // Grey Scale
+        grey: {
+          50: 'var(--color-grey-50)',
+          100: 'var(--color-grey-100)',
+          200: 'var(--color-grey-200)',
+          300: 'var(--color-grey-300)',
+          400: 'var(--color-grey-400)',
+          500: 'var(--color-grey-500)',
+          600: 'var(--color-grey-600)',
+          700: 'var(--color-grey-700)',
+          800: 'var(--color-grey-800)',
+          900: 'var(--color-grey-900)',
         },
-        border: 'var(--border)',
+        // Semantic Text Colors
+        text: {
+          primary: 'var(--color-text-primary)',
+          secondary: 'var(--color-text-secondary)',
+          tertiary: 'var(--color-text-tertiary)',
+          disabled: 'var(--color-text-disabled)',
+        },
+        // Semantic Background Colors
+        bg: {
+          primary: 'var(--color-bg-primary)',
+          secondary: 'var(--color-bg-secondary)',
+          tertiary: 'var(--color-bg-tertiary)',
+        },
+        // Borders & Dividers
+        border: 'var(--color-border)',
+        divider: 'var(--color-divider)',
+        // Feedback Colors
+        success: 'var(--color-success)',
+        warning: 'var(--color-warning)',
+        error: 'var(--color-error)',
+        info: 'var(--color-info)',
       },
       spacing: {
         1: 'var(--space-1)',
@@ -69,11 +95,25 @@ module.exports = {
         full: 'var(--radius-full)',
       },
       boxShadow: {
+        xs: 'var(--shadow-xs)',
         sm: 'var(--shadow-sm)',
         DEFAULT: 'var(--shadow-md)',
         md: 'var(--shadow-md)',
         lg: 'var(--shadow-lg)',
         xl: 'var(--shadow-xl)',
+      },
+      transitionDuration: {
+        75: '75ms',
+        100: '100ms',
+        150: '150ms',
+        200: '200ms',
+        300: '300ms',
+        400: '400ms',
+        500: '500ms',
+      },
+      transitionTimingFunction: {
+        default: 'cubic-bezier(0.4, 0, 0.2, 1)',
+        spring: 'cubic-bezier(0.32, 0.72, 0, 1)',
       },
       animation: {
         blink: 'blink 1s infinite',

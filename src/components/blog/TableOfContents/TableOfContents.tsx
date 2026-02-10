@@ -58,8 +58,8 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
       className="hidden xl:block fixed right-8 top-1/2 -translate-y-1/2 w-64 max-h-[80vh]"
       aria-label="목차"
     >
-      <div className="p-4 bg-[var(--color-grey-50)] rounded-[var(--radius-md)] max-h-[80vh] overflow-y-auto">
-        <h2 className="text-sm font-semibold text-[var(--color-grey-900)] mb-4 sticky top-0 bg-[var(--color-grey-50)] pb-2">
+      <div className="p-4 bg-grey-50 rounded-md max-h-[80vh] overflow-y-auto">
+        <h2 className="text-sm font-semibold text-grey-900 mb-4 sticky top-0 bg-grey-50 pb-2">
           목차
         </h2>
         <ul className="flex flex-col gap-1">
@@ -69,11 +69,11 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
                 onClick={() => handleClick(item.id)}
                 className={clsx(
                   'block w-full text-left text-sm py-1.5 px-3 rounded-[6px]',
-                  'transition-colors duration-[var(--duration-150)]',
+                  'transition-colors duration-150',
                   item.level > 2 && 'pl-6',
                   activeId === item.id
-                    ? 'bg-[var(--color-toss-blue)]/10 text-[var(--color-toss-blue)] font-medium'
-                    : 'text-[var(--color-grey-600)] hover:text-[var(--color-grey-900)] hover:bg-[var(--color-grey-100)]'
+                    ? 'bg-toss-blue/10 text-toss-blue font-medium'
+                    : 'text-grey-600 hover:text-grey-900 hover:bg-grey-100'
                 )}
               >
                 {item.text}

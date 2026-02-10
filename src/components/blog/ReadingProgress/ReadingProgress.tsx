@@ -23,13 +23,13 @@ export default function ReadingProgress() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-1 bg-[var(--color-grey-100)] z-[var(--z-sticky)] origin-left"
+      className="fixed top-0 left-0 right-0 h-1 bg-grey-100 z-[200] origin-left"
       initial={{ opacity: 0 }}
       animate={{ opacity: isVisible ? 1 : 0 }}
       transition={{ duration: 0.2 }}
     >
       <motion.div
-        className="h-full bg-[var(--color-toss-blue)] origin-left"
+        className="h-full bg-toss-blue origin-left"
         style={{ scaleX }}
       />
     </motion.div>
