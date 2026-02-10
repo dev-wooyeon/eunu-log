@@ -3,12 +3,13 @@ import '@/styles/globals.css';
 import '@/styles/tossface.css';
 
 import JsonLd from '@/components/seo/JsonLd';
+import { SITE_NAME, SITE_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://eunu-log.vercel.app'),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: 'eunu.log',
-    template: '%s | eunu.log',
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
   },
   description: '데이터와 시스템, 창의적인 것들을 만듭니다',
   authors: [{ name: 'dev-wooyeon' }],
@@ -16,14 +17,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'ko_KR',
-    url: 'https://eunu-log.vercel.app',
-    title: 'eunu.log',
+    url: SITE_URL,
+    title: SITE_NAME,
     description: '데이터와 시스템, 창의적인 것들을 만듭니다',
-    siteName: 'eunu.log',
+    siteName: SITE_NAME,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'eunu.log',
+    title: SITE_NAME,
     description: '데이터와 시스템, 창의적인 것들을 만듭니다',
   },
   robots: {
@@ -63,12 +64,12 @@ export default function RootLayout({
           data={{
             '@context': 'https://schema.org',
             '@type': 'WebSite',
-            name: 'eunu.log',
-            url: 'https://eunu-log.vercel.app',
+            name: SITE_NAME,
+            url: SITE_URL,
             author: {
               '@type': 'Person',
               name: 'Eunu',
-              url: 'https://eunu-log.vercel.app/resume',
+              url: `${SITE_URL}/resume`,
               sameAs: [
                 'https://github.com/dev-wooyeon',
                 'mailto:une@kakao.com',

@@ -11,6 +11,7 @@ import {
 } from '@/components/blog';
 import JsonLd from '@/components/seo/JsonLd';
 import { useMDXComponents } from '@/mdx-components';
+import { SITE_URL } from '@/lib/site';
 
 export async function generateStaticParams() {
   return getAllFeedSlugs();
@@ -40,7 +41,7 @@ export async function generateMetadata({
       tags: post.tags,
       images: [
         {
-          url: `/api/og?title=${encodeURIComponent(post.title)}&date=${post.date}&tags=${post.tags?.join(',') || ''}`,
+          url: `${SITE_URL}/api/og?title=${encodeURIComponent(post.title)}&date=${post.date}&tags=${post.tags?.join(',') || ''}`,
           width: 1200,
           height: 630,
           alt: post.title,
@@ -149,7 +150,7 @@ export default async function BlogPostPage({
           },
           datePublished: post.date,
           image: [
-            `https://eunu.log/og?title=${encodeURIComponent(post.title)}`,
+            `${SITE_URL}/api/og?title=${encodeURIComponent(post.title)}`,
           ],
         }}
       />

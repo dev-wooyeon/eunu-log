@@ -1,3 +1,5 @@
+import { SITE_URL } from '@/lib/site';
+
 export interface Experience {
   company: string;
   role: string;
@@ -69,7 +71,7 @@ export const personalInfo: PersonalInfo = {
   email: 'une@kakao.com',
   phone: '+82 01029139706',
   github: 'https://github.com/dev-wooyeon',
-  blog: 'https://eunu-log.vercel.app',
+  blog: SITE_URL,
   skills: [
     'Java',
     'Spring Boot',

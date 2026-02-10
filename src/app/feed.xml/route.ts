@@ -1,6 +1,5 @@
 import { getSortedFeedData } from '@/lib/mdx-feeds';
-
-const SITE_URL = 'https://eunu-log.vercel.app';
+import { SITE_URL } from '@/lib/site';
 
 export async function GET() {
   const allPosts = getSortedFeedData();
