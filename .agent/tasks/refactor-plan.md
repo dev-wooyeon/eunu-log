@@ -31,5 +31,5 @@
    - Scope: Cache or local font for `/Users/noah/workspace/personal/eunu.log/src/app/api/og/route.tsx`.
 
 7. 콘텐츠 스캔 캐시/빌드 최적화 (Claude)
-   - Status: TODO
-   - Scope: `getSortedFeedData`/`getAllFeedSlugs` caching or build-time memoization.
+   - Status: DONE
+   - Notes: Cached folder scan, slugs, and sorted feed data to reduce repeated FS reads.
