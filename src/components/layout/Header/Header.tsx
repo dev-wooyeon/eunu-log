@@ -22,8 +22,8 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-[200] bg-white/80 backdrop-blur-md border-b border-grey-100">
-      <div className="max-w-[800px] mx-auto px-6 h-16 relative flex items-center justify-between">
+    <header className="sticky top-0 z-sticky bg-white/80 backdrop-blur-md border-b border-grey-100">
+      <div className="max-w-content-md mx-auto px-6 h-16 relative flex items-center justify-between">
         {/* Left: Logo */}
         <Link
           href="/"
@@ -97,7 +97,7 @@ export default function Header() {
             transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }} // Toss easing
             className="md:hidden border-t border-grey-100 bg-white overflow-hidden absolute w-full left-0 top-16 shadow-xl rounded-b-lg"
           >
-            <div className="max-w-[800px] mx-auto px-6 py-8 flex flex-col gap-8">
+            <div className="max-w-content-md mx-auto px-6 py-8 flex flex-col gap-8">
               {/* Main Nav Links */}
               <ul className="flex flex-col gap-4">
                 <li>

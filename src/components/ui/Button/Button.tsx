@@ -12,11 +12,11 @@ import {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    'bg-toss-blue text-white hover:opacity-80 active:scale-[0.98]',
+    'bg-toss-blue text-white hover:opacity-80 active:scale-95',
   secondary:
-    'bg-grey-100 text-grey-900 hover:bg-grey-200 active:scale-[0.98]',
+    'bg-grey-100 text-grey-900 hover:bg-grey-200 active:scale-95',
   tertiary:
-    'bg-transparent text-toss-blue hover:bg-grey-50 active:scale-[0.98]',
+    'bg-transparent text-toss-blue hover:bg-grey-50 active:scale-95',
 };
 
 const sizeStyles: Record<ButtonSize, string> = {

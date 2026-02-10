@@ -55,10 +55,10 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
 
   return (
     <nav
-      className="hidden xl:block fixed right-8 top-1/2 -translate-y-1/2 w-64 max-h-[80vh]"
+      className="hidden xl:block fixed right-8 top-1/2 -translate-y-1/2 w-64 max-h-screen-80"
       aria-label="목차"
     >
-      <div className="p-4 bg-grey-50 rounded-md max-h-[80vh] overflow-y-auto">
+      <div className="p-4 bg-grey-50 rounded-md max-h-screen-80 overflow-y-auto">
         <h2 className="text-sm font-semibold text-grey-900 mb-4 sticky top-0 bg-grey-50 pb-2">
           목차
         </h2>
@@ -68,7 +68,7 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
               <button
                 onClick={() => handleClick(item.id)}
                 className={clsx(
-                  'block w-full text-left text-sm py-1.5 px-3 rounded-[6px]',
+                  'block w-full text-left text-sm py-1.5 px-3 rounded-sm',
                   'transition-colors duration-150',
                   item.level > 2 && 'pl-6',
                   activeId === item.id

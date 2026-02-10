@@ -366,7 +366,7 @@ export default function GraphTraversalVisualization() {
             <h4 className="text-white font-bold text-sm opacity-80">
               탐색 순서
             </h4>
-            <div className="bg-slate-900/50 rounded-lg p-4 min-h-[60px] flex items-center">
+            <div className="bg-slate-900/50 rounded-lg p-4 min-h-16 flex items-center">
               {traversalPath.length > 0 ? (
                 <div className="flex flex-wrap gap-2">
                   {traversalPath.map((nodeId, index) => (
@@ -395,21 +395,21 @@ export default function GraphTraversalVisualization() {
           {/* Legend */}
           <div className="flex flex-wrap gap-x-6 gap-y-2 pt-4 border-t border-slate-700/50">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#4a90e2]"></div>
+              <div className="w-3 h-3 rounded-full bg-blue-500"></div>
               <span className="text-slate-300 text-xs">미방문</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#ffd93d]"></div>
+              <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
               <span className="text-slate-300 text-xs">
                 대기중 (Queue/Stack)
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#ff6b6b]"></div>
+              <div className="w-3 h-3 rounded-full bg-red-400"></div>
               <span className="text-slate-300 text-xs">현재 방문</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#6bcf7f]"></div>
+              <div className="w-3 h-3 rounded-full bg-green-400"></div>
               <span className="text-slate-300 text-xs">방문 완료</span>
             </div>
           </div>
@@ -417,7 +417,7 @@ export default function GraphTraversalVisualization() {
       </div>
 
       {/* Canvas */}
-      <div className="w-full h-[500px] bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl overflow-hidden shadow-2xl">
+      <div className="w-full h-visualization bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl overflow-hidden shadow-2xl">
         <Canvas camera={{ position: [0, 0, 12], fov: 50 }}>
           <color attach="background" args={['#0f172a']} />
           <GraphScene

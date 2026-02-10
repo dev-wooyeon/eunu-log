@@ -5,7 +5,7 @@ import { Button } from '@/components/ui';
 
 export default function HeroSection() {
   return (
-    <section className="relative py-20 md:py-32 overflow-hidden min-h-[90vh] flex flex-col bg-gradient-to-b from-white to-[#E8F3FF]">
+    <section className="relative py-20 md:py-32 overflow-hidden min-h-screen-90 flex flex-col bg-gradient-to-b from-white to-hero-light">
       {/* <HeroBackground /> */}
       <Container
         size="md"
@@ -27,14 +27,14 @@ export default function HeroSection() {
           <Button
             as="a"
             href="/blog"
-            className="!bg-[rgba(0,12,30,0.8)] !backdrop-blur-md !border !border-white/10 !text-white hover:!bg-[rgba(0,12,30,1)] transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+            className="bg-grey-900/80 backdrop-blur-md border border-white/10 text-white hover:bg-grey-900 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
           >
             <span className="mr-2">📝</span>블로그 보기
           </Button>
           <Button
             as="a"
             href="/resume"
-            className="!bg-[rgba(0,12,30,0.8)] !backdrop-blur-md !border !border-white/10 !text-white hover:!bg-[rgba(0,12,30,1)] transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+            className="bg-grey-900/80 backdrop-blur-md border border-white/10 text-white hover:bg-grey-900 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
           >
             <span className="mr-2">👨‍💻</span>이력서 보기
           </Button>

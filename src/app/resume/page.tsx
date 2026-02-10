@@ -131,9 +131,9 @@ export default function ResumePage() {
             {personalProjects.map((project, index) => (
               <article key={index} className="relative pl-4 md:pl-0 mb-12 last:mb-0">
                 {/* Visual Timeline Line for mobile */}
-                <div className="absolute left-0 top-2 bottom-0 w-[2px] bg-grey-100 md:hidden"></div>
+                <div className="absolute left-0 top-2 bottom-0 w-0.5 bg-grey-100 md:hidden"></div>
 
-                <div className="grid md:grid-cols-[200px_1fr] gap-8">
+                <div className="grid md:grid-cols-resume gap-8">
                   {/* Left Column: Role & Period */}
                   <div className="space-y-2">
                     <div>
@@ -216,9 +216,9 @@ export default function ResumePage() {
             {experiences.map((exp, index) => (
               <article key={index} className="relative pl-4 md:pl-0">
                 {/* Visual Timeline Line for mobile */}
-                <div className="absolute left-0 top-2 bottom-0 w-[2px] bg-grey-100 md:hidden"></div>
+                <div className="absolute left-0 top-2 bottom-0 w-0.5 bg-grey-100 md:hidden"></div>
 
-                <div className="grid md:grid-cols-[200px_1fr] gap-8">
+                <div className="grid md:grid-cols-resume gap-8">
                   {/* Left Column: Company & Period */}
                   <div className="space-y-2">
                     <div>
@@ -318,7 +318,7 @@ export default function ResumePage() {
               {education.map((edu, index) => (
                 <div
                   key={index}
-                  className="grid md:grid-cols-[200px_1fr] gap-4 md:gap-8"
+                  className="grid md:grid-cols-resume gap-4 md:gap-8"
                 >
                   <div className="md:text-right">
                     <span className="inline-block px-3 py-1 bg-grey-100 text-grey-700 text-sm font-medium rounded-full">
@@ -350,7 +350,7 @@ export default function ResumePage() {
               {activities.map((activity, index) => (
                 <div
                   key={index}
-                  className="grid md:grid-cols-[200px_1fr] gap-4 md:gap-8"
+                  className="grid md:grid-cols-resume gap-4 md:gap-8"
                 >
                   <div className="md:text-right">
                     <span className="inline-block px-3 py-1 bg-grey-100 text-grey-700 text-sm font-medium rounded-full">

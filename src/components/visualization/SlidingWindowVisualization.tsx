@@ -378,19 +378,19 @@ export default function SlidingWindowVisualization() {
           {/* Legend */}
           <div className="flex flex-wrap gap-x-4 gap-y-2 text-white text-sm pt-4 border-t border-slate-700">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#4a90e2]"></div>
+              <div className="w-3 h-3 rounded-full bg-blue-500"></div>
               <span>미확인</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#3498db]"></div>
+              <div className="w-3 h-3 rounded-full bg-sky-500"></div>
               <span>현재 윈도우</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#6bcf7f]"></div>
+              <div className="w-3 h-3 rounded-full bg-green-400"></div>
               <span>최대 합 윈도우</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#95a5a6]"></div>
+              <div className="w-3 h-3 rounded-full bg-slate-400"></div>
               <span>지나감</span>
             </div>
           </div>
@@ -398,7 +398,7 @@ export default function SlidingWindowVisualization() {
       </div>
 
       {/* Canvas */}
-      <div className="w-full h-[500px] bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl overflow-hidden shadow-2xl">
+      <div className="w-full h-visualization bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl overflow-hidden shadow-2xl">
         <Canvas camera={{ position: [0, 3, 12], fov: 50 }}>
           <color attach="background" args={['#0f172a']} />
           <SlidingWindowScene

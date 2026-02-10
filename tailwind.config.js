@@ -15,6 +15,10 @@ module.exports = {
           light: 'var(--color-toss-blue-light)',
           dark: 'var(--color-toss-blue-dark)',
         },
+        // Hero
+        hero: {
+          light: 'var(--color-hero-bg)',
+        },
         // Grey Scale
         grey: {
           50: 'var(--color-grey-50)',
@@ -87,12 +91,36 @@ module.exports = {
       },
       borderRadius: {
         none: 'var(--radius-none)',
+        xs: 'var(--radius-xs)',
         sm: 'var(--radius-sm)',
         DEFAULT: 'var(--radius-md)',
         md: 'var(--radius-md)',
         lg: 'var(--radius-lg)',
         xl: 'var(--radius-xl)',
         full: 'var(--radius-full)',
+      },
+      maxWidth: {
+        'content-md': '800px',
+        'content-lg': '1200px',
+      },
+      minHeight: {
+        'screen-90': '90vh',
+      },
+      maxHeight: {
+        'screen-80': '80vh',
+      },
+      height: {
+        visualization: '500px',
+      },
+      zIndex: {
+        base: 'var(--z-base)',
+        sticky: 'var(--z-sticky)',
+        overlay: 'var(--z-overlay)',
+        modal: 'var(--z-modal)',
+        toast: 'var(--z-toast)',
+      },
+      gridTemplateColumns: {
+        resume: '200px 1fr',
       },
       boxShadow: {
         xs: 'var(--shadow-xs)',
@@ -128,15 +156,15 @@ module.exports = {
         DEFAULT: {
           css: {
             // Match existing design system colors
-            '--tw-prose-body': 'var(--text-primary)',
-            '--tw-prose-headings': 'var(--text-primary)',
-            '--tw-prose-links': 'var(--accent-primary)',
-            '--tw-prose-bold': 'var(--text-primary)',
-            '--tw-prose-quotes': 'var(--text-secondary)',
-            '--tw-prose-quote-borders': 'var(--accent-primary)',
-            '--tw-prose-code': 'var(--text-code)',
-            '--tw-prose-pre-code': 'var(--text-code)',
-            '--tw-prose-pre-bg': 'var(--bg-code)',
+            '--tw-prose-body': 'var(--color-text-primary)',
+            '--tw-prose-headings': 'var(--color-text-primary)',
+            '--tw-prose-links': 'var(--color-toss-blue)',
+            '--tw-prose-bold': 'var(--color-text-primary)',
+            '--tw-prose-quotes': 'var(--color-text-secondary)',
+            '--tw-prose-quote-borders': 'var(--color-toss-blue)',
+            '--tw-prose-code': 'var(--color-grey-800)',
+            '--tw-prose-pre-code': 'var(--color-grey-100)',
+            '--tw-prose-pre-bg': 'var(--color-grey-900)',
 
             fontSize: 'clamp(1rem, 2vw, 1.125rem)',
             lineHeight: '1.8', // Increased from 1.7 for better readability
@@ -147,21 +175,21 @@ module.exports = {
               fontSize: 'var(--text-2xl)',
               marginTop: 'var(--space-12)',
               marginBottom: 'var(--space-6)',
-              color: 'var(--text-primary)',
+              color: 'var(--color-text-primary)',
               lineHeight: '1.3',
             },
             h2: {
               fontSize: 'var(--text-xl)',
               marginTop: 'var(--space-10)',
               marginBottom: 'var(--space-4)',
-              color: 'var(--text-primary)',
+              color: 'var(--color-text-primary)',
               lineHeight: '1.35',
             },
             h3: {
               fontSize: 'var(--text-lg)',
               marginTop: 'var(--space-8)',
               marginBottom: 'var(--space-3)',
-              color: 'var(--text-primary)',
+              color: 'var(--color-text-primary)',
               lineHeight: '1.4',
             },
 
@@ -191,8 +219,8 @@ module.exports = {
 
             // Code blocks
             pre: {
-              backgroundColor: 'var(--bg-code)',
-              color: 'var(--text-code)',
+              backgroundColor: 'var(--color-grey-900)',
+              color: 'var(--color-grey-100)',
               padding: 'var(--space-6)',
               borderRadius: 'var(--radius-md)',
               overflow: 'auto',
@@ -226,11 +254,11 @@ module.exports = {
             // Blockquotes
             blockquote: {
               borderLeftWidth: '4px',
-              borderLeftColor: 'var(--accent-primary)',
+              borderLeftColor: 'var(--color-toss-blue)',
               fontStyle: 'italic',
               paddingLeft: 'var(--space-6)',
               margin: 'var(--space-8) 0',
-              color: 'var(--text-secondary)',
+              color: 'var(--color-text-secondary)',
             },
             'blockquote p': {
               marginBottom: 0,
@@ -246,9 +274,9 @@ module.exports = {
             'th, td': {
               padding: '0.75rem 1rem',
               textAlign: 'left',
-              color: 'var(--text-primary)',
-              backgroundColor: 'var(--bg-code)',
-              border: '1px solid var(--border)',
+              color: 'var(--color-text-primary)',
+              backgroundColor: 'var(--color-grey-50)',
+              border: '1px solid var(--color-border)',
             },
             th: {
               fontWeight: 600,

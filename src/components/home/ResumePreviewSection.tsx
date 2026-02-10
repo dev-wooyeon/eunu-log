@@ -66,9 +66,9 @@ export default function ResumePreviewSection() {
                 <span>🏢</span> Experience
               </h3>
 
-              <div className="space-y-8 relative before:absolute before:left-[7px] before:top-2 before:bottom-2 before:w-[2px] before:bg-grey-100">
+              <div className="space-y-8 relative before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-grey-100">
                 <div className="relative pl-8">
-                  <div className="absolute left-0 top-[6px] w-4 h-4 rounded-full bg-toss-blue border-4 border-white shadow-sm"></div>
+                  <div className="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-toss-blue border-4 border-white shadow-sm"></div>
                   <h4 className="font-bold text-grey-900">Software Engineer</h4>
                   <p className="text-toss-blue font-medium text-sm">
                     @9.81park (Monolith)
@@ -94,7 +94,7 @@ export default function ResumePreviewSection() {
             </div>
 
             {/* Decoration */}
-            <div className="absolute top-[-20px] right-[-20px] w-32 h-32 bg-blue-100 rounded-full blur-3xl opacity-50 -z-10"></div>
+            <div className="absolute -top-5 -right-5 w-32 h-32 bg-blue-100 rounded-full blur-3xl opacity-50 -z-10"></div>
           </div>
         </div>
       </Container>

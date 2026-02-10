@@ -22,7 +22,7 @@ export default function CategoryFilter({
           key={category}
           onClick={() => onCategoryChange(category)}
           className={clsx(
-            'px-4 py-2 text-sm rounded-full transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)]',
+            'px-4 py-2 text-sm rounded-full transition-all duration-200 ease-default',
             'active:scale-95',
             activeCategory === category
               ? 'bg-toss-blue text-white font-bold shadow-md'

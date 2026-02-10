@@ -74,7 +74,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       if (!props.src) return null;
 
       return (
-        <span className="block my-12 overflow-hidden rounded-[16px]">
+        <span className="block my-12 overflow-hidden rounded-md">
           <Image
             src={props.src}
             alt={props.alt || ''}
@@ -87,7 +87,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
               objectFit: 'cover',
             }}
             priority={props.src?.includes('thumbnail')}
-            className="rounded-[16px]"
+            className="rounded-md"
           />
           {props.alt && (
             <span className="block text-center text-sm text-grey-600 mt-4 mb-2 px-4">

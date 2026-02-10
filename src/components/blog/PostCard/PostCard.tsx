@@ -49,7 +49,7 @@ export default function PostCard({ post, variant = 'default' }: PostCardProps) {
       )}
     >
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-xs font-medium text-toss-blue bg-toss-blue/10 px-2 py-1 rounded-[4px]">
+        <span className="text-xs font-medium text-toss-blue bg-toss-blue/10 px-2 py-1 rounded-xs">
           {post.category}
         </span>
         <time className="text-xs text-grey-500">

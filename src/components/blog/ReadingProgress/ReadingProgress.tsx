@@ -23,7 +23,7 @@ export default function ReadingProgress() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-1 bg-grey-100 z-[200] origin-left"
+      className="fixed top-0 left-0 right-0 h-1 bg-grey-100 z-sticky origin-left"
       initial={{ opacity: 0 }}
       animate={{ opacity: isVisible ? 1 : 0 }}
       transition={{ duration: 0.2 }}

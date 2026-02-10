@@ -9,6 +9,7 @@
   --color-toss-blue: #3182f6;
   --color-toss-blue-light: #4a9eff;
   --color-toss-blue-dark: #1b64da;
+  --color-hero-bg: #e8f3ff;
 
   /* Grey Scale */
   --color-grey-900: #191f28;
@@ -69,6 +70,8 @@
   /* 32px - Headline MD */
   --text-4xl: 2.5rem;
   /* 40px - Headline LG */
+  --text-5xl: 3rem;
+  /* 48px - Display */
 
   /* Font Weights */
   --font-normal: 400;
@@ -123,6 +126,8 @@
 
   /* === Border Radius === */
   --radius-none: 0;
+  --radius-xs: 0.25rem;
+  /* 4px */
   --radius-sm: 0.5rem;
   /* 8px - Small */
   --radius-md: 1rem;

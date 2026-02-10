@@ -403,32 +403,32 @@ export default function SortingVisualization() {
         {/* Legend */}
         <div className="flex flex-wrap gap-x-4 gap-y-2 text-white text-sm mt-4 pt-4 border-t border-slate-700">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-[#4a90e2]"></div>
+            <div className="w-3 h-3 rounded-full bg-blue-500"></div>
             <span>기본</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-[#ffd93d]"></div>
+            <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
             <span>비교 중</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-[#ff6b6b]"></div>
+            <div className="w-3 h-3 rounded-full bg-red-400"></div>
             <span>교환 중</span>
           </div>
           {algorithm === 'quick' && (
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#9b59b6]"></div>
+              <div className="w-3 h-3 rounded-full bg-purple-500"></div>
               <span>피벗</span>
             </div>
           )}
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-[#6bcf7f]"></div>
+            <div className="w-3 h-3 rounded-full bg-green-400"></div>
             <span>정렬 완료</span>
           </div>
         </div>
       </div>
 
       {/* Canvas */}
-      <div className="w-full h-[500px] bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl overflow-hidden shadow-2xl">
+      <div className="w-full h-visualization bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl overflow-hidden shadow-2xl">
         <Canvas camera={{ position: [0, 5, 12], fov: 50 }}>
           <color attach="background" args={['#0f172a']} />
           <SortingScene bars={bars} />
