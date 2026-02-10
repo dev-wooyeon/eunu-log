@@ -1,19 +1,7 @@
 import { getFolderSlug, TocItem } from '@/lib/mdx-feeds';
 import fs from 'fs';
 import path from 'path';
-
-// 헤딩 텍스트를 ID로 변환하는 함수
-function generateHeadingId(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(
-      /[^\w\uAC00-\uD7AF\u1100-\u11FF\u3130-\u318F\uA960-\uA97F\uD7B0-\uD7FF\s-]/g,
-      ''
-    ) // 한글, 영문, 숫자, 공백, 하이픈 제외 제거 (특수문자/이모지 제거)
-    .trim()
-    .replace(/\s+/g, '-') // 공백을 하이픈으로
-    .replace(/-+/g, '-'); // 연속된 하이픈 하나로
-}
+import GithubSlugger from 'github-slugger';
 
 // MDX 소스에서 헤딩 파싱 (렌더링된 HTML이 아닌 원본 MDX에서)
 export function parseHeadingsFromMdx(mdxContent: string): TocItem[] {
@@ -26,7 +14,7 @@ export function parseHeadingsFromMdx(mdxContent: string): TocItem[] {
     // Regex to match markdown headings (## Heading, ### Heading, etc.)
     const headingRegex = /^(#{1,6})\s+(.+)$/gm;
     const tocItems: TocItem[] = [];
-    const idCounts: Record<string, number> = {};
+    const slugger = new GithubSlugger();
 
     let match;
     while ((match = headingRegex.exec(mdxContent)) !== null) {
@@ -35,15 +23,8 @@ export function parseHeadingsFromMdx(mdxContent: string): TocItem[] {
 
       if (!text) continue;
 
-      // Generate unique ID
-      let id = generateHeadingId(text);
-      if (idCounts[id] !== undefined) {
-        const count = idCounts[id];
-        idCounts[id] = count + 1;
-        id = `${id}-${count}`;
-      } else {
-        idCounts[id] = 1;
-      }
+      // Match rehype-slug / GitHub heading id rules
+      const id = slugger.slug(text, false);
 
       // Flat structure - just push all headings
       tocItems.push({
