@@ -6,7 +6,6 @@ import { Header, Container } from '@/components/layout';
 import {
   ReadingProgress,
   TableOfContents,
-  GiscusComments,
   SeriesNavigation,
 } from '@/components/blog';
 import JsonLd from '@/components/seo/JsonLd';
@@ -129,13 +128,6 @@ export default async function BlogPostPage({
           </div>
         </Container>
       </article>
-
-      {/* Comments */}
-      <section className="py-12">
-        <Container size="md">
-          <GiscusComments slug={slug} />
-        </Container>
-      </section>
 
       <JsonLd
         data={{

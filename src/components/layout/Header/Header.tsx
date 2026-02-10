@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useKBar } from 'kbar';
 import { clsx } from 'clsx';
 import Logo from '@/components/ui/Logo';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 const navItems = [
   { href: '/blog', label: '블로그' },
@@ -102,7 +103,7 @@ export default function Header() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }} // Toss easing
-            className="md:hidden border-t border-[var(--color-grey-100)] bg-white overflow-hidden absolute w-full left-0 top-16 shadow-xl rounded-b-[var(--radius-lg)]"
+            className="md:hidden border-t border-[var(--color-grey-100)] bg-[var(--color-bg-primary)] overflow-hidden absolute w-full left-0 top-16 shadow-xl rounded-b-[var(--radius-lg)]"
           >
             <div className="max-w-[800px] mx-auto px-6 py-8 flex flex-col gap-8">
               {/* Main Nav Links */}
