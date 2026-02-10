@@ -71,7 +71,7 @@ UI 컴포넌트는 디자인 시스템의 **구현체**입니다. 토큰(Token)�
 ```tsx
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    'bg-[var(--color-toss-blue)] text-white hover:opacity-80 active:scale-[0.98]',
+    'bg-var-color-toss-blue text-white hover:opacity-80 active:scale-95',
   // ...
 };
 ```
@@ -97,7 +97,7 @@ const variantStyles: Record<ButtonVariant, string> = {
 const sizeStyles: Record<ButtonSize, string> = {
   sm: 'h-9 px-3 text-sm', // 36px height
   md: 'h-11 px-4 text-base', // 44px height
-  lg: 'h-[52px] px-6 text-lg', // 52px height
+  lg: 'h-13 px-6 text-lg', // 52px height
 };
 ```
 
@@ -213,8 +213,8 @@ type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 ```tsx
 hover && [
-  'transition-all duration-[var(--duration-200)]',
-  'hover:shadow-[var(--shadow-md)] hover:border-[var(--color-grey-300)]',
+  'transition-all duration-200',
+  'hover:shadow-md hover:border-grey-300',
   'hover:-translate-y-0.5',
 ];
 ```
@@ -234,7 +234,7 @@ hover && [
 #### 2.3 Border Radius 선택
 
 ```tsx
-rounded-[var(--radius-md)]  // 16px
+rounded-var-radius-md  // 16px
 ```
 
 **TDS의 Radius 철학:**
@@ -285,10 +285,10 @@ CSS `:focus`만으로는 부족한 경우:
 
 ```tsx
 error
-  ? 'border-[var(--color-error)] focus:ring-[var(--color-error)]/20'
+  ? 'border-error focus:ring-error/20'
   : isFocused
-    ? 'border-[var(--color-toss-blue)] ring-2 ring-[var(--color-toss-blue)]/20'
-    : 'border-[var(--color-grey-200)]';
+    ? 'border-toss-blue ring-2 ring-toss-blue/20'
+    : 'border-grey-200';
 ```
 
 **우선순위:**
@@ -649,7 +649,7 @@ const handleDragEnd = (_: any, info: PanInfo) => {
   className="flex justify-center py-3 cursor-grab active:cursor-grabbing"
   onPointerDown={(e) => dragControls.start(e)}
 >
-  <div className="w-10 h-1 bg-[var(--color-grey-300)] rounded-full" />
+  <div className="w-10 h-1 bg-var-color-grey-300 rounded-full" />
 </div>
 ```
 
@@ -670,9 +670,9 @@ const handleDragEnd = (_: any, info: PanInfo) => {
 height?: 'auto' | 'half' | 'full'
 
 const heightStyles = {
-  auto: 'max-h-[80vh]',  // 콘텐츠 크기에 맞춤, 최대 80%
-  half: 'h-[50vh]',      // 화면의 절반
-  full: 'h-[90vh]',      // 거의 전체 (상단 10% 남김)
+  auto: 'max-h-screen-80',  // 콘텐츠 크기에 맞춤, 최대 80%
+  half: 'h-half-screen',      // 화면의 절반
+  full: 'min-h-screen-90',  // 거의 전체 (상단 10% 남김)
 };
 ```
 
@@ -718,10 +718,10 @@ useEffect(() => {
 
 ```tsx
 // ✅ 좋음: CSS Variables
-className = 'bg-[var(--color-toss-blue)]';
+className = 'bg-var-color-toss-blue';
 
 // ❌ 나쁨: 하드코딩
-className = 'bg-[#3182f6]';
+className = 'bg-blue-500';
 ```
 
 **이유:**
@@ -737,12 +737,12 @@ className = 'bg-[#3182f6]';
 className = 'rounded-lg';
 
 // ⚠️ 필요할 때만 임의값
-className = 'rounded-[var(--radius-lg)]';
+className = 'rounded-var-radius-lg';
 ```
 
 **임의값을 쓰는 경우:**
 
-- TDS 토큰 참조 (`var(--...)`)
+- TDS 토큰 참조 (`var(--token)`)
 - 매우 특수한 케이스 (`w-[52px]`)
 
 ### 4. 접근성 필수 속성

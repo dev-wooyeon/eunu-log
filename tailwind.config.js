@@ -7,6 +7,10 @@ const config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './feeds/**/*.{md,mdx}',
+    '!./.next/**/*',
+    '!./node_modules/**/*',
+    '!./docs/**/*',
+    '!./content/**/*',
   ],
   theme: {
     extend: {
@@ -115,6 +119,7 @@ const config = {
       },
       height: {
         visualization: '500px',
+        'half-screen': '50vh',
       },
       zIndex: {
         base: 'var(--z-base)',

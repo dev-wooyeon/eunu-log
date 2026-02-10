@@ -439,7 +439,7 @@ export function ReadingProgress() {
 **해결:**
 
 ```diff
-- <hr className="bg-[#5b504c]" />
+- <hr className="bg-brown-700" />
 + <hr className="bg-border" />
 ```
 
@@ -452,14 +452,14 @@ export function ReadingProgress() {
 
 **문제:**
 
-- `bg-[var(--bg-primary)]` 같은 inline var() 남용
+- `bg-var-bg-primary` 같은 inline var() 남용
 - Tailwind config와 이중 관리
 - 코드 가독성 저하
 
 **해결:**
 
 ```diff
-- className="bg-[var(--bg-primary)] text-[var(--text-primary)]"
+- style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}
 + className="bg-primary text-text-primary"
 ```
 
@@ -501,7 +501,7 @@ export function FeedListItem({ feed }: Props) {
 
 **문제:**
 
-- 3가지 다른 breakpoint 패턴 혼재 (max-md, max-lg, max-[480px])
+- 3가지 다른 breakpoint 패턴 혼재 (max-md, max-lg, custom-480)
 - 일관성 없는 반응형 처리
 - Fluid typography inline clamp() 중복
 
@@ -518,8 +518,8 @@ fontSize: {
 ```
 
 ```diff
-- className="text-[clamp(2.5rem,6vw,3.5rem)] max-md:text-[2rem] max-[480px]:text-[1.75rem]"
-+ className="text-display-md max-md:text-[2rem]"
+- className="text-clamp-hero max-md:text-2xl max-sm:text-xl"
++ className="text-display-md md:text-2xl sm:text-xl"
 ```
 
 **결과:**
@@ -543,11 +543,11 @@ fontSize: {
 export function PageLayout({ title, children }: Props) {
   return (
     <div className="min-h-screen p-8 bg-primary max-md:p-4">
-      <header className="max-w-[800px] mx-auto pb-8">
+      <header className="max-w-content-md mx-auto pb-8">
         <BackLink href="/" text="← Home" />
         <h1 className="text-display-lg font-bold">{title}</h1>
       </header>
-      <main className="max-w-[800px] mx-auto">{children}</main>
+      <main className="max-w-content-md mx-auto">{children}</main>
     </div>
   );
 }
@@ -560,11 +560,11 @@ export function PageLayout({ title, children }: Props) {
 export default function FeedPage() {
   return (
     <div className="min-h-screen p-8 bg-primary max-md:p-4">
-      <header className="max-w-[800px] mx-auto pb-8">
+      <header className="max-w-content-md mx-auto pb-8">
         <BackLink href="/" text="← Home" />
         <h1 className="text-display-md font-bold">Feed</h1>
       </header>
-      <main className="max-w-[800px] mx-auto">
+      <main className="max-w-content-md mx-auto">
         <FeedList feed={allFeedData} />
       </main>
     </div>
