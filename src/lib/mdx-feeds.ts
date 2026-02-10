@@ -7,6 +7,9 @@ const contentDirectory = path.join(process.cwd(), 'content');
 
 // Cache for folder path lookups by slug
 const slugToFolderCache = new Map<string, string>();
+let allFoldersCache: string[] | null = null;
+let sortedFeedCache: FeedData[] | null = null;
+let allSlugsCache: { slug: string }[] | null = null;
 
 // TOC item type
 export interface TocItem {
@@ -99,6 +102,18 @@ function findAllContentFolders(dir: string, relativePath: string = ''): string[]
   return folders;
 }
 
+function getAllContentFoldersCached(): string[] {
+  if (allFoldersCache) return allFoldersCache;
+  if (!safeExists(contentDirectory)) {
+    console.warn('Content directory does not exist');
+    allFoldersCache = [];
+    return allFoldersCache;
+  }
+
+  allFoldersCache = findAllContentFolders(contentDirectory);
+  return allFoldersCache;
+}
+
 // Validate frontmatter
 function validateFeedFrontmatter(
   data: unknown,
@@ -169,7 +184,7 @@ export function getFolderSlug(slug: string): string | null {
   }
 
   // If not cached, scan all folders to build cache
-  const allFolders = findAllContentFolders(contentDirectory);
+  const allFolders = getAllContentFoldersCached();
 
   for (const folderPath of allFolders) {
     const metadata = loadMetadata(folderPath);
@@ -183,30 +198,26 @@ export function getFolderSlug(slug: string): string | null {
 
 // Get all feed slugs for static generation
 export function getAllFeedSlugs() {
-  if (!safeExists(contentDirectory)) {
-    console.warn('Content directory does not exist');
-    return [];
-  }
+  if (allSlugsCache) return allSlugsCache;
 
-  const allFolders = findAllContentFolders(contentDirectory);
+  const allFolders = getAllContentFoldersCached();
 
-  return allFolders
+  allSlugsCache = allFolders
     .map((folderPath) => {
       const metadata = loadMetadata(folderPath);
       if (!metadata) return null;
       return { slug: metadata.slug };
     })
     .filter((item): item is { slug: string } => item !== null);
+
+  return allSlugsCache;
 }
 
 // Get sorted feed data for listing pages
 export function getSortedFeedData(): FeedData[] {
-  if (!safeExists(contentDirectory)) {
-    console.warn('Content directory does not exist');
-    return [];
-  }
+  if (sortedFeedCache) return sortedFeedCache;
 
-  const allFolders = findAllContentFolders(contentDirectory);
+  const allFolders = getAllContentFoldersCached();
 
   const allFeedData = allFolders
     .map((folderPath) => {
@@ -222,13 +233,15 @@ export function getSortedFeedData(): FeedData[] {
     .filter((feed): feed is FeedData => feed !== null);
 
   // Sort by date (newest first)
-  return allFeedData.sort((a, b) => {
+  sortedFeedCache = allFeedData.sort((a, b) => {
     if (a.date < b.date) {
       return 1;
     } else {
       return -1;
     }
   });
+
+  return sortedFeedCache;
 }
 
 // Get single feed data with MDX component
