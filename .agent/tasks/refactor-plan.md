@@ -18,8 +18,8 @@
    - Scope: Replace `text-[var(--...)]`, `bg-[var(--...)]`, `rounded-[...]`, etc. with standardized classes via `tailwind.config.js` + `tokens.css`.
 
 4. 카테고리 필터 데이터 주도화 (Codex)
-   - Status: TODO
-   - Scope: Derive categories from feed data; remove hardcoded list.
+   - Status: DONE
+   - Notes: Categories are derived from post data; hardcoded list removed.
 
 5. `any` 제거 및 타입 강화 (Claude)
    - Status: TODO
