@@ -6,7 +6,7 @@ const socialLinks = [
 export default function Footer() {
   return (
     <footer className="border-t border-grey-100 bg-white">
-      <div className="max-w-content-lg mx-auto px-6 py-8">
+      <div className="max-w-content-xl mx-auto px-6 py-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-grey-500">
             © {new Date().getFullYear()} eunu.log. All rights reserved.

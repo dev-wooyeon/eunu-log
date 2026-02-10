@@ -100,8 +100,10 @@ module.exports = {
         full: 'var(--radius-full)',
       },
       maxWidth: {
+        'content-sm': '640px',
         'content-md': '800px',
-        'content-lg': '1200px',
+        'content-lg': '1000px',
+        'content-xl': '1200px',
       },
       minHeight: {
         'screen-90': '90vh',

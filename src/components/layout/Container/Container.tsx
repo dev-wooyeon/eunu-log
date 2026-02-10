@@ -9,10 +9,10 @@ interface ContainerProps {
 }
 
 const sizeStyles = {
-  sm: 'max-w-[640px]',
-  md: 'max-w-[800px]',
-  lg: 'max-w-[1000px]',
-  xl: 'max-w-[1200px]',
+  sm: 'max-w-content-sm',
+  md: 'max-w-content-md',
+  lg: 'max-w-content-lg',
+  xl: 'max-w-content-xl',
 };
 
 export default function Container({
