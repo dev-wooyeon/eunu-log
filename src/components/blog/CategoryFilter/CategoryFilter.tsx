@@ -2,7 +2,7 @@
 
 import { clsx } from 'clsx';
 
-type Category = 'All' | 'Tech' | 'Life';
+type Category = string;
 
 interface CategoryFilterProps {
   categories: Category[];
