@@ -7,7 +7,7 @@
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "analyze": "ANALYZE=true next build --webpack",
     "test": "vitest",
     "new-post": "node scripts/new-post.js",

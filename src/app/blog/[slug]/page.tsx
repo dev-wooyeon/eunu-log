@@ -10,7 +10,7 @@ import {
   SeriesNavigation,
 } from '@/components/blog';
 import JsonLd from '@/components/seo/JsonLd';
-import { useMDXComponents } from '@/mdx-components';
+import { getMDXComponents } from '@/mdx-components';
 import { SITE_URL } from '@/lib/site';
 
 export async function generateStaticParams() {
@@ -126,7 +126,7 @@ export default async function BlogPostPage({
 
           {/* Content */}
           <div className="prose">
-            <Content components={useMDXComponents({})} />
+            <Content components={getMDXComponents({})} />
           </div>
         </Container>
       </article>

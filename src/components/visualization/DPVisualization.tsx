@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Text } from '@react-three/drei';
 import * as THREE from 'three';
@@ -181,7 +181,7 @@ export default function DPVisualization() {
   const [arrowTo, setArrowTo] = useState(-1);
 
   // Initialize DP table
-  const initializeTable = () => {
+  const initializeTable = useCallback(() => {
     const newCells: DPCell[] = [];
     for (let i = 0; i <= n; i++) {
       newCells.push({
@@ -196,11 +196,11 @@ export default function DPVisualization() {
     setShowArrows(false);
     setArrowFrom([]);
     setArrowTo(-1);
-  };
+  }, [n]);
 
   useEffect(() => {
     initializeTable();
-  }, [n]);
+  }, [initializeTable]);
 
   const sleep = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));

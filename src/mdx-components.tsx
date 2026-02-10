@@ -35,7 +35,7 @@ const TwoPointerVisualization = dynamic(() =>
   }))
 );
 
-export function useMDXComponents(components: MDXComponents): MDXComponents {
+export function getMDXComponents(components: MDXComponents): MDXComponents {
   return {
     h1: (props) => (
       <h1

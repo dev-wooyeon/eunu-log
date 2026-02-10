@@ -13,7 +13,7 @@ interface GiscusCommentsProps {
  * @note repo, repoId, category, categoryId 값을 실제 값으로 교체해야 합니다.
  * https://giscus.app 에서 설정 후 값을 확인하세요.
  */
-export function GiscusComments({ slug }: GiscusCommentsProps) {
+export function GiscusComments({ slug: _slug }: GiscusCommentsProps) {
   return (
     <section className="mt-16 pt-8 border-t border-grey-200">
       <h2 className="text-xl font-bold text-grey-900 mb-6">

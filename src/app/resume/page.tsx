@@ -41,7 +41,7 @@ export default function ResumePage() {
 
     if (!startDate || !endDate) return '';
 
-    let months = (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth()) + 1;
+    const months = (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth()) + 1;
     const calcYears = Math.floor(months / 12);
     const calcMonths = months % 12;
 
