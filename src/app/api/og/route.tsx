@@ -9,13 +9,9 @@ export async function GET(req: NextRequest) {
   const date = searchParams.get('date');
   const tags = searchParams.get('tags')?.split(',') || [];
 
-  // Load Noto Sans KR for consistent rendering across environments
-  // Using a Google Fonts raw file as a reliable source
+  // Load Noto Sans KR from local asset for reliability
   const fontData = await fetch(
-    new URL(
-      'https://github.com/google/fonts/raw/main/ofl/notosanskr/NotoSansKR-Bold.otf',
-      import.meta.url
-    )
+    new URL('../../../../public/fonts/NotoSansKR-Bold.otf', import.meta.url)
   ).then((res) => res.arrayBuffer());
 
   return new ImageResponse(
