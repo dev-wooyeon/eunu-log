@@ -1,6 +1,7 @@
 'use client';
 
 import Giscus from '@giscus/react';
+import { useTheme } from 'next-themes';
 
 interface GiscusCommentsProps {
   slug: string;
@@ -9,11 +10,13 @@ interface GiscusCommentsProps {
 /**
  * Giscus 댓글 컴포넌트
  * GitHub Discussions 기반 댓글 시스템
+ * 다크모드 테마 자동 연동
  *
  * @note repo, repoId, category, categoryId 값을 실제 값으로 교체해야 합니다.
  * https://giscus.app 에서 설정 후 값을 확인하세요.
  */
 export function GiscusComments({ slug }: GiscusCommentsProps) {
+  const { resolvedTheme } = useTheme();
   return (
     <section className="mt-16 pt-8 border-t border-[var(--color-grey-200)]">
       <h2 className="text-xl font-bold text-[var(--color-grey-900)] mb-6">
@@ -30,7 +33,7 @@ export function GiscusComments({ slug }: GiscusCommentsProps) {
         reactionsEnabled="1"
         emitMetadata="0"
         inputPosition="top"
-        theme="light"
+        theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
         lang="ko"
         loading="lazy"
       />
