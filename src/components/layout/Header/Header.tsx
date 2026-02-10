@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { clsx } from 'clsx';
 import Logo from '@/components/ui/Logo';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 const navItems = [
   { href: '/blog', label: '블로그' },
@@ -22,34 +23,40 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-[var(--z-sticky)] bg-white/80 backdrop-blur-md border-b border-[var(--color-grey-100)]">
+    <header className="sticky top-0 z-[var(--z-sticky)] bg-white/80 backdrop-blur-md border-b border-gray-100">
       <div className="max-w-[800px] mx-auto px-6 h-16 relative flex items-center justify-between">
         {/* Left: Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2 text-xl font-bold text-[var(--color-grey-900)] hover:text-[var(--color-toss-blue)] transition-colors z-10"
+          className="flex items-center gap-2 text-xl font-bold text-gray-900 hover:text-[#3182f6] transition-colors z-10"
         >
           <Logo />
           <span>eunu.log</span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={clsx(
-                'text-base font-medium transition-colors',
-                pathname === item.href
-                  ? 'text-[var(--color-toss-blue)]'
-                  : 'text-[var(--color-grey-600)] hover:text-[var(--color-toss-blue)]'
-              )}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        <div className="hidden md:flex items-center gap-6">
+          <nav className="flex items-center gap-6">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={clsx(
+                  'text-base font-medium transition-colors',
+                  pathname === item.href
+                    ? 'text-[#3182f6]'
+                    : 'text-gray-600 hover:text-[#3182f6]'
+                )}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="w-px h-4 bg-gray-200" />
+
+          <ThemeToggle />
+        </div>
 
         {/* Mobile: Hamburger Button */}
         <button
