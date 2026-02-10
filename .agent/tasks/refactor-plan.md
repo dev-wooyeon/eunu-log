@@ -14,8 +14,9 @@
    - Notes: Use `github-slugger` in `/Users/noah/workspace/personal/eunu.log/src/lib/markdown.ts`.
 
 3. Tailwind arbitrary values 제거 + 토큰화 (Claude)
-   - Status: TODO
+   - Status: DONE
    - Scope: Replace `text-[var(--...)]`, `bg-[var(--...)]`, `rounded-[...]`, etc. with standardized classes via `tailwind.config.js` + `tokens.css`.
+   - Notes: 108개 arbitrary values → 0개. tailwind.config.js에 전체 토큰 매핑 완료. Commit: 45dda18
 
 4. 카테고리 필터 데이터 주도화 (Codex)
    - Status: DONE
