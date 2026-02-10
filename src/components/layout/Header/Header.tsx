@@ -23,7 +23,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-[var(--z-sticky)] bg-white/80 backdrop-blur-md border-b border-gray-100">
+    <header className="sticky top-0 z-[var(--z-sticky)] bg-[var(--color-bg-primary)]/80 backdrop-blur-md border-b border-[var(--color-grey-100)]">
       <div className="max-w-[800px] mx-auto px-6 h-16 relative flex items-center justify-between">
         {/* Left: Logo */}
         <Link
@@ -44,8 +44,8 @@ export default function Header() {
                 className={clsx(
                   'text-base font-medium transition-colors',
                   pathname === item.href
-                    ? 'text-[#3182f6]'
-                    : 'text-gray-600 hover:text-[#3182f6]'
+                    ? 'text-[var(--color-toss-blue)]'
+                    : 'text-[var(--color-grey-600)] hover:text-[var(--color-toss-blue)]'
                 )}
               >
                 {item.label}
@@ -53,7 +53,7 @@ export default function Header() {
             ))}
           </nav>
 
-          <div className="w-px h-4 bg-gray-200" />
+          <div className="w-px h-4 bg-[var(--color-grey-100)]" />
 
           <ThemeToggle />
         </div>
@@ -102,7 +102,7 @@ export default function Header() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }} // Toss easing
-            className="md:hidden border-t border-[var(--color-grey-100)] bg-white overflow-hidden absolute w-full left-0 top-16 shadow-xl rounded-b-[var(--radius-lg)]"
+            className="md:hidden border-t border-[var(--color-grey-100)] bg-[var(--color-bg-primary)] overflow-hidden absolute w-full left-0 top-16 shadow-xl rounded-b-[var(--radius-lg)]"
           >
             <div className="max-w-[800px] mx-auto px-6 py-8 flex flex-col gap-8">
               {/* Main Nav Links */}
