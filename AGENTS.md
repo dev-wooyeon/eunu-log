@@ -84,3 +84,4 @@ ANALYZE=true npm run build
 - AI engineering guardrails: `.agent/rules/meta-prompt-engineering.md`
 - Personal communication rules: `.agent/rules/meta-prompt-personal-preferences.md`
 - Multi-model knowledge sync: `.agent/rules/meta-prompt-knowledge-sync.md`
+- Unified product rules: `.agent/rules/product-rules.md`
