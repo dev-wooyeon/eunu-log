@@ -85,3 +85,4 @@ ANALYZE=true npm run build
 - Personal communication rules: `.agent/rules/meta-prompt-personal-preferences.md`
 - Multi-model knowledge sync: `.agent/rules/meta-prompt-knowledge-sync.md`
 - Unified product rules: `.agent/rules/product-rules.md`
+- Toss-inspired engineering rules: `.agent/rules/meta-prompt-toss-inspired.md`
