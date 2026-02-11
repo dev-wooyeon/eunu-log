@@ -13,6 +13,7 @@ module.exports = {
         'text-primary': 'var(--text-primary)',
         'text-secondary': 'var(--text-secondary)',
         'text-tertiary': 'var(--text-tertiary)',
+        'slate-card-hover': '#243447',
         accent: {
           DEFAULT: 'var(--accent-primary)',
           secondary: 'var(--accent-secondary)',
