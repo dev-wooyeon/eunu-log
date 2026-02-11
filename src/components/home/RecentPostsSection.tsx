@@ -10,23 +10,23 @@ interface RecentPostsSectionProps {
 
 export default function RecentPostsSection({ posts }: RecentPostsSectionProps) {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-[var(--color-bg-primary)]">
       <Container size="md">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div>
-            <span className="text-toss-blue font-bold tracking-wider uppercase text-sm mb-2 block">
+            <span className="text-[var(--color-toss-blue)] font-bold tracking-wider uppercase text-sm mb-2 block">
               Recent Posts
             </span>
-            <h2 className="text-3xl font-bold text-grey-900 leading-tight">
+            <h2 className="text-3xl font-bold text-[var(--color-grey-900)] leading-tight">
               최근 작성한 글
             </h2>
-            <p className="mt-3 text-grey-600">
+            <p className="mt-3 text-[var(--color-grey-600)]">
               기술적 고민과 배운 점들을 기록합니다.
             </p>
           </div>
           <Link
             href="/blog"
-            className="text-toss-blue font-medium hover:underline inline-flex items-center gap-1 shrink-0"
+            className="text-[var(--color-toss-blue)] font-medium hover:underline inline-flex items-center gap-1 shrink-0"
           >
             전체 글 보기
             <svg
