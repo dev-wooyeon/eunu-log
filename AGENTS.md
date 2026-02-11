@@ -82,3 +82,5 @@ ANALYZE=true npm run build
 - 3D animations require 'use client' directive and careful performance management
 - Agent execution rules: `.agent/rules/meta-prompt.md`
 - AI engineering guardrails: `.agent/rules/meta-prompt-engineering.md`
+- Personal communication rules: `.agent/rules/meta-prompt-personal-preferences.md`
+- Multi-model knowledge sync: `.agent/rules/meta-prompt-knowledge-sync.md`
