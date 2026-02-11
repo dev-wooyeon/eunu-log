@@ -391,7 +391,7 @@ export default function ResumePage() {
               {certifications.map((cert, index) => (
                 <div
                   key={index}
-                  className="p-6 bg-[var(--color-bg-secondary)] rounded-[var(--radius-md)] border border-[var(--color-border)] transition-colors dark:bg-slate-800 dark:border-slate-700 dark:hover:bg-slate-card-hover"
+                  className="p-6 bg-[var(--color-bg-secondary)] rounded-[var(--radius-md)] border border-[var(--color-border)] transition-colors"
                 >
                   <h3 className="text-lg font-bold text-[var(--color-text-primary)] mb-2">
                     {cert.name}
