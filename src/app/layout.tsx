@@ -4,6 +4,7 @@ import '@/styles/tossface.css';
 
 import JsonLd from '@/components/seo/JsonLd';
 import ThemeProvider from '@/components/providers/ThemeProvider';
+import KBarProvider from '@/components/providers/KBarProvider';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://eunu-log.vercel.app'),
@@ -59,8 +60,10 @@ export default function RootLayout({
     <html lang="ko" suppressHydrationWarning>
       <body>
         <ThemeProvider>
-          <div id="app-root">{children}</div>
-          <div id="overlay-root" />
+          <KBarProvider>
+            <div id="app-root">{children}</div>
+            <div id="overlay-root" />
+          </KBarProvider>
           <JsonLd
             data={{
               '@context': 'https://schema.org',
