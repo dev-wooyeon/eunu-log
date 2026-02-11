@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { Container } from '@/components/layout';
 import { PostCard } from '@/components/blog/PostCard'; // Fixed import path based on file structure
 import { FeedData } from '@/types';
@@ -44,11 +47,37 @@ export default function RecentPostsSection({ posts }: RecentPostsSectionProps) {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1,
+              },
+            },
+          }}
+        >
           {posts.map((post) => (
-            <PostCard key={post.slug} post={post} />
+            <motion.div
+              key={post.slug}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.5, ease: 'easeOut' },
+                },
+              }}
+            >
+              <PostCard post={post} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         <div className="mt-12 text-center md:hidden">
           <Button as="a" href="/blog" variant="secondary" fullWidth>

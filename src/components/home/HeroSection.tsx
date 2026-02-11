@@ -5,7 +5,7 @@ import { Button } from '@/components/ui';
 
 export default function HeroSection() {
   return (
-    <section className="relative py-20 md:py-32 overflow-hidden min-h-[90vh] flex flex-col bg-gradient-to-b from-[var(--color-bg-primary)] to-[var(--color-bg-secondary)]">
+    <section className="relative py-20 md:py-32 overflow-hidden min-h-[90vh] flex flex-col bg-[var(--color-bg-primary)]">
       {/* <HeroBackground /> */}
       <Container
         size="md"

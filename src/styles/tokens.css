@@ -33,6 +33,7 @@
   --color-bg-tertiary: #f2f4f6;
 
   --color-border: #e5e8eb;
+  --color-border-hover: #d1d6db;
   --color-divider: #f2f4f6;
 
   /* Feedback Colors */
@@ -196,6 +197,7 @@
   --color-bg-tertiary: #4e5968;
 
   --color-border: #4e5968;
+  --color-border-hover: var(--color-bg-secondary);
   --color-divider: #333d4b;
 
   /* Primary Blue - Lighter in dark mode */
