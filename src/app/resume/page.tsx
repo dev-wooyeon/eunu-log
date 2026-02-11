@@ -3,6 +3,7 @@ import { Header, Container } from '@/components/layout';
 import {
   experiences,
   personalInfo,
+  personalProjects,
   education,
   activities,
   certifications,
@@ -220,6 +221,87 @@ export default function ResumePage() {
                         )}
                       </div>
                     ))}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </section>
+
+          {/* Personal Projects Section */}
+          <section className="mt-16">
+            <h2 className="text-2xl font-bold text-[var(--color-grey-900)] mb-8 flex items-center gap-2 border-b border-[var(--color-grey-100)] pb-4">
+              <span className="tossface text-3xl">🚀</span> Personal Projects
+            </h2>
+
+            {personalProjects.map((project, index) => (
+              <article key={index} className="relative pl-4 md:pl-0 mb-12 last:mb-0">
+                {/* Visual Timeline Line for mobile */}
+                <div className="absolute left-0 top-2 bottom-0 w-[2px] bg-[var(--color-grey-100)] md:hidden"></div>
+
+                <div className="grid md:grid-cols-[200px_1fr] gap-8">
+                  {/* Left Column: Role & Period */}
+                  <div className="space-y-2">
+                    <div>
+                      <h3 className="text-xl font-bold text-[var(--color-grey-900)]">
+                        {project.title}
+                      </h3>
+                      <p className="text-[var(--color-grey-600)] font-medium text-sm">
+                        {project.role}
+                      </p>
+                    </div>
+                    <div className="flex flex-col gap-0.5">
+                      <span className="text-sm text-[var(--color-grey-500)]">
+                        {project.period}
+                      </span>
+                      <span className="text-xs text-[var(--color-toss-blue)] font-medium">
+                        {calculateDuration(project.period)}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Right Column: Project Details */}
+                  <div className="space-y-6">
+
+                    <div>
+                      <p className="text-[var(--color-grey-700)] leading-relaxed mb-4">
+                        {project.description}
+                      </p>
+
+                      <ul className="space-y-2 mb-6 pl-0 ml-0 list-none">
+                        {project.achievements.map((achievement, aIndex) => (
+                          <li
+                            key={aIndex}
+                            className="flex items-start gap-2 text-[var(--color-grey-800)] text-base leading-relaxed"
+                          >
+                            <span className="tossface text-sm mt-0.5 shrink-0">
+                              ✔️
+                            </span>
+                            <span>{achievement}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      {project.links && project.links.length > 0 && (
+                        <div className="flex gap-3 mt-4">
+                          {project.links.map((link, lIndex) => (
+                            <a
+                              key={lIndex}
+                              href={link.href}
+                              target={link.external ? '_blank' : '_self'}
+                              rel={link.external ? 'noopener noreferrer' : ''}
+                              className="text-sm font-medium text-[var(--color-grey-700)] hover:text-[var(--color-toss-blue)] flex items-center gap-1.5 transition-colors bg-[var(--color-grey-100)] px-3 py-2 rounded-[var(--radius-sm)] hover:bg-[var(--color-toss-blue)]/10"
+                            >
+                              {link.external ? (
+                                <span className="tossface text-sm">🔗</span>
+                              ) : (
+                                <span className="tossface text-sm">📄</span>
+                              )}
+                              {link.label}
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </article>
