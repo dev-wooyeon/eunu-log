@@ -5,17 +5,17 @@ import { Button } from '@/components/ui';
 
 export default function HeroSection() {
   return (
-    <section className="relative py-20 md:py-32 overflow-hidden min-h-screen-90 flex flex-col bg-gradient-to-b from-white to-hero-light">
+    <section className="relative py-20 md:py-32 overflow-hidden min-h-[90vh] flex flex-col bg-[var(--color-bg-primary)]">
       {/* <HeroBackground /> */}
       <Container
         size="md"
         className="flex-grow flex flex-col items-center text-center justify-center"
       >
-        <h1 className="text-5xl md:text-6xl font-bold text-grey-900 leading-tight">
+        <h1 className="text-5xl md:text-6xl font-bold text-[var(--color-grey-900)] leading-tight">
           안녕하세요, 우연입니다
         </h1>
 
-        <div className="mt-6 text-lg text-grey-800 leading-tight font-mono">
+        <div className="mt-6 text-lg text-[var(--color-grey-800)] leading-tight font-mono">
           <p>
             Make Creative, Data, Systems things. <br />
             Currently working as a Software Engineer{' '}
@@ -27,14 +27,14 @@ export default function HeroSection() {
           <Button
             as="a"
             href="/blog"
-            className="bg-grey-900/80 backdrop-blur-md border border-white/10 text-white hover:bg-grey-900 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+            className="!bg-[rgba(0,12,30,0.8)] dark:!bg-[rgba(255,255,255,0.8)] !backdrop-blur-md !border !border-white/10 dark:!border-black/10 !text-white dark:!text-black hover:!bg-[rgba(0,12,30,1)] dark:hover:!bg-[rgba(255,255,255,1)] transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
           >
             <span className="mr-2">📝</span>블로그 보기
           </Button>
           <Button
             as="a"
             href="/resume"
-            className="bg-grey-900/80 backdrop-blur-md border border-white/10 text-white hover:bg-grey-900 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+            className="!bg-[rgba(0,12,30,0.8)] dark:!bg-[rgba(255,255,255,0.8)] !backdrop-blur-md !border !border-white/10 dark:!border-black/10 !text-white dark:!text-black hover:!bg-[rgba(0,12,30,1)] dark:hover:!bg-[rgba(255,255,255,1)] transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
           >
             <span className="mr-2">👨‍💻</span>이력서 보기
           </Button>

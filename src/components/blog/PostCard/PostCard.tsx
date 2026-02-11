@@ -52,9 +52,7 @@ export default function PostCard({ post, variant = 'default' }: PostCardProps) {
         <span className="text-xs font-medium text-toss-blue bg-toss-blue/10 px-2 py-1 rounded-xs">
           {post.category}
         </span>
-        <time className="text-xs text-grey-500">
-          {formattedDate}
-        </time>
+        <time className="text-xs text-grey-500">{formattedDate}</time>
       </div>
       <h3 className="text-lg font-semibold text-grey-900 group-hover:text-toss-blue transition-colors leading-snug line-clamp-2">
         {post.title}
@@ -63,9 +61,7 @@ export default function PostCard({ post, variant = 'default' }: PostCardProps) {
         {post.description}
       </p>
       {post.readingTime && (
-        <div className="mt-4 text-xs text-grey-500">
-          {post.readingTime}분 읽기
-        </div>
+        <div className="mt-4 text-xs text-grey-500">{post.readingTime}분 읽기</div>
       )}
     </Link>
   );

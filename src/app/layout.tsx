@@ -4,6 +4,9 @@ import '@/styles/tossface.css';
 
 import JsonLd from '@/components/seo/JsonLd';
 import { SITE_NAME, SITE_URL } from '@/lib/site';
+import ThemeProvider from '@/components/providers/ThemeProvider';
+import KBarProvider from '@/components/providers/KBarProvider';
+import { getSortedFeedData } from '@/lib/mdx-feeds';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -55,28 +58,35 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // Get all posts for search
+  const posts = getSortedFeedData();
+
   return (
-    <html lang="ko">
+    <html lang="ko" suppressHydrationWarning>
       <body>
-        <div id="app-root">{children}</div>
-        <div id="overlay-root" />
-        <JsonLd
-          data={{
-            '@context': 'https://schema.org',
-            '@type': 'WebSite',
-            name: SITE_NAME,
-            url: SITE_URL,
-            author: {
-              '@type': 'Person',
-              name: 'Eunu',
-              url: `${SITE_URL}/resume`,
-              sameAs: [
-                'https://github.com/dev-wooyeon',
-                'mailto:une@kakao.com',
-              ],
-            },
-          }}
-        />
+        <ThemeProvider>
+          <KBarProvider posts={posts}>
+            <div id="app-root">{children}</div>
+            <div id="overlay-root" />
+          </KBarProvider>
+          <JsonLd
+            data={{
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: SITE_NAME,
+              url: SITE_URL,
+              author: {
+                '@type': 'Person',
+                name: 'Eunu',
+                url: `${SITE_URL}/resume`,
+                sameAs: [
+                  'https://github.com/dev-wooyeon',
+                  'mailto:une@kakao.com',
+                ],
+              },
+            }}
+          />
+        </ThemeProvider>
       </body>
     </html>
   );
