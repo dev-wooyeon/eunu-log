@@ -5,4 +5,10 @@ export type { ButtonProps, ButtonVariant, ButtonSize } from './Button';
 export { EmptyState } from './EmptyState';
 export type { EmptyStateProps } from './EmptyState';
 
-export { default as Logo } from './Logo';
+export {
+  default as Logo,
+  SignatureLogo,
+  SymbolLogo,
+  SignatureLogoMotion,
+  SymbolLogoMotion,
+} from './Logo';

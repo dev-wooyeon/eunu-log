@@ -29,10 +29,9 @@ export default function Header() {
         {/* Left: Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2 text-xl font-bold text-[var(--color-grey-900)] hover:text-[var(--color-toss-blue)] transition-colors z-10"
+          className="group flex items-center text-xl font-bold text-[var(--color-grey-900)] hover:text-[var(--color-toss-blue)] transition-colors z-10"
         >
-          <Logo />
-          <span>eunu.log</span>
+          <Logo variant="signature" motionEnabled />
         </Link>
 
         {/* Desktop Navigation */}
