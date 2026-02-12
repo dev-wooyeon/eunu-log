@@ -4,6 +4,68 @@
 **Commit:** unknown
 **Branch:** main
 
+## MUST PRECHECK (NON-OPTIONAL)
+
+Before running any implementation command, every agent **must** do all of the following:
+
+1. Open and read these files directly (do not rely on links only):
+   - `.agent/rules/meta-prompt.md`
+   - `.agent/rules/meta-prompt-engineering.md`
+   - `.agent/rules/meta-prompt-personal-preferences.md`
+   - `.agent/rules/meta-prompt-knowledge-sync.md`
+   - `.agent/rules/product-rules.md`
+   - `.agent/rules/meta-prompt-toss-inspired.md`
+2. In the first progress update, explicitly report:
+   - opened file list
+   - top 3 rules applied for this task
+3. If precheck is not complete, stop immediately and do not implement.
+
+## WORK UNIT FLOW (MANDATORY)
+
+Each work unit must follow this flow in order:
+
+1. Create a branch with prefix `codex/`.
+2. Link the work to a GitHub Issue.
+3. Complete implementation and verification.
+4. Open a PR that includes the issue link.
+5. Only after PR creation, move to the next work unit.
+
+## INTEGRATION BRANCH FLOW (MANDATORY)
+
+To prevent late conflicts between `master` and feature branches, every multi-step topic must use this branch hierarchy:
+
+1. Create an integration branch from `master`:
+   - `codex/integration/<topic>`
+2. Create feature branches from that integration branch:
+   - `codex/<feature-task>`
+3. Merge order is fixed:
+   - `feature -> integration -> master`
+4. Validation points:
+   - run verification on each feature PR
+   - run full verification again on `integration -> master` PR
+5. Do not open direct `feature -> master` PRs for multi-step topics.
+
+Minimum naming rule:
+
+- integration: `codex/integration/<topic>`
+- feature: `codex/<task>`
+
+Required PR/Issue linkage format:
+
+- PR body must include `Refs #<issue-number>` at minimum.
+- If the work fully completes the issue, use `Closes #<issue-number>`.
+
+## BLOCKED POLICY (MANDATORY)
+
+If a work unit is blocked by another issue/PR:
+
+1. Mark the current issue/PR as blocked immediately.
+2. Add the exact blocking link(s):
+   - blocked by issue: `Blocked by #<issue-number>`
+   - blocked by PR: `Blocked by <pr-url>`
+3. Prioritize unblocking work so the dependency can be merged first.
+4. Do not continue dependent implementation until the blocker is resolved.
+
 ## OVERVIEW
 
 Modern tech blog platform with interactive 3D animations built on Next.js 14+ App Router, emphasizing memorable user experiences through particle-based animations and newspaper-inspired design.
