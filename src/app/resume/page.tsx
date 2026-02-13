@@ -8,6 +8,7 @@ import {
   activities,
   certifications,
 } from '@/data/resume';
+import { orderExperienceStages } from '@/lib/resume-stage-order';
 
 export const metadata: Metadata = {
   title: 'Resume',
@@ -185,19 +186,25 @@ export default function ResumePage() {
                           {project.description}
                         </p>
 
-                        <ul className="space-y-2 mb-6 pl-0 ml-0 list-none">
-                          {project.achievements.map((achievement, aIndex) => (
-                            <li
-                              key={aIndex}
-                              className="flex items-start gap-2 text-[var(--color-text-secondary)] text-base leading-relaxed"
-                            >
-                              <span className="tossface text-sm mt-0.5 shrink-0">
-                                ✔️
-                              </span>
-                              <span>{achievement}</span>
-                            </li>
-                          ))}
-                        </ul>
+                        <dl className="mb-6 space-y-3">
+                          {orderExperienceStages(project.stages).map(
+                            (stage, stageIndex) => (
+                              <div
+                                key={`${project.title}-${stage.key}-${stageIndex}`}
+                                className="space-y-1.5"
+                              >
+                                <dt>
+                                  <span className="inline-flex rounded-full border border-[var(--color-toss-blue)]/30 bg-[var(--color-toss-blue)]/10 px-3 py-1 text-xs font-semibold text-[var(--color-toss-blue)]">
+                                    {stage.label}
+                                  </span>
+                                </dt>
+                                <dd className="m-0 text-base leading-relaxed text-[var(--color-text-secondary)]">
+                                  {stage.detail}
+                                </dd>
+                              </div>
+                            )
+                          )}
+                        </dl>
 
                         {project.links && project.links.length > 0 && (
                           <div className="flex gap-3 mt-4">
