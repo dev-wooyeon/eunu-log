@@ -49,6 +49,17 @@
   --color-error: #f04452;
   --color-info: #3182f6;
 
+  /* Category Badge Colors - Light */
+  --color-category-tech-bg: #e8f2ff;
+  --color-category-tech-border: #bfd8ff;
+  --color-category-tech-text: #1b64da;
+  --color-category-series-bg: #e6f8ff;
+  --color-category-series-border: #b7e9ff;
+  --color-category-series-text: #0077b6;
+  --color-category-life-bg: #eef0ff;
+  --color-category-life-border: #ccd4ff;
+  --color-category-life-text: #4b5fd6;
+
   /* === Typography === */
 
   /* Font Family */
@@ -218,4 +229,15 @@
   --color-toss-blue: #4a9eff;
   --color-toss-blue-light: #6bb3ff;
   --color-toss-blue-dark: #3182f6;
+
+  /* Category Badge Colors - Dark */
+  --color-category-tech-bg: rgba(74, 158, 255, 0.2);
+  --color-category-tech-border: rgba(110, 175, 255, 0.45);
+  --color-category-tech-text: #b7d9ff;
+  --color-category-series-bg: rgba(72, 188, 255, 0.2);
+  --color-category-series-border: rgba(120, 223, 255, 0.45);
+  --color-category-series-text: #beefff;
+  --color-category-life-bg: rgba(120, 138, 255, 0.22);
+  --color-category-life-border: rgba(163, 176, 255, 0.48);
+  --color-category-life-text: #d0d8ff;
 }

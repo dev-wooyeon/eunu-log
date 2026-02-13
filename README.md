@@ -107,6 +107,22 @@ cd eunu.log
 npm install
 ```
 
+### Supabase Setup (View Count)
+
+```bash
+cp .env.example .env.local
+```
+
+`.env.local`에 아래 값을 채워주세요.
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+
+Supabase SQL Editor에서 `docs/supabase-view-count.sql`을 실행하면
+조회수 집계를 위한 테이블/정책/함수가 생성됩니다.
+
 ### Development
 
 ```bash
