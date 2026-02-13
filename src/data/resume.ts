@@ -363,7 +363,7 @@ export const personalProjects: PersonalProject[] = [
       },
       {
         key: 'extension',
-        label: '면접 아젠다',
+        label: '확장 전략',
         detail:
           'Spark와 DuckDB의 엔진 선택 기준, 압축/비압축 I/O 트레이드오프, 운영 모드와 실험 모드 분리 전략',
       },
@@ -425,7 +425,7 @@ export const personalProjects: PersonalProject[] = [
       },
       {
         key: 'extension',
-        label: '면접 아젠다',
+        label: '확장 전략',
         detail:
           '정확도와 지연시간의 균형점 설정, DLQ 운영 정책, 단일 저장소 전략에서의 장애/확장 트레이드오프',
       },
