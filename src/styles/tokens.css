@@ -31,6 +31,8 @@
   --color-bg-primary: #ffffff;
   --color-bg-secondary: #f9fafb;
   --color-bg-tertiary: #f2f4f6;
+  --color-surface: #ffffff;
+  --color-blue-500: #3182f6;
 
   --color-border: #e5e8eb;
   --color-border-hover: #d1d6db;
@@ -42,6 +44,8 @@
   --color-code-title-bg: #e2e8f0;
   --color-code-title-fg: #334155;
   --color-code-highlight: rgba(15, 23, 42, 0.06);
+  --shiki-light: #334155;
+  --shiki-dark: #e2e8f0;
 
   /* Feedback Colors */
   --color-success: #00c471;
@@ -213,6 +217,8 @@
   --color-bg-primary: #191f28;
   --color-bg-secondary: #1e293b;
   --color-bg-tertiary: #1e293b;
+  --color-surface: #111827;
+  --color-blue-500: #6bb3ff;
 
   --color-border: #334155;
   --color-border-hover: #243447;
@@ -224,6 +230,8 @@
   --color-code-title-bg: #1e293b;
   --color-code-title-fg: #e5e8eb;
   --color-code-highlight: rgba(255, 255, 255, 0.12);
+  --shiki-light: #94a3b8;
+  --shiki-dark: #f8fafc;
 
   /* Primary Blue - Lighter in dark mode */
   --color-toss-blue: #4a9eff;

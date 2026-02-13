@@ -142,6 +142,13 @@ npm run build
 npm run start
 ```
 
+### Ops Docs
+
+- PR 운영 가이드: `docs/pr-workflow.md`
+- UI 컴포넌트 가이드: `docs/ui-components-guide.md`
+- GA4 이벤트 스키마: `docs/analytics-ga4-schema.md`
+- 주간 KPI 리포트 템플릿: `docs/analytics-kpi-weekly-template.md`
+
 <br />
 
 ## 🎨 Design System
