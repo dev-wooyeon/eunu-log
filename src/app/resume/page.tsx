@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import type { ReactNode } from 'react';
 import { Header, Container } from '@/components/layout';
 import {
   experiences,
@@ -53,6 +54,38 @@ export default function ResumePage() {
     } else {
       return `${calcMonths}개월`;
     }
+  };
+
+  const renderTextWithCode = (text: string): ReactNode[] => {
+    const segments = text.split(/(```[\s\S]*?```|`[^`]+`)/g);
+    return segments
+      .filter((segment) => segment.length > 0)
+      .map((segment, index) => {
+        if (segment.startsWith('```') && segment.endsWith('```')) {
+          const code = segment.slice(3, -3).trim();
+          return (
+            <pre
+              key={`${segment}-${index}`}
+              className="mt-2 mb-2 overflow-x-auto bg-[var(--color-bg-secondary)] px-3 py-2 rounded-[var(--radius-sm)] border border-[var(--color-border)]"
+            >
+              <code className="text-sm font-mono">{code}</code>
+            </pre>
+          );
+        }
+
+        if (segment.startsWith('`') && segment.endsWith('`')) {
+          return (
+            <code
+              key={`${segment}-${index}`}
+              className="px-1 py-0.5 rounded bg-[var(--color-bg-secondary)] border border-[var(--color-border)] text-sm font-mono"
+            >
+              {segment.slice(1, -1)}
+            </code>
+          );
+        }
+
+        return <span key={`${segment}-${index}`}>{segment}</span>;
+      });
   };
 
   return (
@@ -197,7 +230,7 @@ export default function ResumePage() {
                                   {stage.label}
                                 </dt>
                                 <dd className="m-0 text-base leading-relaxed text-[var(--color-text-secondary)]">
-                                  {stage.detail}
+                                  {renderTextWithCode(stage.detail)}
                                 </dd>
                               </div>
                             )
@@ -283,7 +316,7 @@ export default function ResumePage() {
                                 {stage.label}
                               </dt>
                               <dd className="m-0 text-base leading-relaxed text-[var(--color-text-secondary)]">
-                                {stage.detail}
+                                {renderTextWithCode(stage.detail)}
                               </dd>
                             </div>
                           )
