@@ -193,10 +193,8 @@ export default function ResumePage() {
                                 key={`${project.title}-${stage.key}-${stageIndex}`}
                                 className="space-y-1.5"
                               >
-                                <dt>
-                                  <span className="inline-flex rounded-full border border-[var(--color-toss-blue)]/30 bg-[var(--color-toss-blue)]/10 px-3 py-1 text-xs font-semibold text-[var(--color-toss-blue)]">
-                                    {stage.label}
-                                  </span>
+                                <dt className="text-sm font-bold text-[var(--color-toss-blue)]">
+                                  {stage.label}
                                 </dt>
                                 <dd className="m-0 text-base leading-relaxed text-[var(--color-text-secondary)]">
                                   {stage.detail}
