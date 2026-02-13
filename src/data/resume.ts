@@ -329,43 +329,43 @@ export const personalProjects: PersonalProject[] = [
     role: '데이터 엔지니어링',
     period: '2026.01 - 2026.02',
     description:
-      '금융 거래 데이터를 Medallion 아키텍처와 Star Schema로 정규화해, 로컬 제약 환경에서도 1억 건 이상 데이터를 일관된 품질로 분석 가능한 형태로 적재·가공.',
+      '1억 건 금융 거래 데이터를 단일 노드에서 신뢰성 있게 처리하기 위해 성능·정합성·운영성을 함께 검증한 레이크하우스 프로젝트.',
     stages: [
       {
         key: 'problem',
         label: '문제 정의',
         detail:
-          'Spark/Delta 파이프라인의 초깃값 상태에서 100만~1억 건 규모를 염두에 둔 비용·성능 예측이 어려웠고, 중복, 스키마 누락, 카테고리/상점 이력 변경이 같은 테이블에 누적되면 분석 신뢰도가 떨어질 위험이 있음',
-      },
-      {
-        key: 'implementation',
-        label: '구현',
-        detail:
-          'Bronze 단계에서 원본 + 메타데이터(수집일시/소스 파일/년월 파티션)를 적재하고, Silver에서 `transaction_id` 기준 dedup·검증·상점명 정규화(`UDF`) 후 Gold로 전달하는 계층형 파이프라인 구현',
+          '데이터가 커질수록 처리 시간이 급증하고, 차원 변경 이력이 소실되면 과거 분석 결과의 신뢰도가 흔들리는 문제가 발생',
       },
       {
         key: 'decision',
         label: '의사결정',
         detail:
-          '변경 이력 추적이 필요한 차원(상점)에는 SCD Type 2, 고빈도 변경이 잦은 fact는 `transaction_id` 기준 `MERGE` 기반 증분 적재를 적용해 재처리 비용을 낮추는 전략으로 Medallion+Star Schema를 고정',
+          '재처리 비용과 분석 신뢰도의 균형을 위해 Medallion + Star Schema를 채택하고, 차원은 SCD Type 2, Fact는 증분 MERGE 전략으로 분리',
+      },
+      {
+        key: 'implementation',
+        label: '구현',
+        detail:
+          'Bronze/Silver/Gold 계층 파이프라인과 레이어별 품질 검증을 구축하고, 대용량 벤치마크 모드를 분리해 실험 재현성을 확보',
       },
       {
         key: 'verification',
         label: '검증',
         detail:
-          '`localCheckpoint()`를 활용한 안정화 후 Bronze/Silver/Gold 레이어에 필수 컬럼·널/중복·값 범위 검증을 수행해 품질 게이트를 통과한 데이터만 적재되도록 구성',
+          '레이어별 품질 체크와 100M 성능 실험을 반복해 정합성 훼손 없이 확장되는지 확인',
       },
       {
         key: 'result',
         label: '결과/사용자 이점',
         detail:
-          '초기 10,000건 기준 파이프라인을 안정 운영화한 뒤 100,000,000건 실험에서 벤치마크를 확장해 `686.5초 → 35.89초 → 24.65초`로 누적 개선(Phase6/7/8/9), 단일 노드 환경에서 분석 후보군 산출 리드타임을 극적으로 단축',
+          '처리 시간을 `686.5초 → 24.65초`까지 단축하고, 병목 원인(CPU·I/O·엔진 초기화)을 분리해 확장 의사결정 근거를 확보',
       },
       {
         key: 'extension',
-        label: '전환 전략',
+        label: '면접 아젠다',
         detail:
-          '분석용 100M 벤치마크를 위해 Spark 초기화 비용·메모리 병목 구간을 먼저 분석하고, DuckDB Quantum/One-Pass DAG/압축 정책 변경을 조합해 하드웨어 floor에 맞춘 성능 파이프라인으로 단계적 전환',
+          'Spark와 DuckDB의 엔진 선택 기준, 압축/비압축 I/O 트레이드오프, 운영 모드와 실험 모드 분리 전략',
       },
     ],
     links: [
@@ -391,43 +391,43 @@ export const personalProjects: PersonalProject[] = [
     role: '데이터 엔지니어링',
     period: '2025.11 - 2025.12',
     description:
-      '광고 impression/click 이벤트를 Flink 실시간 스트리밍에서 윈도우 집계하고, ClickHouse 단일 소스를 통해 조회·대시보드까지 이어지는 엔드투엔드 파이프라인으로 정착.',
+      '실시간 CTR 집계의 정확성과 운영 단순화를 동시에 달성하기 위해 이벤트 처리부터 조회 계층까지 재설계한 스트리밍 프로젝트.',
     stages: [
       {
         key: 'problem',
         label: '문제 정의',
         detail:
-          '임시 이벤트 정합성 이슈(순서 뒤섞임), 처리량 급증 구간의 지연(p99 증가), 장애 구간 발생 시 중복 집계 위험이 있어 이벤트-타임 기반 실시간 정확성 보장 방식이 필요',
+          'Out-of-order 이벤트와 트래픽 급증 구간에서 집계 지연과 정확도 저하가 동시에 발생할 수 있는 구조',
       },
       {
         key: 'decision',
         label: '의사결정',
         detail:
-          'Kafka source → event-time 정렬 → 윈도우 집계의 신뢰성 순서로 결정하고, 멀티 싱크 확장 대신 ClickHouse 단일 저장소로 수집·서빙·시각화를 통합',
+          'Event-time 기반 윈도우 집계를 유지하면서, 조회 계층은 ClickHouse 단일 소스로 통합해 복잡도를 줄이는 방향을 선택',
       },
       {
         key: 'implementation',
         label: '구현',
         detail:
-          'Flink 파이프라인에서 Impression/Click 토픽을 병합해 `product_id` 기준으로 10초 Tumbling Window 집계, `Watermark forBoundedOutOfOrderness(5초)` + `allowedLateness(5초)` 설정, 실패 이벤트를 DLQ 토픽으로 분리',
+          'Kafka → Flink 10초 윈도우 집계, 지연 이벤트 처리, DLQ 분리, Materialized View 기반 조회 경로를 한 흐름으로 구성',
       },
       {
         key: 'verification',
         label: '검증',
         detail:
-          'Exactly-once checkpoint 및 재시작 전략, Slot Sharing Group(source/processing/sink)로 리소스 충돌을 분리하고, Kafka DLQ와 ClickHouse 배치 쓰기(1000배치/200ms/retry3)로 운영 중복/유실/스파이크 대응성을 검증',
+          'checkpoint/restart 전략과 지연 이벤트 처리 시나리오를 점검해 중복·누락 리스크를 제어',
       },
       {
         key: 'result',
         label: '결과/사용자 이점',
         detail:
-          'Kafka→Flink→ClickHouse 단일 오케스트레이션으로 중복 계층을 제거하고, ClickHouse materialized view(`ctr_ml_view`, `ctr_latest_view`)로 실시간 분석 쿼리를 바로 서빙. `ctr_results_raw` 집계와 Superset/ClickHouse SQL 기반 운영 리포팅을 즉시 가능하게 함',
+          '집계·조회 경로를 단일화해 운영 복잡도를 낮추고, 대시보드/분석 쿼리를 즉시 사용 가능한 상태로 전환',
       },
       {
         key: 'extension',
-        label: '성능 최적화',
+        label: '면접 아젠다',
         detail:
-          '중간 레이어 정리로 Redis/Serving API를 축소하고 ClickHouse Materialized View 중심으로 단순화, 연산자 체이닝 및 슬롯 그룹 설계로 네트워크/메모리 오버헤드 저감 기반 실성능 튜닝(네트워크 전송 최소화, 오퍼레이터 체이닝 비용 절감) 수행',
+          '정확도와 지연시간의 균형점 설정, DLQ 운영 정책, 단일 저장소 전략에서의 장애/확장 트레이드오프',
       },
     ],
     links: [
