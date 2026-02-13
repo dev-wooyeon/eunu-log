@@ -405,16 +405,13 @@ export default function ResumePage() {
                     <p className="text-[var(--color-text-secondary)] font-medium mb-4">
                       {activity.organization}
                     </p>
-                    <ul className="space-y-2 pl-0 ml-0 list-none">
+                    <ul className="space-y-2 pl-5 list-disc">
                       {activity.description.map((desc, dIndex) => (
                         <li
                           key={dIndex}
-                          className="flex items-start gap-2 text-[var(--color-text-secondary)] text-base leading-relaxed"
+                          className="text-[var(--color-text-secondary)] text-base leading-relaxed"
                         >
-                          <span className="tossface text-sm mt-0.5 shrink-0">
-                            ✔️
-                          </span>
-                          <span>{desc}</span>
+                          {desc}
                         </li>
                       ))}
                     </ul>
