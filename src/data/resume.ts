@@ -129,7 +129,7 @@ export const experiences: Experience[] = [
           },
           {
             key: 'result',
-            label: '결과/사용자 이점',
+            label: '성과',
             detail:
               '즉시 조회 체계로 전환해 재요청 0건을 달성하고, 분석 대응 시간을 주당 약 2시간 절감',
           },
@@ -173,7 +173,7 @@ export const experiences: Experience[] = [
           },
           {
             key: 'result',
-            label: '결과/사용자 이점',
+            label: '성과',
             detail:
               '신규 파크를 설정 중심으로 확장 가능한 기반을 확보해 기능 변경 시 타 파크 영향 리스크를 낮춤',
           },
@@ -224,7 +224,7 @@ export const experiences: Experience[] = [
           },
           {
             key: 'result',
-            label: '결과/사용자 이점',
+            label: '성과',
             detail:
               '외부 고객사 초기 연동 장애 0건을 달성했고, 변경 예측 가능성이 높아져 팀 생산성 약 20% 개선',
           },
@@ -262,7 +262,7 @@ export const experiences: Experience[] = [
           },
           {
             key: 'result',
-            label: '결과/사용자 이점',
+            label: '성과',
             detail:
               '반기 정산을 자동화하고 신규/변경 가맹점 누락 위험을 제거해 수수료 오적용으로 인한 매출 손실 리스크를 차단',
           },
@@ -300,7 +300,7 @@ export const experiences: Experience[] = [
           },
           {
             key: 'result',
-            label: '결과/사용자 이점',
+            label: '성과',
             detail:
               '주요 조회 응답을 15,000ms → 2,000ms로 단축하고 운영팀 반복 업무를 주당 4시간 이상 절감',
           },
@@ -329,37 +329,59 @@ export const personalProjects: PersonalProject[] = [
     role: '데이터 엔지니어링',
     period: '2026.01 - 2026.02',
     description:
-      '원천 데이터부터 분석 마트까지 일관된 품질을 유지하기 위해 Spark + Delta Lake 기반 개인 금융 분석 플랫폼을 구축.',
+      '1억 건 금융 거래 데이터를 단일 노드에서 신뢰성 있게 처리하기 위해 성능·정합성·운영성을 함께 검증한 레이크하우스 프로젝트.',
     stages: [
+      {
+        key: 'problem',
+        label: '문제 정의',
+        detail:
+          '데이터가 커질수록 처리 시간이 급증하고, 차원 변경 이력이 소실되면 과거 분석 결과의 신뢰도가 흔들리는 문제가 발생',
+      },
       {
         key: 'decision',
         label: '의사결정',
         detail:
-          '데이터 신뢰성과 재현성을 기준으로 Medallion(Bronze/Silver/Gold) 아키텍처를 채택',
+          '재처리 비용과 분석 신뢰도의 균형을 위해 Medallion + Star Schema를 채택하고, 차원은 SCD Type 2, Fact는 증분 MERGE 전략으로 분리',
       },
       {
         key: 'implementation',
         label: '구현',
         detail:
-          'Raw 적재부터 정제·집계·분석 마트까지 이어지는 파이프라인과 Fact/Dimension 기반 Star Schema 설계',
+          'Bronze/Silver/Gold 계층 파이프라인과 레이어별 품질 검증을 구축하고, 대용량 벤치마크 모드를 분리해 실험 재현성을 확보',
       },
       {
         key: 'verification',
         label: '검증',
         detail:
-          'Delta Lake ACID 및 Time Travel을 활용해 데이터 정합성과 변경 이력 추적성을 확보',
+          '레이어별 품질 체크와 100M 성능 실험을 반복해 정합성 훼손 없이 확장되는지 확인',
       },
       {
         key: 'result',
-        label: '결과/사용자 이점',
+        label: '성과',
         detail:
-          '분석가가 재가공 없이 바로 조회 가능한 구조를 제공해 분석 준비 시간을 단축',
+          '처리 시간을 `686.5초 → 24.65초`까지 단축하고, 병목 원인(CPU·I/O·엔진 초기화)을 분리해 확장 의사결정 근거를 확보',
+      },
+      {
+        key: 'extension',
+        label: '확장 전략',
+        detail:
+          'Spark와 DuckDB의 엔진 선택 기준, 압축/비압축 I/O 트레이드오프, 운영 모드와 실험 모드 분리 전략',
       },
     ],
     links: [
       {
         label: '코드 저장소',
         href: 'https://github.com/dev-wooyeon/demo-finance-engine',
+        external: true,
+      },
+      {
+        label: '성능 도전회고',
+        href: 'https://github.com/dev-wooyeon/demo-finance-engine/blob/main/docs/100m_performance_challenge.md',
+        external: true,
+      },
+      {
+        label: 'Gold 레이어 고도화 회고',
+        href: 'https://github.com/dev-wooyeon/demo-finance-engine/blob/main/docs/blog_gold_layer_optimization.md',
         external: true,
       },
     ],
@@ -369,53 +391,59 @@ export const personalProjects: PersonalProject[] = [
     role: '데이터 엔지니어링',
     period: '2025.11 - 2025.12',
     description:
-      '광고 CTR을 실시간으로 계산·제공하기 위해 Kafka-Flink 기반 스트리밍 파이프라인을 설계하고, 로컬 제약 환경에서 성능 최적화까지 수행.',
+      '실시간 CTR 집계의 정확성과 운영 단순화를 동시에 달성하기 위해 이벤트 처리부터 조회 계층까지 재설계한 스트리밍 프로젝트.',
     stages: [
       {
         key: 'problem',
         label: '문제 정의',
         detail:
-          'Out-of-Order 이벤트, 파티션 skew, Backpressure가 동시에 발생하는 환경에서 정확도와 지연시간을 함께 만족해야 하는 과제',
+          'Out-of-order 이벤트와 트래픽 급증 구간에서 집계 지연과 정확도 저하가 동시에 발생할 수 있는 구조',
       },
       {
         key: 'decision',
         label: '의사결정',
         detail:
-          'Event Time + Watermark + Allowed Lateness 조합을 실험해 지연·정확도 균형 지점을 선택',
+          'Event-time 기반 윈도우 집계를 유지하면서, 조회 계층은 ClickHouse 단일 소스로 통합해 복잡도를 줄이는 방향을 선택',
       },
       {
         key: 'implementation',
         label: '구현',
         detail:
-          'Kafka/Flink/Redis/ClickHouse/DuckDB 멀티 싱크와 체크포인트 기반 Exactly-Once 처리, 파티션 3→6→12 확장',
+          'Kafka → Flink 10초 윈도우 집계, 지연 이벤트 처리, DLQ 분리, Materialized View 기반 조회 경로를 한 흐름으로 구성',
+      },
+      {
+        key: 'verification',
+        label: '검증',
+        detail:
+          'checkpoint/restart 전략과 지연 이벤트 처리 시나리오를 점검해 중복·누락 리스크를 제어',
       },
       {
         key: 'result',
-        label: '결과',
+        label: '성과',
         detail:
-          '25분간 약 120만 건 처리(초당 약 812건)와 집계 정확도를 검증하고 부하 구간 대응 전략을 확보',
+          '집계·조회 경로를 단일화해 운영 복잡도를 낮추고, 대시보드/분석 쿼리를 즉시 사용 가능한 상태로 전환',
       },
       {
         key: 'extension',
-        label: '성능 최적화',
+        label: '확장 전략',
         detail:
-          'Redis+Serving API를 제거하고 ClickHouse Materialized View 중심으로 단순화해 약 1GB 메모리 절감, 평균 20k/s·스파이크 55k/s 처리',
+          '정확도와 지연시간의 균형점 설정, DLQ 운영 정책, 단일 저장소 전략에서의 장애/확장 트레이드오프',
       },
     ],
     links: [
       {
         label: '코드 저장소',
-        href: 'https://github.com/dev-wooyeon/ctr-pipeline',
+        href: 'https://github.com/dev-wooyeon/demo-flink-kafka-redis-api',
         external: true,
       },
       {
         label: '설계 회고',
-        href: '/blog/ctr-pipeline',
+        href: 'https://github.com/dev-wooyeon/demo-flink-kafka-redis-api/blob/main/docs/OPERATOR_CHAINING_REPORT.md',
         external: true,
       },
       {
-        label: '성능 최적화 회고',
-        href: '/blog/macbook-air-m1-life',
+        label: 'Redis/serving 제외 결정 회고',
+        href: 'https://github.com/dev-wooyeon/demo-flink-kafka-redis-api/blob/main/docs/WHY_REMOVE_DUCKDB.md',
         external: true,
       },
     ],
