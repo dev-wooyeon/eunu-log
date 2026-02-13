@@ -127,7 +127,7 @@ Supabase SQL Editor에서 `docs/supabase-view-count.sql`을 실행하면
 
 ```bash
 # Start development server
-npm run dev
+npm run serve  # (alias: serve)
 ```
 
 브라우저에서 [http://localhost:3000](http://localhost:3000)을 열어 확인하세요.

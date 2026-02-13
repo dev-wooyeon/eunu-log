@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --webpack",
+    "serve": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",
     "lint": "next lint",
