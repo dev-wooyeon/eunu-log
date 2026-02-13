@@ -31,7 +31,7 @@ export interface PersonalProject {
   role: string;
   period: string;
   description: string;
-  achievements: string[];
+  stages: ExperienceStage[];
   links?: ProjectLink[];
 }
 
@@ -330,11 +330,31 @@ export const personalProjects: PersonalProject[] = [
     period: '2026.01 - 2026.02',
     description:
       '원천 데이터부터 분석 마트까지 일관된 품질을 유지하기 위해 Spark + Delta Lake 기반 개인 금융 분석 플랫폼을 구축.',
-    achievements: [
-      '의사결정: 데이터 신뢰성과 재현성을 기준으로 Medallion(Bronze/Silver/Gold) 아키텍처를 채택',
-      '구현: Raw 적재부터 정제·집계·분석 마트까지 이어지는 파이프라인과 Fact/Dimension 기반 Star Schema 설계',
-      '검증: Delta Lake ACID 및 Time Travel을 활용해 데이터 정합성과 변경 이력 추적성을 확보',
-      '사용자 이점: 분석가가 재가공 없이 바로 조회 가능한 구조를 제공해 분석 준비 시간을 단축',
+    stages: [
+      {
+        key: 'decision',
+        label: '의사결정',
+        detail:
+          '데이터 신뢰성과 재현성을 기준으로 Medallion(Bronze/Silver/Gold) 아키텍처를 채택',
+      },
+      {
+        key: 'implementation',
+        label: '구현',
+        detail:
+          'Raw 적재부터 정제·집계·분석 마트까지 이어지는 파이프라인과 Fact/Dimension 기반 Star Schema 설계',
+      },
+      {
+        key: 'verification',
+        label: '검증',
+        detail:
+          'Delta Lake ACID 및 Time Travel을 활용해 데이터 정합성과 변경 이력 추적성을 확보',
+      },
+      {
+        key: 'result',
+        label: '결과/사용자 이점',
+        detail:
+          '분석가가 재가공 없이 바로 조회 가능한 구조를 제공해 분석 준비 시간을 단축',
+      },
     ],
     links: [
       {
@@ -350,12 +370,37 @@ export const personalProjects: PersonalProject[] = [
     period: '2025.11 - 2025.12',
     description:
       '광고 CTR을 실시간으로 계산·제공하기 위해 Kafka-Flink 기반 스트리밍 파이프라인을 설계하고, 로컬 제약 환경에서 성능 최적화까지 수행.',
-    achievements: [
-      '문제 정의: Out-of-Order 이벤트, 파티션 skew, Backpressure가 동시에 발생하는 환경에서 정확도와 지연시간을 함께 만족해야 하는 과제',
-      '의사결정: Event Time + Watermark + Allowed Lateness 조합을 실험해 지연·정확도 균형 지점을 선택',
-      '구현: Kafka/Flink/Redis/ClickHouse/DuckDB 멀티 싱크와 체크포인트 기반 Exactly-Once 처리, 파티션 3→6→12 확장',
-      '결과: 25분간 약 120만 건 처리(초당 약 812건)와 집계 정확도를 검증하고 부하 구간 대응 전략을 확보',
-      '성능 최적화: Redis+Serving API를 제거하고 ClickHouse Materialized View 중심으로 단순화해 약 1GB 메모리 절감, 평균 20k/s·스파이크 55k/s 처리',
+    stages: [
+      {
+        key: 'problem',
+        label: '문제 정의',
+        detail:
+          'Out-of-Order 이벤트, 파티션 skew, Backpressure가 동시에 발생하는 환경에서 정확도와 지연시간을 함께 만족해야 하는 과제',
+      },
+      {
+        key: 'decision',
+        label: '의사결정',
+        detail:
+          'Event Time + Watermark + Allowed Lateness 조합을 실험해 지연·정확도 균형 지점을 선택',
+      },
+      {
+        key: 'implementation',
+        label: '구현',
+        detail:
+          'Kafka/Flink/Redis/ClickHouse/DuckDB 멀티 싱크와 체크포인트 기반 Exactly-Once 처리, 파티션 3→6→12 확장',
+      },
+      {
+        key: 'result',
+        label: '결과',
+        detail:
+          '25분간 약 120만 건 처리(초당 약 812건)와 집계 정확도를 검증하고 부하 구간 대응 전략을 확보',
+      },
+      {
+        key: 'extension',
+        label: '성능 최적화',
+        detail:
+          'Redis+Serving API를 제거하고 ClickHouse Materialized View 중심으로 단순화해 약 1GB 메모리 절감, 평균 20k/s·스파이크 55k/s 처리',
+      },
     ],
     links: [
       {

@@ -272,19 +272,23 @@ export default function ResumePage() {
                         {project.description}
                       </p>
 
-                      <ul className="space-y-2 mb-6 pl-0 ml-0 list-none">
-                        {project.achievements.map((achievement, aIndex) => (
-                          <li
-                            key={aIndex}
-                            className="flex items-start gap-2 text-[var(--color-text-secondary)] text-base leading-relaxed"
-                          >
-                            <span className="tossface text-sm mt-0.5 shrink-0">
-                              ✔️
-                            </span>
-                            <span>{achievement}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      <dl className="space-y-3 mb-6">
+                        {orderExperienceStages(project.stages).map(
+                          (stage, aIndex) => (
+                            <div
+                              key={`${project.title}-${stage.key}-${aIndex}`}
+                              className="space-y-1.5"
+                            >
+                              <dt className="text-sm font-bold text-[var(--color-toss-blue)]">
+                                {stage.label}
+                              </dt>
+                              <dd className="m-0 text-base leading-relaxed text-[var(--color-text-secondary)]">
+                                {stage.detail}
+                              </dd>
+                            </div>
+                          )
+                        )}
+                      </dl>
 
                       {project.links && project.links.length > 0 && (
                         <div className="flex gap-3 mt-4">
