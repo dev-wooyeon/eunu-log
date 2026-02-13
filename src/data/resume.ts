@@ -129,7 +129,7 @@ export const experiences: Experience[] = [
           },
           {
             key: 'result',
-            label: '결과/사용자 이점',
+            label: '성과',
             detail:
               '즉시 조회 체계로 전환해 재요청 0건을 달성하고, 분석 대응 시간을 주당 약 2시간 절감',
           },
@@ -173,7 +173,7 @@ export const experiences: Experience[] = [
           },
           {
             key: 'result',
-            label: '결과/사용자 이점',
+            label: '성과',
             detail:
               '신규 파크를 설정 중심으로 확장 가능한 기반을 확보해 기능 변경 시 타 파크 영향 리스크를 낮춤',
           },
@@ -224,7 +224,7 @@ export const experiences: Experience[] = [
           },
           {
             key: 'result',
-            label: '결과/사용자 이점',
+            label: '성과',
             detail:
               '외부 고객사 초기 연동 장애 0건을 달성했고, 변경 예측 가능성이 높아져 팀 생산성 약 20% 개선',
           },
@@ -262,7 +262,7 @@ export const experiences: Experience[] = [
           },
           {
             key: 'result',
-            label: '결과/사용자 이점',
+            label: '성과',
             detail:
               '반기 정산을 자동화하고 신규/변경 가맹점 누락 위험을 제거해 수수료 오적용으로 인한 매출 손실 리스크를 차단',
           },
@@ -300,7 +300,7 @@ export const experiences: Experience[] = [
           },
           {
             key: 'result',
-            label: '결과/사용자 이점',
+            label: '성과',
             detail:
               '주요 조회 응답을 15,000ms → 2,000ms로 단축하고 운영팀 반복 업무를 주당 4시간 이상 절감',
           },
@@ -357,7 +357,7 @@ export const personalProjects: PersonalProject[] = [
       },
       {
         key: 'result',
-        label: '결과/사용자 이점',
+        label: '성과',
         detail:
           '처리 시간을 `686.5초 → 24.65초`까지 단축하고, 병목 원인(CPU·I/O·엔진 초기화)을 분리해 확장 의사결정 근거를 확보',
       },
@@ -419,7 +419,7 @@ export const personalProjects: PersonalProject[] = [
       },
       {
         key: 'result',
-        label: '결과/사용자 이점',
+        label: '성과',
         detail:
           '집계·조회 경로를 단일화해 운영 복잡도를 낮추고, 대시보드/분석 쿼리를 즉시 사용 가능한 상태로 전환',
       },
