@@ -14,6 +14,12 @@ export type AnalyticsEventName =
 
 type GtagValue = string | number | boolean | null | undefined;
 type GtagParams = Record<string, GtagValue>;
+type UmamiParams = Record<string, unknown>;
+
+interface QueuedUmamiEvent {
+  eventName: AnalyticsEventName;
+  params: UmamiParams;
+}
 
 declare global {
   interface Window {
@@ -21,7 +27,9 @@ declare global {
     gtag?: (...args: unknown[]) => void;
     umami?: {
       track: (
-        eventNameOrCallback: string | ((props: Record<string, unknown>) => Record<string, unknown>),
+        eventNameOrCallback:
+          | string
+          | ((props: Record<string, unknown>) => Record<string, unknown>),
         eventData?: Record<string, unknown>
       ) => void;
     };
@@ -37,7 +45,34 @@ function canTrackGA(): boolean {
 }
 
 function canTrackUmami(): boolean {
-  return typeof window !== 'undefined' && typeof window.umami?.track === 'function';
+  return (
+    typeof window !== 'undefined' && typeof window.umami?.track === 'function'
+  );
+}
+
+const umamiEventQueue: QueuedUmamiEvent[] = [];
+
+function enqueueUmamiEvent(
+  eventName: AnalyticsEventName,
+  params: UmamiParams
+): void {
+  umamiEventQueue.push({ eventName, params });
+}
+
+export function flushQueuedUmamiEvents(): void {
+  if (!canTrackUmami() || umamiEventQueue.length === 0) {
+    return;
+  }
+
+  while (umamiEventQueue.length > 0) {
+    const queuedEvent = umamiEventQueue.shift();
+
+    if (!queuedEvent) {
+      break;
+    }
+
+    window.umami?.track(queuedEvent.eventName, queuedEvent.params);
+  }
 }
 
 export function trackPageView(path: string): void {
@@ -60,7 +95,15 @@ export function trackEvent(
     window.gtag?.('event', eventName, params);
   }
 
-  if (canTrackUmami()) {
-    window.umami?.track(eventName, params as Record<string, unknown>);
+  if (typeof window === 'undefined') {
+    return;
   }
+
+  if (canTrackUmami()) {
+    flushQueuedUmamiEvents();
+    window.umami?.track(eventName, params as UmamiParams);
+    return;
+  }
+
+  enqueueUmamiEvent(eventName, params as UmamiParams);
 }
