@@ -11,9 +11,9 @@ AI가 구현할 때 "예쁜 코드"보다 "사용자 이해와 안정성"을 우
 
 ## 근거 소스
 
-- 분석 코퍼스: `docs/toss-uiux-fe-ds-article-corpus.md`
-- 정밀 분석: `docs/toss-uiux-fe-ds-deep-analysis.md`
-- 코드베이스 갭 분석: `docs/toss-ai-engineering-gap-analysis.md`
+- 분석 코퍼스: `docs/research/toss/toss-uiux-fe-ds-article-corpus.md`
+- 정밀 분석: `docs/research/toss/toss-uiux-fe-ds-deep-analysis.md`
+- 코드베이스 갭 분석: `docs/research/toss/toss-ai-engineering-gap-analysis.md`
 - 수집 범위: `https://toss.tech/article/*`
 - 수집 결과: 106개 발견, 100개 선정, 주제 키워드 일치 78개
 

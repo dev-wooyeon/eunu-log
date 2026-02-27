@@ -1,6 +1,6 @@
 # PROJECT KNOWLEDGE BASE
 
-**Generated:** 2026-02-26
+**Generated:** 2026-02-27
 **Commit:** 2669f50
 **Branch:** master
 
@@ -14,10 +14,14 @@ Modern tech blog platform built on Next.js App Router with MDX-based content, in
 eunu.log/
 ├── src/                    # Source code
 │   ├── app/               # Next.js App Router pages
-│   ├── components/        # React components
-│   ├── lib/              # Utilities and processing
+│   ├── core/              # App config/provider composition
+│   ├── domains/           # Cross-feature domain contracts/schema
+│   ├── features/         # Feature domains (blog/resume/search/home)
+│   ├── shared/           # Shared modules (analytics/layout/ui/providers/seo/types)
+│   ├── components/       # Visualization-heavy components
 │   ├── styles/           # Design tokens and global styles
-│   └── types/            # TypeScript definitions
+│   └── (co-located tests + shared/testing helpers)
+├── tests/                # Centralized e2e tests (Playwright)
 ├── content/              # Blog posts (MDX + metadata)
 ├── public/               # Static assets
 ├── docs/                 # Project documentation
@@ -29,8 +33,8 @@ eunu.log/
 | Task               | Location          | Notes                                              |
 | ------------------ | ----------------- | -------------------------------------------------- |
 | Pages & Routing    | `src/app/`        | Next.js App Router with static generation + handlers |
-| Components         | `src/components/` | Organized by domain (blog, layout, ui, visualization) |
-| Content Processing | `src/lib/`        | MDX feeds, markdown processing                     |
+| Components         | `src/features/`, `src/shared/`, `src/components/visualization/` | Feature-first + shared modules + visualization |
+| Content Processing | `src/features/blog/services/` | MDX feed repository, markdown parsing |
 | Styling            | `src/styles/`     | CSS variables, Tailwind integration                |
 | Blog Content       | `content/`        | MDX files with separate metadata                   |
 | Configuration      | Root              | `next.config.mjs`, `package.json`, `tsconfig.json` |
@@ -38,7 +42,7 @@ eunu.log/
 ## CONVENTIONS
 
 **Content Structure:** Each blog post uses folder structure: `content/[slug]/index.mdx + meta.json`
-**Component Organization:** Domain-based folders with index.ts exports
+**Component Organization:** Feature-first (`src/features`) + shared modules (`src/shared`) with index.ts exports
 **Styling:** CSS variables + Tailwind CSS hybrid approach
 **Visualization:** Interactive visualization components live in `src/components/visualization/` and should use client runtime when browser APIs are required
 

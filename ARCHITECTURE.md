@@ -1,6 +1,6 @@
 # ARCHITECTURE
 
-Last updated: 2026-02-26
+Last updated: 2026-02-27
 
 ## System Summary
 
@@ -43,9 +43,9 @@ Last updated: 2026-02-26
 - Server action:
   - `src/app/actions/view.ts` for increment/read view count.
 
-### Content Layer (`content/**` + `src/lib`)
+### Content Layer (`content/**` + `src/features/blog/services`)
 
-- `src/lib/mdx-feeds.ts` recursively discovers valid post folders (`index.mdx` + `meta.json`).
+- `src/features/blog/services/post-repository.ts` recursively discovers valid post folders (`index.mdx` + `meta.json`).
 - `meta.json` is validated with Zod (`FeedFrontmatterSchema`).
 - MDX is loaded by dynamic import per folder path.
 - Reading time is auto-derived from MDX when metadata omits it.
@@ -57,28 +57,31 @@ Last updated: 2026-02-26
   - `remark-gfm`
   - `rehype-slug`
   - `rehype-pretty-code`
-- `src/lib/markdown.ts` parses MDX headings for TOC data.
-- `src/mdx-components.tsx` maps MDX nodes to UI components and interactive visualization widgets.
+- `src/features/blog/services/markdown-parser.ts` parses MDX headings for TOC data.
+- `src/features/blog/ui/mdx/components.tsx` maps MDX nodes to UI components and interactive visualization widgets.
 
-### UI Layer (`src/components` + `src/styles`)
+### Feature/Shared Layer (`src/features` + `src/shared` + `src/styles`)
 
-- Domain-based component organization: `blog`, `layout`, `ui`, `home`, `analytics`, `visualization`.
+- Feature-first organization:
+  - `src/features/blog`, `src/features/resume`, `src/features/search`, `src/features/home`
+  - `src/shared/analytics`, `src/shared/layout`, `src/shared/ui`, `src/shared/providers`, `src/shared/seo`
+  - `src/components/visualization` is intentionally preserved for heavy visualization widgets.
 - Design tokens in `src/styles/tokens.css`.
 - Global base styles and typography in `src/styles/globals.css`.
 - Theming via `next-themes` provider.
 
 ### Data and Integrations
 
-- Supabase client setup in `src/lib/supabase.ts`.
+- Supabase client setup in `src/shared/integrations/supabase.ts`.
 - View count data model:
   - table: `public.views`
   - rpc: `increment_view(slug_input text) -> bigint`
-- SQL provisioning script: `docs/supabase-view-count.sql`.
+- SQL provisioning script: `docs/database/supabase-view-count.sql`.
 
 ### Analytics and SEO
 
-- GA4 event helpers in `src/lib/analytics.ts`.
-- Trackers in `src/components/analytics/*`.
+- GA4 event helpers in `src/shared/analytics/lib/analytics.ts`.
+- Trackers in `src/shared/analytics/components/*`.
 - Structured data via `JsonLd` component in layout and post page.
 
 ## Request/Data Flows
@@ -107,16 +110,16 @@ Last updated: 2026-02-26
 ## Testing and Quality
 
 - Unit/component tests: Vitest + Testing Library (`src/**/*.test.ts(x)`).
-- E2E tests: Playwright mobile-focused projects (`e2e/*.spec.ts`).
+- E2E tests: Playwright mobile-focused projects (`tests/e2e/**/*.spec.ts`).
 - Linting/formatting: ESLint, Prettier, markdownlint, cspell.
-- Coverage focus includes `src/lib`, `src/styles`, and selected component domains.
+- Coverage focus includes `src/features`, `src/shared`, `src/styles`, and selected route domains.
 
 ## Current Architecture Risks
 
 1. Docs/runtime drift:
    - AGENTS and README mention older stack assumptions; package versions are newer.
-2. Layout tracker duplication:
-   - `layout.tsx` currently mounts analytics/page-view trackers more than once.
+2. Provider boundary drift:
+   - Route/layout changes can reintroduce duplicated tracker mounts if `AppProviders` is bypassed.
 3. Content/animation docs drift:
    - Documented `src/components/animations` path does not exist in current tree.
 4. SEO endpoint mismatch risk:

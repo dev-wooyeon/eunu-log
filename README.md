@@ -64,19 +64,20 @@
 ```
 eunu.log/
 ├── 📁 src/
-│   ├── 📁 app/                 # Next.js App Router pages/routes
-│   │   ├── 📁 blog/            # Blog list/detail routes
-│   │   ├── 📁 resume/          # Resume page
-│   │   ├── 📁 series/          # Series index page
-│   │   └── 📁 api/og/          # OG image route
+│   ├── 📁 app/                 # Route entry only (Next App Router)
+│   ├── 📁 core/                # App-level config/provider composition
+│   ├── 📁 domains/             # Domain contracts/types/schema
+│   ├── 📁 features/            # Feature modules (ui/model/services)
+│   │   ├── 📁 blog/
+│   │   ├── 📁 resume/
+│   │   ├── 📁 search/
+│   │   └── 📁 home/
+│   ├── 📁 shared/              # Reusable modules (analytics/integrations/layout/seo/testing/ui/types)
 │   ├── 📁 components/
-│   │   ├── 📁 blog/            # Post UI (TOC, comments, cards)
-│   │   ├── 📁 layout/          # Header, Footer, Container
-│   │   ├── 📁 ui/              # Reusable primitives
-│   │   └── 📁 visualization/   # Interactive algorithm visualizations
-│   ├── 📁 lib/                 # Utilities
-│   ├── 📁 styles/              # Global styles & variables
-│   └── 📁 types/               # TypeScript definitions
+│   │   └── 📁 visualization/   # Interactive algorithm visualizations (kept separately)
+│   └── 📁 styles/              # Global styles & tokens
+├── 📁 tests/
+│   └── 📁 e2e/                 # Centralized Playwright suites
 ├── 📁 content/                  # Blog posts (MDX + metadata)
 │   └── 📁 [slug]/              # Each post in its own folder
 │       ├── index.mdx           # Post content
@@ -120,7 +121,7 @@ cp .env.example .env.local
 - `SUPABASE_URL`
 - `SUPABASE_SERVICE_ROLE_KEY`
 
-Supabase SQL Editor에서 `docs/supabase-view-count.sql`을 실행하면
+Supabase SQL Editor에서 `docs/database/supabase-view-count.sql`을 실행하면
 조회수 집계를 위한 테이블/정책/함수가 생성됩니다.
 
 ### Development
@@ -152,10 +153,10 @@ npm run start
 
 ### Ops Docs
 
-- PR 운영 가이드: `docs/pr-workflow.md`
-- UI 컴포넌트 가이드: `docs/ui-components-guide.md`
-- GA4 이벤트 스키마: `docs/analytics-ga4-schema.md`
-- 주간 KPI 리포트 템플릿: `docs/analytics-kpi-weekly-template.md`
+- PR 운영 가이드: `docs/guides/pr-workflow.md`
+- UI 컴포넌트 가이드: `docs/guides/ui-components-guide.md`
+- GA4 이벤트 스키마: `docs/analytics/analytics-ga4-schema.md`
+- 주간 KPI 리포트 템플릿: `docs/analytics/analytics-kpi-weekly-template.md`
 
 <br />
 
