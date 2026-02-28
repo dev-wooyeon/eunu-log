@@ -22,10 +22,11 @@ eunu.log/
 │   ├── styles/           # Design tokens and global styles
 │   └── (co-located tests + shared/testing helpers)
 ├── tests/                # Centralized e2e tests (Playwright)
-├── content/              # Blog posts (MDX + metadata)
+├── internal/             # Internal scripts and linting configuration
+├── posts/                # Blog posts (MDX + metadata)
 ├── public/               # Static assets
 ├── docs/                 # Project documentation
-└── .agent/              # AI agent rules
+└── (no .agent directory) # AI collaboration rules are documented under docs/
 ```
 
 ## WHERE TO LOOK
@@ -36,12 +37,13 @@ eunu.log/
 | Components         | `src/features/`, `src/shared/`, `src/components/visualization/` | Feature-first + shared modules + visualization |
 | Content Processing | `src/features/blog/services/` | MDX feed repository, markdown parsing |
 | Styling            | `src/styles/`     | CSS variables, Tailwind integration                |
-| Blog Content       | `content/`        | MDX files with separate metadata                   |
+| Blog Content       | `posts/`          | MDX files with separate metadata                   |
 | Configuration      | Root              | `next.config.mjs`, `package.json`, `tsconfig.json` |
+| Internal Tooling   | `internal/`       | Scripts + lint/spell config                        |
 
 ## CONVENTIONS
 
-**Content Structure:** Each blog post uses folder structure: `content/[slug]/index.mdx + meta.json`
+**Content Structure:** Each blog post uses folder structure: `posts/[slug]/index.mdx + meta.json`
 **Component Organization:** Feature-first (`src/features`) + shared modules (`src/shared`) with index.ts exports
 **Styling:** CSS variables + Tailwind CSS hybrid approach
 **Visualization:** Interactive visualization components live in `src/components/visualization/` and should use client runtime when browser APIs are required
@@ -85,9 +87,4 @@ ANALYZE=true npm run build
 - No CI/CD setup - relies on Vercel auto-deployment
 - Korean language content support in feeds
 - Current app dependencies include Next.js 16 and React 19
-- Agent execution rules: `.agent/rules/meta-prompt.md`
-- AI engineering guardrails: `.agent/rules/meta-prompt-engineering.md`
-- Personal communication rules: `.agent/rules/meta-prompt-personal-preferences.md`
-- Multi-model knowledge sync: `.agent/rules/meta-prompt-knowledge-sync.md`
-- Unified product rules: `.agent/rules/product-rules.md`
-- Toss-inspired engineering rules: `.agent/rules/meta-prompt-toss-inspired.md`
+- AI collaboration guide: `docs/guides/ai-collaboration.md`

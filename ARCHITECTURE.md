@@ -6,7 +6,7 @@ Last updated: 2026-02-27
 
 `eunu.log` is a Next.js App Router blog platform with:
 
-- File-based MDX content under `content/**`.
+- File-based MDX content under `posts/**`.
 - Static generation for blog routes.
 - Server-side view counting via Supabase RPC.
 - Client-side analytics via GA4 trackers.
@@ -43,7 +43,7 @@ Last updated: 2026-02-27
 - Server action:
   - `src/app/actions/view.ts` for increment/read view count.
 
-### Content Layer (`content/**` + `src/features/blog/services`)
+### Content Layer (`posts/**` + `src/features/blog/services`)
 
 - `src/features/blog/services/post-repository.ts` recursively discovers valid post folders (`index.mdx` + `meta.json`).
 - `meta.json` is validated with Zod (`FeedFrontmatterSchema`).
@@ -88,7 +88,7 @@ Last updated: 2026-02-27
 
 ### Blog Post Render Flow
 
-1. `generateStaticParams()` builds route list from content metadata.
+1. `generateStaticParams()` builds route list from posts metadata.
 2. Request to `/blog/[slug]` resolves post via `getFeedData(slug)`.
 3. MDX source is parsed for heading structure (TOC).
 4. MDX component renders with mapped custom components.
@@ -127,7 +127,7 @@ Last updated: 2026-02-27
 
 ## Decisions to Preserve
 
-1. Keep folder-based content (`content/**`) with `meta.json + index.mdx`.
+1. Keep folder-based content (`posts/**`) with `meta.json + index.mdx`.
 2. Keep Zod schema validation in content ingestion path.
 3. Keep token-first styling and avoid one-off visual constants where possible.
 4. Keep route-level separation for feed, OG, and view-count concerns.

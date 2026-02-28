@@ -1,18 +1,15 @@
 <div align="center">
 
-# ✨ Eunu.log
+# eunu.log
 
 [![Next.js](https://img.shields.io/badge/Next.js-16+-black?style=flat-square&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Three.js](https://img.shields.io/badge/Three.js-r150+-black?style=flat-square&logo=three.js)](https://threejs.org/)
 
 개인 블로그입니다!
 
 [Live Demo](https://eunu-log.vercel.app)
 
 </div>
-
----
 
 ## 🛠 Tech Stack
 
@@ -78,7 +75,10 @@ eunu.log/
 │   └── 📁 styles/              # Global styles & tokens
 ├── 📁 tests/
 │   └── 📁 e2e/                 # Centralized Playwright suites
-├── 📁 content/                  # Blog posts (MDX + metadata)
+├── 📁 internal/
+│   ├── 📁 config/              # Internal lint/spell configuration
+│   └── 📁 scripts/             # Internal automation/utility scripts
+├── 📁 posts/                    # Blog posts (MDX + metadata)
 │   └── 📁 [slug]/              # Each post in its own folder
 │       ├── index.mdx           # Post content
 │       └── meta.json           # Post metadata
@@ -195,7 +195,7 @@ npm run start
 
 ## 📝 Writing a Post
 
-1. `/content` 디렉토리에 slug 이름으로 폴더 생성 (예: `2025-01-20-my-post`)
+1. `/posts` 디렉토리에 slug 이름으로 폴더 생성 (예: `2025-01-20-my-post`)
 2. 폴더 내에 `meta.json` 파일 생성:
 
 ```json
@@ -218,6 +218,6 @@ npm run start
 
 <div align="center">
 
-**[⬆ Back to Top](#-eunulog)**
+**[⬆ Back to Top](#eunulog)**
 
 </div>

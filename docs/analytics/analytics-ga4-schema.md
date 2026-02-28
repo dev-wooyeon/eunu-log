@@ -3,7 +3,7 @@
 ## Measurement ID
 
 - 환경변수: `NEXT_PUBLIC_GA_MEASUREMENT_ID`
-- 적용 위치: `/Users/noah/workspace/personal/eunu.log/src/app/layout.tsx`
+- 적용 위치: `src/app/layout.tsx`
 
 ## Event Names
 

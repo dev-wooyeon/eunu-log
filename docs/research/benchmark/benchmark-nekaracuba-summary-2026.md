@@ -30,8 +30,8 @@
 
 ## Data Files
 
-- `/Users/noah/workspace/personal/eunu.log/docs/research/benchmark/benchmark-nekaracuba-corpus-2026.jsonl`
-- `/Users/noah/workspace/personal/eunu.log/docs/research/benchmark/benchmark-nekaracuba-summary-2026.md`
+- `docs/research/benchmark/benchmark-nekaracuba-corpus-2026.jsonl`
+- `docs/research/benchmark/benchmark-nekaracuba-summary-2026.md`
 
 ## Notes
 

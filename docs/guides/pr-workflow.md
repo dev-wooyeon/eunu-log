@@ -2,7 +2,7 @@
 
 ## 기본 규칙
 
-- PR 작성 시 `/Users/noah/workspace/personal/eunu.log/.github/pull_request_template.md` 템플릿을 그대로 사용합니다.
+- PR 작성 시 `.github/pull_request_template.md` 템플릿을 그대로 사용합니다.
 - `변경 내용 / 의도 / 영향 범위 / 검증`을 모두 채웁니다.
 
 ## 필수 체크

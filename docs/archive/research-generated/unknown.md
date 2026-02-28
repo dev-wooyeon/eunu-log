@@ -4,4 +4,4 @@ This file is intentionally singular for quick lookup.
 
 See the full generated report at:
 
-- `docs/research/generated/unknowns.md`
+- `docs/archive/research-generated/unknowns.md`

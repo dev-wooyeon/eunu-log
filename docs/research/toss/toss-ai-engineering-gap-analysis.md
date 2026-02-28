@@ -18,16 +18,16 @@
 
 - risk: 검색/SEO 경계에서 타입 안정성이 약해져 회귀 가능성 증가
 - evidence:
-  - `/Users/noah/workspace/personal/eunu.log/src/features/search/providers/KBarProvider.tsx:10`
-  - `/Users/noah/workspace/personal/eunu.log/src/components/seo/JsonLd.tsx:1`
-  - `/Users/noah/workspace/personal/eunu.log/src/features/search/lib/get-search-actions.ts:7`
+  - `src/features/search/providers/KBarProvider.tsx:10`
+  - `src/components/seo/JsonLd.tsx:1`
+  - `src/features/search/lib/get-search-actions.ts:7`
 - action: `PostSummary`/`JsonLdData` 타입 정의 후 `any` 제거
 
 2. **상태 완결 경계 부족 (`loading.tsx`/`error.tsx` 부재)**
 
 - risk: 네트워크/렌더링 실패 시 사용자 복구 경로가 약함
 - evidence:
-  - `/Users/noah/workspace/personal/eunu.log/src/app`
+  - `src/app`
 - action: `blog`, `resume`, `home`에 route-level loading/error 경계 추가
 
 ### P1
@@ -36,17 +36,17 @@
 
 - risk: 디자인 시스템 확장 시 일관성/유지보수성 저하
 - evidence:
-  - `/Users/noah/workspace/personal/eunu.log/src/features/blog/mdx/components.tsx:77`
-  - `/Users/noah/workspace/personal/eunu.log/src/features/blog/mdx/components.tsx:90`
-  - `/Users/noah/workspace/personal/eunu.log/src/app/resume/page.tsx:154`
+  - `src/features/blog/mdx/components.tsx:77`
+  - `src/features/blog/mdx/components.tsx:90`
+  - `src/app/resume/page.tsx:154`
 - action: 반복되는 `w-[2px]`, `rounded-[16px]`, `h-[500px]`를 토큰/유틸 클래스로 치환
 
 4. **하드코딩 색상 분산**
 
 - risk: 다크모드/브랜드 컬러 변경 시 영향 범위 예측 어려움
 - evidence:
-  - `/Users/noah/workspace/personal/eunu.log/src/app/api/og/route.tsx:30`
-  - `/Users/noah/workspace/personal/eunu.log/src/components/visualization/TwoPointerVisualization.tsx:47`
+  - `src/app/api/og/route.tsx:30`
+  - `src/components/visualization/TwoPointerVisualization.tsx:47`
 - action: 시각화/OG 전용 색상 토큰 분리 (`--color-og-*`, `--color-viz-*`)
 
 ### P2
@@ -55,7 +55,7 @@
 
 - risk: 리팩토링 속도 대비 회귀 탐지력이 약함
 - evidence:
-  - `/Users/noah/workspace/personal/eunu.log` 내 test 파일 2개
+  - `repository root` 내 test 파일 2개
 - action: 검색 액션 생성, 날짜/기간 계산, 토큰 매핑 로직 우선 단위 테스트 추가
 
 6. **접근성 체계 점검 자동화 부족**

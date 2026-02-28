@@ -2,9 +2,9 @@
 
 ## Scope
 
-- source corpus: `/Users/noah/workspace/personal/eunu.log/docs/research/toss/toss-uiux-fe-ds-article-corpus.md`
-- structured data: `/Users/noah/workspace/personal/eunu.log/docs/research/toss/toss-uiux-fe-ds-analysis-data.jsonl`
-- summary stats: `/Users/noah/workspace/personal/eunu.log/docs/research/toss/toss-uiux-fe-ds-analysis-summary.json`
+- source corpus: `docs/research/toss/toss-uiux-fe-ds-article-corpus.md`
+- structured data: `docs/research/toss/toss-uiux-fe-ds-analysis-data.jsonl`
+- summary stats: `docs/research/toss/toss-uiux-fe-ds-analysis-summary.json`
 - analyzed set: 100 articles (`https://toss.tech/article/*`)
 
 ## Method
