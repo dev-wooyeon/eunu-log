@@ -2,7 +2,7 @@ import { createHash } from 'crypto';
 import { promises as fs } from 'fs';
 import path from 'path';
 
-const CONTENT_DIR = path.join(process.cwd(), 'content');
+const POSTS_DIR = path.join(process.cwd(), 'posts');
 const PUBLIC_IMAGE_ROOT = path.join(process.cwd(), 'public', 'images', 'posts');
 
 const IMAGE_URL_REGEX =
@@ -94,7 +94,7 @@ async function localizeImagesInFile(filePath) {
     return { updated: false, downloads: 0, filePath };
   }
 
-  const slug = toPosixPath(path.relative(CONTENT_DIR, path.dirname(filePath)));
+  const slug = toPosixPath(path.relative(POSTS_DIR, path.dirname(filePath)));
   const outputDir = path.join(PUBLIC_IMAGE_ROOT, slug);
   await ensureDirectory(outputDir);
 
@@ -147,7 +147,7 @@ async function localizeImagesInFile(filePath) {
 }
 
 async function main() {
-  const mdxFiles = await walkDirectory(CONTENT_DIR);
+  const mdxFiles = await walkDirectory(POSTS_DIR);
   let updatedFiles = 0;
   let downloadedFiles = 0;
 
@@ -160,11 +160,11 @@ async function main() {
   }
 
   console.log(
-    `[localize-content-images] updated files: ${updatedFiles}, downloaded images: ${downloadedFiles}`
+    `[localize-post-images] updated files: ${updatedFiles}, downloaded images: ${downloadedFiles}`
   );
 }
 
 main().catch((error) => {
-  console.error('[localize-content-images] failed:', error);
+  console.error('[localize-post-images] failed:', error);
   process.exitCode = 1;
 });

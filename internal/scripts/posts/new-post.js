@@ -3,12 +3,8 @@ import path from 'path';
 import prompts from 'prompts';
 import chalk from 'chalk';
 import slugify from 'slugify';
-import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const CONTENT_DIR = path.join(__dirname, '../../content');
+const POSTS_DIR = path.join(process.cwd(), 'posts');
 
 async function main() {
   console.log(chalk.bold.blue('📝 Create a New Blog Post'));
@@ -66,14 +62,14 @@ async function main() {
 
   const { title, slug, description, category, tags } = response;
   const date = new Date().toISOString().split('T')[0];
-  const targetDir = path.join(CONTENT_DIR, slug);
+  const targetDir = path.join(POSTS_DIR, slug);
 
   try {
     // Check if directory exists
     try {
       await fs.access(targetDir);
       console.error(
-        chalk.red(`Error: Directory content/${slug} already exists!`)
+        chalk.red(`Error: Directory posts/${slug} already exists!`)
       );
       process.exit(1);
     } catch (e) {
@@ -106,9 +102,9 @@ Write your post content here...
     await fs.writeFile(path.join(targetDir, 'index.mdx'), mdxContent.trim());
 
     console.log(chalk.green(`\n✅ Successfully created new post!`));
-    console.log(`📂 Directory: ${chalk.cyan(`content/${slug}`)}`);
-    console.log(`📄 Meta: ${chalk.cyan(`content/${slug}/meta.json`)}`);
-    console.log(`📝 Content: ${chalk.cyan(`content/${slug}/index.mdx`)}\n`);
+    console.log(`📂 Directory: ${chalk.cyan(`posts/${slug}`)}`);
+    console.log(`📄 Meta: ${chalk.cyan(`posts/${slug}/meta.json`)}`);
+    console.log(`📝 Content: ${chalk.cyan(`posts/${slug}/index.mdx`)}\n`);
   } catch (error) {
     console.error(chalk.red('Failed to create post:'), error);
   }

@@ -16,6 +16,7 @@
     "ignores": [
         "node_modules",
         ".next",
+        ".cache",
         "out"
     ]
 }

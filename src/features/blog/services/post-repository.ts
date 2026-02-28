@@ -3,7 +3,7 @@ import path from 'path';
 import type { FeedData, Feed, FeedFrontmatter } from '@/domains/post/model/types';
 import { FeedFrontmatterSchema } from '@/domains/post/model/frontmatter-schema';
 
-const contentDirectory = path.join(process.cwd(), 'content');
+const postsDirectory = path.join(process.cwd(), 'posts');
 const isProduction = process.env.NODE_ENV === 'production';
 
 // Cache for folder path lookups by slug
@@ -54,8 +54,8 @@ function isDirectory(p: string): boolean {
   }
 }
 
-// Recursively find all content folders (folders with index.mdx + meta.json)
-function findAllContentFolders(dir: string, relativePath: string = ''): string[] {
+// Recursively find all post folders (folders with index.mdx + meta.json)
+function findAllPostFolders(dir: string, relativePath: string = ''): string[] {
   const folders: string[] = [];
   const items = safeReaddir(dir);
 
@@ -74,7 +74,7 @@ function findAllContentFolders(dir: string, relativePath: string = ''): string[]
     }
 
     // Recursively search subdirectories (for series folders)
-    const subFolders = findAllContentFolders(fullPath, currentRelPath);
+    const subFolders = findAllPostFolders(fullPath, currentRelPath);
     folders.push(...subFolders);
   }
 
@@ -106,9 +106,9 @@ function calculateReadingTime(content: string): number {
   return Math.ceil(length / 500) || 1; // 500 characters per minute, min 1 min
 }
 
-// Load metadata from JSON file (folder path relative to content/)
+// Load metadata from JSON file (folder path relative to posts/)
 function loadMetadata(folderPath: string): FeedFrontmatter | null {
-  const metaPath = path.join(contentDirectory, folderPath, 'meta.json');
+  const metaPath = path.join(postsDirectory, folderPath, 'meta.json');
   const metaContents = safeReadFile(metaPath);
 
   if (!metaContents) {
@@ -126,7 +126,7 @@ function loadMetadata(folderPath: string): FeedFrontmatter | null {
 
     // Auto-calculate reading time if not present
     if (!metadata.readingTime) {
-      const mdxPath = path.join(contentDirectory, folderPath, 'index.mdx');
+      const mdxPath = path.join(postsDirectory, folderPath, 'index.mdx');
       const mdxContents = safeReadFile(mdxPath);
       if (mdxContents) {
         metadata.readingTime = calculateReadingTime(mdxContents);
@@ -161,7 +161,7 @@ export function getFolderSlug(slug: string): string | null {
   }
 
   // If not cached, scan all folders to build cache
-  const allFolders = findAllContentFolders(contentDirectory);
+  const allFolders = findAllPostFolders(postsDirectory);
 
   for (const folderPath of allFolders) {
     const metadata = loadMetadata(folderPath);
@@ -184,12 +184,12 @@ export function getSortedFeedData(): FeedData[] {
     return cachedSortedFeedData;
   }
 
-  if (!safeExists(contentDirectory)) {
-    console.warn('Content directory does not exist');
+  if (!safeExists(postsDirectory)) {
+    console.warn('Posts directory does not exist');
     return [];
   }
 
-  const allFolders = findAllContentFolders(contentDirectory);
+  const allFolders = findAllPostFolders(postsDirectory);
 
   const allFeedData = allFolders
     .map((folderPath) => {
@@ -238,7 +238,7 @@ export async function getFeedData(slug: string): Promise<Feed | null> {
 
   try {
     // Dynamic import of MDX file using folder path
-    const mdxModule = await import(`@/../content/${folderPath}/index.mdx`);
+    const mdxModule = await import(`@/../posts/${folderPath}/index.mdx`);
 
     return {
       ...metadata,

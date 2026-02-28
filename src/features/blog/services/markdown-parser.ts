@@ -64,8 +64,8 @@ export function parseHeadingsFromMdx(mdxContent: string): TocItem[] {
 export function getMdxSource(slug: string): string | null {
   try {
     const folderSlug = getFolderSlug(slug) || slug;
-    const contentDirectory = path.join(process.cwd(), 'content');
-    const filePath = path.join(contentDirectory, folderSlug, 'index.mdx');
+    const postsDirectory = path.join(process.cwd(), 'posts');
+    const filePath = path.join(postsDirectory, folderSlug, 'index.mdx');
     return fs.readFileSync(filePath, 'utf8');
   } catch (error) {
     console.error(`Failed to read MDX source for ${slug}:`, error);
