@@ -7,11 +7,11 @@ import {
   getSeriesPosts,
   getSortedFeedData,
   getAllFeedSlugs,
-} from './mdx-feeds';
+} from './post-repository';
 
-const contentDirectory = path.join(process.cwd(), 'content');
+const postsDirectory = path.join(process.cwd(), 'posts');
 
-describe('mdx-feeds utilities', () => {
+describe('post repository utilities', () => {
   it('returns posts sorted by date in descending order', () => {
     const posts = getSortedFeedData();
 
@@ -40,7 +40,7 @@ describe('mdx-feeds utilities', () => {
     expect(slugs.every((item) => item.slug.length > 0)).toBe(true);
   });
 
-  it('returns null for non-existent content folder slug', () => {
+  it('returns null for non-existent posts folder slug', () => {
     expect(getFolderSlug('missing-folder-slug')).toBeNull();
   });
 
@@ -50,11 +50,11 @@ describe('mdx-feeds utilities', () => {
     expect(feed).toBeNull();
   });
 
-  it('returns empty feed list when reading content directory fails', () => {
+  it('returns empty feed list when reading posts directory fails', () => {
     const readdirSpy = vi
       .spyOn(fs, 'readdirSync')
       .mockImplementation(() => {
-        throw new Error('Content directory unavailable');
+        throw new Error('Posts directory unavailable');
       });
 
     try {
@@ -70,20 +70,20 @@ describe('mdx-feeds utilities', () => {
       .spyOn(fs, 'readdirSync')
       .mockImplementation((target) => {
         const targetPath = String(target);
-        if (targetPath === contentDirectory) {
+        if (targetPath === postsDirectory) {
           return ['broken-folder'];
         }
-        if (targetPath === path.join(contentDirectory, 'broken-folder')) {
+        if (targetPath === path.join(postsDirectory, 'broken-folder')) {
           return [];
         }
         return [];
       });
     const existsSpy = vi.spyOn(fs, 'existsSync').mockImplementation((target) => {
-      const targetPath = String(target);
-      return (
-        targetPath ===
-          path.join(contentDirectory, 'broken-folder', 'index.mdx') ||
-        targetPath === path.join(contentDirectory, 'broken-folder', 'meta.json')
+        const targetPath = String(target);
+        return (
+          targetPath ===
+          path.join(postsDirectory, 'broken-folder', 'index.mdx') ||
+        targetPath === path.join(postsDirectory, 'broken-folder', 'meta.json')
       );
     });
     const statSpy = vi
@@ -94,7 +94,7 @@ describe('mdx-feeds utilities', () => {
       .mockImplementation((target) => {
         const targetPath = String(target);
 
-        if (targetPath === path.join(contentDirectory, 'broken-folder', 'meta.json')) {
+        if (targetPath === path.join(postsDirectory, 'broken-folder', 'meta.json')) {
           return '{invalid-json';
         }
 

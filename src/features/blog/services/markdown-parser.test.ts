@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getMdxSource, parseHeadingsFromMdx } from './markdown';
+import { getMdxSource, parseHeadingsFromMdx } from './markdown-parser';
 
 describe('parseHeadingsFromMdx', () => {
   it('parses headings and keeps duplicate ids unique', () => {

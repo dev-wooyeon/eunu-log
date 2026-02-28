@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { getSearchActions } from './search';
+import { getSearchActions } from './get-search-actions';
 
 const mockTrackEvent = vi.fn();
 
