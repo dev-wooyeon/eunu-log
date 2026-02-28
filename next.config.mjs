@@ -15,7 +15,6 @@ const prettyCodeOptions = {
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  distDir: '.cache/next',
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   images: {
     formats: ['image/avif', 'image/webp'],
