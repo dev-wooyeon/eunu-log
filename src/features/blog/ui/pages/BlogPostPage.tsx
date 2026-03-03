@@ -1,7 +1,14 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getFeedData, getAllFeedSlugs, getSeriesPosts } from '@/features/blog/services/post-repository';
-import { getMdxSource, parseHeadingsFromMdx } from '@/features/blog/services/markdown-parser';
+import {
+  getFeedData,
+  getAllFeedSlugs,
+  getSeriesPosts,
+} from '@/features/blog/services/post-repository';
+import {
+  getMdxSource,
+  parseHeadingsFromMdx,
+} from '@/features/blog/services/markdown-parser';
 import { Header, Container } from '@/shared/layout';
 import {
   ReadingProgress,
@@ -168,7 +175,7 @@ export default async function BlogPostPage({
         }}
       />
 
-      <TableOfContents items={tocItems} />
+      <TableOfContents items={tocItems} postSlug={post.slug} />
     </>
   );
 }

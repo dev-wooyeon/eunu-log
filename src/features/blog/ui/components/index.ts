@@ -10,6 +10,7 @@ export type { CategoryFilterProps, Category } from './CategoryFilter';
 
 export { TableOfContents } from './TableOfContents';
 export type { TableOfContentsProps, TocItem } from './TableOfContents';
+export { default as MobileTocSheet } from './MobileTocSheet';
 
 export { ReadingProgress } from './ReadingProgress';
 export { ImageGrid } from './ImageGrid';
