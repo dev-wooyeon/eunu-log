@@ -4,3 +4,4 @@ export { default as GraphTraversalVisualization } from './GraphTraversalVisualiz
 export { default as SlidingWindowVisualization } from './SlidingWindowVisualization';
 export { default as SortingVisualization } from './SortingVisualization';
 export { default as TwoPointerVisualization } from './TwoPointerVisualization';
+export { default as VisualizationFrame } from './VisualizationFrame';

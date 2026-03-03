@@ -4,6 +4,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Text } from '@react-three/drei';
 import * as THREE from 'three';
+import { AnalyticsEvents, trackEvent } from '@/shared/analytics/lib/analytics';
+import {
+  type MotionMode,
+  useEffectiveMotionMode,
+} from '@/shared/motion/model/motion-mode';
+import VisualizationFrame, {
+  VisualizationFallback,
+} from './VisualizationFrame';
 
 interface Bar {
   value: number;
@@ -15,16 +23,18 @@ function Bar3D({
   position,
   height,
   status,
+  allowPulse,
 }: {
   position: [number, number, number];
   height: number;
   status: string;
+  allowPulse: boolean;
 }) {
   const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame(() => {
     if (meshRef.current) {
-      if (status === 'swapping') {
+      if (status === 'swapping' && allowPulse) {
         const scale = 1 + Math.sin(Date.now() * 0.01) * 0.1;
         meshRef.current.scale.set(1, scale, 1);
       } else {
@@ -70,7 +80,13 @@ function Bar3D({
 }
 
 // Scene component
-function SortingScene({ bars }: { bars: Bar[] }) {
+function SortingScene({
+  bars,
+  allowPulse,
+}: {
+  bars: Bar[];
+  allowPulse: boolean;
+}) {
   const spacing = 1.2;
   const startX = (-(bars.length - 1) * spacing) / 2;
 
@@ -86,6 +102,7 @@ function SortingScene({ bars }: { bars: Bar[] }) {
           position={[startX + index * spacing, 0, 0]}
           height={bar.value}
           status={bar.status}
+          allowPulse={allowPulse}
         />
       ))}
 
@@ -100,13 +117,26 @@ function SortingScene({ bars }: { bars: Bar[] }) {
   );
 }
 
-export default function SortingVisualization() {
+interface SortingVisualizationProps {
+  motionMode?: MotionMode;
+  defaultPlaying?: boolean;
+}
+
+export default function SortingVisualization({
+  motionMode,
+  defaultPlaying = false,
+}: SortingVisualizationProps) {
+  const effectiveMotionMode = useEffectiveMotionMode(motionMode);
+  const allowPulse = effectiveMotionMode === 'full';
+  const isCanvasDisabled = effectiveMotionMode === 'off';
   const [algorithm, setAlgorithm] = useState<'quick' | 'merge' | 'heap'>(
     'quick'
   );
   const [bars, setBars] = useState<Bar[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState(500);
+  const previousPlayingRef = useRef(isPlaying);
+  const hasAutoStartedRef = useRef(false);
 
   // Initialize random array
   const initializeArray = () => {
@@ -124,6 +154,15 @@ export default function SortingVisualization() {
   useEffect(() => {
     initializeArray();
   }, []);
+
+  useEffect(() => {
+    if (defaultPlaying && bars.length > 0 && !hasAutoStartedRef.current) {
+      hasAutoStartedRef.current = true;
+      void handleStart();
+    }
+    // Trigger auto-start once only after data is ready.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultPlaying, bars.length]);
 
   // Quick Sort
   const quickSort = async () => {
@@ -333,8 +372,35 @@ export default function SortingVisualization() {
     initializeArray();
   };
 
+  useEffect(() => {
+    if (isPlaying && !previousPlayingRef.current) {
+      trackEvent(AnalyticsEvents.visualizationStarted, {
+        component_name: 'SortingVisualization',
+        algorithm,
+        motion_mode: effectiveMotionMode,
+        surface: 'blog_post',
+      });
+    }
+
+    if (!isPlaying && previousPlayingRef.current) {
+      trackEvent(AnalyticsEvents.visualizationPaused, {
+        component_name: 'SortingVisualization',
+        algorithm,
+        motion_mode: effectiveMotionMode,
+        surface: 'blog_post',
+      });
+    }
+
+    previousPlayingRef.current = isPlaying;
+  }, [algorithm, effectiveMotionMode, isPlaying]);
+
   return (
-    <div className="w-full space-y-4">
+    <VisualizationFrame
+      title="정렬 알고리즘 시각화"
+      controlsHint="알고리즘과 속도를 설정한 뒤 시작하면 비교/교환 과정을 단계별로 보여줍니다."
+      motionMode={effectiveMotionMode}
+      statusText={isPlaying ? '정렬 진행 중' : '대기 중'}
+    >
       {/* Controls */}
       <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-6 shadow-xl">
         <div className="flex flex-wrap gap-4 items-center justify-between">
@@ -435,11 +501,18 @@ export default function SortingVisualization() {
 
       {/* Canvas */}
       <div className="w-full h-[500px] bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl overflow-hidden shadow-2xl">
-        <Canvas camera={{ position: [0, 5, 12], fov: 50 }}>
-          <color attach="background" args={['#0f172a']} />
-          <SortingScene bars={bars} />
-        </Canvas>
+        {isCanvasDisabled ? (
+          <VisualizationFallback
+            title="3D 뷰가 꺼져 있습니다"
+            description="모션 모드가 꺼짐 상태라 3D 렌더링을 생략했습니다. 상단 모션 버튼에서 자동 또는 축소 모드로 변경하면 다시 볼 수 있습니다."
+          />
+        ) : (
+          <Canvas dpr={[1, 1.5]} camera={{ position: [0, 5, 12], fov: 50 }}>
+            <color attach="background" args={['#0f172a']} />
+            <SortingScene bars={bars} allowPulse={allowPulse} />
+          </Canvas>
+        )}
       </div>
-    </div>
+    </VisualizationFrame>
   );
 }

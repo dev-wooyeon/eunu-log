@@ -4,6 +4,14 @@ import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Text, Line } from '@react-three/drei';
 import * as THREE from 'three';
+import { AnalyticsEvents, trackEvent } from '@/shared/analytics/lib/analytics';
+import {
+  type MotionMode,
+  useEffectiveMotionMode,
+} from '@/shared/motion/model/motion-mode';
+import VisualizationFrame, {
+  VisualizationFallback,
+} from './VisualizationFrame';
 
 // Graph node structure
 interface GraphNode {
@@ -19,12 +27,14 @@ function Node({
   isVisited,
   isActive,
   isQueued,
+  allowPulse,
 }: {
   position: [number, number, number];
   label: string;
   isVisited: boolean;
   isActive: boolean;
   isQueued: boolean;
+  allowPulse: boolean;
 }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
@@ -32,7 +42,7 @@ function Node({
   useFrame(() => {
     if (meshRef.current) {
       // Pulse animation for active node
-      if (isActive) {
+      if (isActive && allowPulse) {
         const scale = 1 + Math.sin(Date.now() * 0.005) * 0.2;
         meshRef.current.scale.setScalar(scale);
       } else {
@@ -111,12 +121,14 @@ function GraphScene({
   activeNode,
   queuedNodes,
   traversedEdges,
+  allowPulse,
 }: {
   nodes: GraphNode[];
   visitedNodes: Set<number>;
   activeNode: number | null;
   queuedNodes: Set<number>;
   traversedEdges: Set<string>;
+  allowPulse: boolean;
 }) {
   return (
     <>
@@ -155,6 +167,7 @@ function GraphScene({
           isVisited={visitedNodes.has(node.id)}
           isActive={activeNode === node.id}
           isQueued={queuedNodes.has(node.id)}
+          allowPulse={allowPulse}
         />
       ))}
 
@@ -169,16 +182,28 @@ function GraphScene({
   );
 }
 
+interface GraphTraversalVisualizationProps {
+  motionMode?: MotionMode;
+  defaultPlaying?: boolean;
+}
+
 // Main visualization component
-export default function GraphTraversalVisualization() {
+export default function GraphTraversalVisualization({
+  motionMode,
+  defaultPlaying = false,
+}: GraphTraversalVisualizationProps) {
+  const effectiveMotionMode = useEffectiveMotionMode(motionMode);
+  const allowPulse = effectiveMotionMode === 'full';
+  const isCanvasDisabled = effectiveMotionMode === 'off';
   const [algorithm, setAlgorithm] = useState<'DFS' | 'BFS'>('DFS');
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(defaultPlaying);
   const [visitedNodes, setVisitedNodes] = useState<Set<number>>(new Set());
   const [activeNode, setActiveNode] = useState<number | null>(null);
   const [queuedNodes, setQueuedNodes] = useState<Set<number>>(new Set());
   const [traversedEdges, setTraversedEdges] = useState<Set<string>>(new Set());
   const [currentStep, setCurrentStep] = useState(0);
   const [traversalPath, setTraversalPath] = useState<number[]>([]);
+  const previousPlayingRef = useRef(isPlaying);
 
   // Define graph structure (tree-like graph)
   const nodes: GraphNode[] = useMemo(
@@ -263,6 +288,36 @@ export default function GraphTraversalVisualization() {
     }
   };
 
+  useEffect(() => {
+    if (defaultPlaying && traversalPath.length === 0) {
+      togglePlayPause();
+    }
+    // Only runs when autoplay is requested for the initial render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultPlaying]);
+
+  useEffect(() => {
+    if (isPlaying && !previousPlayingRef.current) {
+      trackEvent(AnalyticsEvents.visualizationStarted, {
+        component_name: 'GraphTraversalVisualization',
+        algorithm,
+        motion_mode: effectiveMotionMode,
+        surface: 'blog_post',
+      });
+    }
+
+    if (!isPlaying && previousPlayingRef.current) {
+      trackEvent(AnalyticsEvents.visualizationPaused, {
+        component_name: 'GraphTraversalVisualization',
+        algorithm,
+        motion_mode: effectiveMotionMode,
+        surface: 'blog_post',
+      });
+    }
+
+    previousPlayingRef.current = isPlaying;
+  }, [algorithm, effectiveMotionMode, isPlaying]);
+
   // Handle algorithm change
   const handleAlgorithmChange = (newAlgorithm: 'DFS' | 'BFS') => {
     setAlgorithm(newAlgorithm);
@@ -314,8 +369,13 @@ export default function GraphTraversalVisualization() {
   }, [isPlaying, currentStep, traversalPath, algorithm]);
 
   return (
-    <div className="w-full space-y-4">
-      {/* Controls & Legend */}
+    <VisualizationFrame
+      title="그래프 순회 시각화"
+      controlsHint="DFS/BFS를 선택하고 재생을 누르면 탐색 과정을 단계별로 확인할 수 있습니다."
+      motionMode={effectiveMotionMode}
+      isPlaying={isPlaying}
+      statusText={isPlaying ? '탐색 진행 중' : '대기 중'}
+    >
       <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-6 shadow-xl">
         <div className="space-y-6">
           <div className="flex flex-wrap gap-4 items-center justify-between">
@@ -426,17 +486,25 @@ export default function GraphTraversalVisualization() {
 
       {/* Canvas */}
       <div className="w-full h-[500px] bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl overflow-hidden shadow-2xl">
-        <Canvas camera={{ position: [0, 0, 12], fov: 50 }}>
-          <color attach="background" args={['#0f172a']} />
-          <GraphScene
-            nodes={nodes}
-            visitedNodes={visitedNodes}
-            activeNode={activeNode}
-            queuedNodes={queuedNodes}
-            traversedEdges={traversedEdges}
+        {isCanvasDisabled ? (
+          <VisualizationFallback
+            title="3D 뷰가 꺼져 있습니다"
+            description="모션 모드가 꺼짐 상태라 3D 렌더링을 생략했습니다. 상단 모션 버튼에서 자동 또는 축소 모드로 변경하면 다시 볼 수 있습니다."
           />
-        </Canvas>
+        ) : (
+          <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0, 12], fov: 50 }}>
+            <color attach="background" args={['#0f172a']} />
+            <GraphScene
+              nodes={nodes}
+              visitedNodes={visitedNodes}
+              activeNode={activeNode}
+              queuedNodes={queuedNodes}
+              traversedEdges={traversedEdges}
+              allowPulse={allowPulse}
+            />
+          </Canvas>
+        )}
       </div>
-    </div>
+    </VisualizationFrame>
   );
 }
