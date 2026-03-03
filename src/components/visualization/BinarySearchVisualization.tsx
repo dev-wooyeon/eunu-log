@@ -4,6 +4,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Text } from '@react-three/drei';
 import * as THREE from 'three';
+import { AnalyticsEvents, trackEvent } from '@/shared/analytics/lib/analytics';
+import {
+  type MotionMode,
+  useEffectiveMotionMode,
+} from '@/shared/motion/model/motion-mode';
+import VisualizationFrame, {
+  VisualizationFallback,
+} from './VisualizationFrame';
 
 interface Element {
   value: number;
@@ -15,15 +23,17 @@ function Box3D({
   position,
   value,
   status,
+  allowPulse,
 }: {
   position: [number, number, number];
   value: number;
   status: string;
+  allowPulse: boolean;
 }) {
   const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame(() => {
-    if (meshRef.current && status === 'mid') {
+    if (meshRef.current && status === 'mid' && allowPulse) {
       const scale = 1 + Math.sin(Date.now() * 0.005) * 0.15;
       meshRef.current.scale.setScalar(scale);
     } else if (meshRef.current) {
@@ -107,7 +117,13 @@ function Box3D({
 }
 
 // Scene component
-function BinarySearchScene({ elements }: { elements: Element[] }) {
+function BinarySearchScene({
+  elements,
+  allowPulse,
+}: {
+  elements: Element[];
+  allowPulse: boolean;
+}) {
   const spacing = 1.2;
   const startX = (-(elements.length - 1) * spacing) / 2;
 
@@ -123,6 +139,7 @@ function BinarySearchScene({ elements }: { elements: Element[] }) {
           position={[startX + index * spacing, 0, 0]}
           value={element.value}
           status={element.status}
+          allowPulse={allowPulse}
         />
       ))}
 
@@ -137,12 +154,25 @@ function BinarySearchScene({ elements }: { elements: Element[] }) {
   );
 }
 
-export default function BinarySearchVisualization() {
+interface BinarySearchVisualizationProps {
+  motionMode?: MotionMode;
+  defaultPlaying?: boolean;
+}
+
+export default function BinarySearchVisualization({
+  motionMode,
+  defaultPlaying = false,
+}: BinarySearchVisualizationProps) {
+  const effectiveMotionMode = useEffectiveMotionMode(motionMode);
+  const allowPulse = effectiveMotionMode === 'full';
+  const isCanvasDisabled = effectiveMotionMode === 'off';
   const [elements, setElements] = useState<Element[]>([]);
   const [target, setTarget] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [message, setMessage] = useState('');
   const [speed, setSpeed] = useState(800);
+  const previousPlayingRef = useRef(isPlaying);
+  const hasAutoStartedRef = useRef(false);
 
   // Initialize sorted array
   const initializeArray = () => {
@@ -164,6 +194,15 @@ export default function BinarySearchVisualization() {
   useEffect(() => {
     initializeArray();
   }, []);
+
+  useEffect(() => {
+    if (defaultPlaying && elements.length > 0 && !hasAutoStartedRef.current) {
+      hasAutoStartedRef.current = true;
+      void binarySearch();
+    }
+    // Trigger auto-start once only after data is ready.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultPlaying, elements.length]);
 
   const sleep = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));
@@ -231,8 +270,33 @@ export default function BinarySearchVisualization() {
     setIsPlaying(false);
   };
 
+  useEffect(() => {
+    if (isPlaying && !previousPlayingRef.current) {
+      trackEvent(AnalyticsEvents.visualizationStarted, {
+        component_name: 'BinarySearchVisualization',
+        motion_mode: effectiveMotionMode,
+        surface: 'blog_post',
+      });
+    }
+
+    if (!isPlaying && previousPlayingRef.current) {
+      trackEvent(AnalyticsEvents.visualizationPaused, {
+        component_name: 'BinarySearchVisualization',
+        motion_mode: effectiveMotionMode,
+        surface: 'blog_post',
+      });
+    }
+
+    previousPlayingRef.current = isPlaying;
+  }, [effectiveMotionMode, isPlaying]);
+
   return (
-    <div className="w-full space-y-4">
+    <VisualizationFrame
+      title="이진 탐색 시각화"
+      controlsHint="목표 값을 설정하고 탐색 시작을 누르면 포인터가 이동하는 과정을 따라갈 수 있습니다."
+      motionMode={effectiveMotionMode}
+      statusText={isPlaying ? '탐색 진행 중' : '대기 중'}
+    >
       {/* Controls */}
       <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-6 shadow-xl">
         <div className="space-y-4">
@@ -327,11 +391,18 @@ export default function BinarySearchVisualization() {
 
       {/* Canvas */}
       <div className="w-full h-[500px] bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl overflow-hidden shadow-2xl">
-        <Canvas camera={{ position: [0, 3, 12], fov: 50 }}>
-          <color attach="background" args={['#0f172a']} />
-          <BinarySearchScene elements={elements} />
-        </Canvas>
+        {isCanvasDisabled ? (
+          <VisualizationFallback
+            title="3D 뷰가 꺼져 있습니다"
+            description="모션 모드가 꺼짐 상태라 3D 렌더링을 생략했습니다. 상단 모션 버튼에서 자동 또는 축소 모드로 변경하면 다시 볼 수 있습니다."
+          />
+        ) : (
+          <Canvas dpr={[1, 1.5]} camera={{ position: [0, 3, 12], fov: 50 }}>
+            <color attach="background" args={['#0f172a']} />
+            <BinarySearchScene elements={elements} allowPulse={allowPulse} />
+          </Canvas>
+        )}
       </div>
-    </div>
+    </VisualizationFrame>
   );
 }

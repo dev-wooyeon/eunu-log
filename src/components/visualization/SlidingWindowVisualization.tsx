@@ -4,6 +4,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Text } from '@react-three/drei';
 import * as THREE from 'three';
+import { AnalyticsEvents, trackEvent } from '@/shared/analytics/lib/analytics';
+import {
+  type MotionMode,
+  useEffectiveMotionMode,
+} from '@/shared/motion/model/motion-mode';
+import VisualizationFrame, {
+  VisualizationFallback,
+} from './VisualizationFrame';
 
 interface Element {
   value: number;
@@ -15,15 +23,17 @@ function Box3DWindow({
   position,
   value,
   status,
+  allowPulse,
 }: {
   position: [number, number, number];
   value: number;
   status: string;
+  allowPulse: boolean;
 }) {
   const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame(() => {
-    if (meshRef.current && status === 'max-window') {
+    if (meshRef.current && status === 'max-window' && allowPulse) {
       const scale = 1 + Math.sin(Date.now() * 0.008) * 0.12;
       meshRef.current.scale.setScalar(scale);
     } else if (meshRef.current) {
@@ -124,10 +134,12 @@ function SlidingWindowScene({
   elements,
   windowStart,
   windowSize,
+  allowPulse,
 }: {
   elements: Element[];
   windowStart: number;
   windowSize: number;
+  allowPulse: boolean;
 }) {
   const spacing = 1.2;
   const startX = (-(elements.length - 1) * spacing) / 2;
@@ -154,6 +166,7 @@ function SlidingWindowScene({
           position={[startX + index * spacing, 0, 0]}
           value={element.value}
           status={element.status}
+          allowPulse={allowPulse}
         />
       ))}
 
@@ -168,7 +181,18 @@ function SlidingWindowScene({
   );
 }
 
-export default function SlidingWindowVisualization() {
+interface SlidingWindowVisualizationProps {
+  motionMode?: MotionMode;
+  defaultPlaying?: boolean;
+}
+
+export default function SlidingWindowVisualization({
+  motionMode,
+  defaultPlaying = false,
+}: SlidingWindowVisualizationProps) {
+  const effectiveMotionMode = useEffectiveMotionMode(motionMode);
+  const allowPulse = effectiveMotionMode === 'full';
+  const isCanvasDisabled = effectiveMotionMode === 'off';
   const [elements, setElements] = useState<Element[]>([]);
   const [windowSize, setWindowSize] = useState(3);
   const [windowStart, setWindowStart] = useState(-1);
@@ -177,6 +201,8 @@ export default function SlidingWindowVisualization() {
   const [maxSum, setMaxSum] = useState(0);
   const [maxWindowStart, setMaxWindowStart] = useState(-1);
   const [speed, setSpeed] = useState(800);
+  const previousPlayingRef = useRef(isPlaying);
+  const hasAutoStartedRef = useRef(false);
 
   // Initialize array
   const initializeArray = () => {
@@ -198,6 +224,15 @@ export default function SlidingWindowVisualization() {
   useEffect(() => {
     initializeArray();
   }, []);
+
+  useEffect(() => {
+    if (defaultPlaying && elements.length > 0 && !hasAutoStartedRef.current) {
+      hasAutoStartedRef.current = true;
+      void slidingWindow();
+    }
+    // Trigger auto-start once only after data is ready.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultPlaying, elements.length]);
 
   const sleep = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));
@@ -281,8 +316,33 @@ export default function SlidingWindowVisualization() {
     setIsPlaying(false);
   };
 
+  useEffect(() => {
+    if (isPlaying && !previousPlayingRef.current) {
+      trackEvent(AnalyticsEvents.visualizationStarted, {
+        component_name: 'SlidingWindowVisualization',
+        motion_mode: effectiveMotionMode,
+        surface: 'blog_post',
+      });
+    }
+
+    if (!isPlaying && previousPlayingRef.current) {
+      trackEvent(AnalyticsEvents.visualizationPaused, {
+        component_name: 'SlidingWindowVisualization',
+        motion_mode: effectiveMotionMode,
+        surface: 'blog_post',
+      });
+    }
+
+    previousPlayingRef.current = isPlaying;
+  }, [effectiveMotionMode, isPlaying]);
+
   return (
-    <div className="w-full space-y-4">
+    <VisualizationFrame
+      title="슬라이딩 윈도우 시각화"
+      controlsHint="윈도우 크기를 설정하고 시작하면 윈도우 이동과 최대 합 갱신을 확인할 수 있습니다."
+      motionMode={effectiveMotionMode}
+      statusText={isPlaying ? '탐색 진행 중' : '대기 중'}
+    >
       {/* Controls */}
       <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-6 shadow-xl">
         <div className="space-y-4">
@@ -406,15 +466,23 @@ export default function SlidingWindowVisualization() {
 
       {/* Canvas */}
       <div className="w-full h-[500px] bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl overflow-hidden shadow-2xl">
-        <Canvas camera={{ position: [0, 3, 12], fov: 50 }}>
-          <color attach="background" args={['#0f172a']} />
-          <SlidingWindowScene
-            elements={elements}
-            windowStart={windowStart}
-            windowSize={windowSize}
+        {isCanvasDisabled ? (
+          <VisualizationFallback
+            title="3D 뷰가 꺼져 있습니다"
+            description="모션 모드가 꺼짐 상태라 3D 렌더링을 생략했습니다. 상단 모션 버튼에서 자동 또는 축소 모드로 변경하면 다시 볼 수 있습니다."
           />
-        </Canvas>
+        ) : (
+          <Canvas dpr={[1, 1.5]} camera={{ position: [0, 3, 12], fov: 50 }}>
+            <color attach="background" args={['#0f172a']} />
+            <SlidingWindowScene
+              elements={elements}
+              windowStart={windowStart}
+              windowSize={windowSize}
+              allowPulse={allowPulse}
+            />
+          </Canvas>
+        )}
       </div>
-    </div>
+    </VisualizationFrame>
   );
 }
