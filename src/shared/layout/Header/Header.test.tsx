@@ -113,7 +113,7 @@ describe('Header', () => {
     render(<Header />);
 
     act(() => {
-      screen.getByRole('button', { name: /검색/ }).click();
+      screen.getByRole('button', { name: '검색 열기' }).click();
     });
 
     expect(mockToggle).toHaveBeenCalledTimes(1);

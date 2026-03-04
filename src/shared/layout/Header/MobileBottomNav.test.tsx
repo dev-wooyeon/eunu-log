@@ -43,13 +43,13 @@ vi.mock('@/shared/analytics/lib/analytics', () => {
 });
 
 describe('MobileBottomNav', () => {
-  it('renders four mobile nav items', () => {
+  it('renders four mobile nav links', () => {
     render(<MobileBottomNav pathname="/" visible />);
 
     expect(screen.getByRole('link', { name: '홈' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Engineering' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Life' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: '이력서' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Resume' })).toBeInTheDocument();
   });
 
   it('marks active item based on exact home path', async () => {
@@ -77,24 +77,29 @@ describe('MobileBottomNav', () => {
 
     expect(lifeContent).toHaveClass('border-transparent');
     expect(lifeContent).toHaveClass('hover:bg-[var(--mobile-nav-hover-bg)]');
+    expect(lifeContent).toHaveClass('group-active:bg-[var(--mobile-nav-hover-bg)]');
     expect(lifeContent).toHaveClass('min-h-14');
   });
 
-  it('applies focus token classes on each nav control', async () => {
+  it('applies focus and touch token classes on each nav control', async () => {
     render(<MobileBottomNav pathname="/" visible />);
 
     const home = await screen.findByRole('link', { name: '홈' });
     expect(home).toHaveClass('focus-visible:ring-[var(--mobile-nav-focus-ring)]');
     expect(home).toHaveClass('focus-visible:ring-offset-[var(--mobile-nav-focus-offset)]');
+    expect(home).toHaveClass('touch-manipulation');
+    expect(home).toHaveClass('active:scale-[0.97]');
   });
 
-  it('tracks analytics on link click', async () => {
+  it('tracks analytics on tab click', async () => {
+    mockTrackEvent.mockClear();
+
     await act(async () => {
       render(<MobileBottomNav pathname="/engineering" visible />);
       await Promise.resolve();
     });
 
-    const resume = screen.getByRole('link', { name: '이력서' });
+    const resume = screen.getByRole('link', { name: 'Resume' });
     await act(async () => {
       await Promise.resolve();
       resume.dispatchEvent(new MouseEvent('click', { bubbles: true }));

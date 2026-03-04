@@ -21,10 +21,7 @@ export const CommandPalette = () => {
       <KBarPositioner className={styles.positioner}>
         <KBarAnimator className={styles.animator}>
           <div className={styles.searchWrapper}>
-            <KBarSearch
-              className={styles.search}
-              defaultPlaceholder="무엇을 찾으시나요?"
-            />
+            <KBarSearch className={styles.search} />
             <button
               type="button"
               className={styles.closeButton}
@@ -145,15 +142,7 @@ function RenderResults() {
                   <div className={styles.resultSubtitle}>{item.subtitle}</div>
                 )}
               </div>
-              {item.shortcut?.length ? (
-                <div className={styles.resultShortcuts}>
-                  {item.shortcut.map((sc) => (
-                    <kbd key={sc} className={styles.resultShortcut}>
-                      {sc}
-                    </kbd>
-                  ))}
-                </div>
-              ) : null}
+              {null}
             </div>
           )
         }

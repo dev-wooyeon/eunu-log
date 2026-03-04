@@ -40,7 +40,7 @@ export default function MobileBottomNav({
       },
       {
         id: 'resume',
-        label: '이력서',
+        label: 'Resume',
         href: '/resume',
       },
     ],
@@ -60,10 +60,10 @@ export default function MobileBottomNav({
           {navItems.map((item) => {
             const isActive = isActiveItem(item, pathname);
             const itemClassName = clsx(
-              'flex min-h-14 items-center justify-center rounded-[var(--radius-md)] border px-2 py-2 transition-all',
+              'flex min-h-14 items-center justify-center rounded-[var(--radius-md)] border px-2 py-2 transition-all group-active:scale-[0.99] group-active:translate-y-[1px]',
               isActive
                 ? 'border-[var(--mobile-nav-active-border)] bg-[var(--mobile-nav-active-bg)]'
-                : 'border-transparent hover:bg-[var(--mobile-nav-hover-bg)]'
+                : 'border-transparent hover:bg-[var(--mobile-nav-hover-bg)] group-active:bg-[var(--mobile-nav-hover-bg)]'
             );
 
             const content = (
@@ -98,13 +98,13 @@ export default function MobileBottomNav({
               <Link
                 key={item.id}
                 href={item.href}
-                className="rounded-[var(--radius-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mobile-nav-focus-ring)] focus-visible:ring-offset-1 focus-visible:ring-offset-[var(--mobile-nav-focus-offset)]"
                 onClick={() =>
                   trackEvent(AnalyticsEvents.click, {
                     target: 'mobile_bottom_nav',
                     destination: item.href,
                   })
                 }
+                className="group w-full rounded-[var(--radius-md)] touch-manipulation transition-transform duration-100 active:scale-[0.97] active:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--mobile-nav-focus-ring)] focus-visible:ring-offset-1 focus-visible:ring-offset-[var(--mobile-nav-focus-offset)]"
                 aria-current={isActive ? 'page' : undefined}
               >
                 {content}

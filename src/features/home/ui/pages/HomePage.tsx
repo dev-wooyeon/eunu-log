@@ -1,19 +1,17 @@
 import { Header } from '@/shared/layout';
 import { getSortedFeedData } from '@/features/blog/services/post-repository';
+import { getSeriesSummaries } from '@/features/blog/model/series-group';
 import HeroSection from '@/features/home/ui/sections/HeroSection';
-import RecentPostsSection from '@/features/home/ui/sections/RecentPostsSection';
-import ResumePreviewSection from '@/features/home/ui/sections/ResumePreviewSection';
 
 export default function HomePage() {
-  const recentPosts = getSortedFeedData().slice(0, 3);
+  const sortedPosts = getSortedFeedData();
+  const seriesSummaries = getSeriesSummaries(sortedPosts);
 
   return (
     <>
       <Header />
       <main>
-        <HeroSection />
-        <RecentPostsSection posts={recentPosts} />
-        <ResumePreviewSection />
+        <HeroSection allArticles={sortedPosts} seriesSummaries={seriesSummaries} />
       </main>
     </>
   );

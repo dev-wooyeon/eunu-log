@@ -14,7 +14,7 @@ import { useScrollVisibility } from './useScrollVisibility';
 const navItems = [
   { href: '/engineering', label: 'Engineering' },
   { href: '/life', label: 'Life' },
-  { href: '/resume', label: '이력서' },
+  { href: '/resume', label: 'Resume' },
 ];
 
 export default function Header() {
@@ -121,41 +121,31 @@ function SearchButton() {
 
   return (
     <button
+      type="button"
+      aria-label="검색 열기"
       onClick={() => {
         query.toggle();
         trackEvent(AnalyticsEvents.click, {
           target: 'search_button',
         });
       }}
-      className="flex items-center gap-3 px-3 py-1.5 bg-[var(--color-grey-50)] hover:bg-[var(--color-grey-100)] border border-[var(--color-grey-100)] rounded-lg transition-all group"
+      className="flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--color-grey-100)] bg-[var(--color-grey-50)] transition-all hover:bg-[var(--color-grey-100)] active:scale-[0.98] active:translate-y-[1px] group"
     >
-      <div className="flex items-center gap-2">
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="text-[var(--color-grey-400)] group-hover:text-[var(--color-grey-600)] transition-colors"
-        >
-          <circle cx="11" cy="11" r="8" />
-          <line x1="21" y1="21" x2="16.65" y2="16.65" />
-        </svg>
-        <span className="text-sm font-medium text-[var(--color-grey-500)] group-hover:text-[var(--color-grey-700)] transition-colors">
-          검색
-        </span>
-      </div>
-      <div className="flex items-center gap-1 px-1.5 py-0.5 bg-[var(--color-surface)] border border-[var(--color-grey-200)] rounded md:flex hidden">
-        <span className="text-[10px] font-bold text-[var(--color-grey-400)]">
-          ⌘
-        </span>
-        <span className="text-[10px] font-bold text-[var(--color-grey-400)]">
-          K
-        </span>
-      </div>
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="text-[var(--color-grey-400)] transition-colors group-hover:text-[var(--color-grey-600)]"
+        aria-hidden="true"
+      >
+        <circle cx="11" cy="11" r="8" />
+        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+      </svg>
     </button>
   );
 }

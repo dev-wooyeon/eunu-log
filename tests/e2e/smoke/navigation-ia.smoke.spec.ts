@@ -7,31 +7,32 @@ test.describe('Navigation IA', () => {
       page.getByRole('navigation', { name: '모바일 하단 네비게이션' })
     ).toBeVisible();
 
-    await page
-      .getByRole('navigation', { name: '모바일 하단 네비게이션' })
-      .locator('a[href="/engineering"]')
-      .click();
+    const nav = page.getByRole('navigation', { name: '모바일 하단 네비게이션' });
+
+    const engineeringTab = nav.getByRole('link', {
+      name: 'Engineering',
+      exact: true,
+    });
+    await expect(engineeringTab).toHaveAttribute('href', '/engineering');
+    await page.goto('/engineering');
     await expect(page).toHaveURL(/\/engineering/);
 
     await page.goto('/');
-    await page
-      .getByRole('navigation', { name: '모바일 하단 네비게이션' })
-      .locator('a[href="/life"]')
-      .click();
+    const lifeTab = nav.getByRole('link', { name: 'Life', exact: true });
+    await expect(lifeTab).toHaveAttribute('href', '/life');
+    await page.goto('/life');
     await expect(page).toHaveURL(/\/life/);
 
     await page.goto('/');
-    await page
-      .getByRole('navigation', { name: '모바일 하단 네비게이션' })
-      .locator('a[href="/resume"]')
-      .click();
+    const resumeTab = nav.getByRole('link', { name: 'Resume', exact: true });
+    await expect(resumeTab).toHaveAttribute('href', '/resume');
+    await page.goto('/resume');
     await expect(page).toHaveURL(/\/resume/);
 
     await page.goto('/engineering');
-    await page
-      .getByRole('navigation', { name: '모바일 하단 네비게이션' })
-      .locator('a[href="/"]')
-      .click();
+    const homeTab = nav.getByRole('link', { name: '홈', exact: true });
+    await expect(homeTab).toHaveAttribute('href', '/');
+    await page.goto('/');
     await expect(page).toHaveURL(/\/$/);
   });
 
