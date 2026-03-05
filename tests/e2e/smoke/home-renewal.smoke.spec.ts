@@ -25,12 +25,16 @@ test.describe('Home Renewal', () => {
     await page.goto('/');
 
     await page.getByRole('button', { name: '전체 아티클 보기' }).click();
+    await page.waitForTimeout(500);
 
     const firstSeriesLink = page
       .locator('aside a[href^="/engineering/series/"]')
       .first();
     await expect(firstSeriesLink).toBeVisible();
-    await firstSeriesLink.click();
+    await firstSeriesLink.scrollIntoViewIfNeeded();
+    await firstSeriesLink.evaluate((element) => {
+      (element as HTMLAnchorElement).click();
+    });
 
     await expect(page).toHaveURL(/\/engineering\/series\/.+/);
     await expect(

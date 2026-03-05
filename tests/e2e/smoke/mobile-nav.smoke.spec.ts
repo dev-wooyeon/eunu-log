@@ -1,6 +1,10 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Mobile navigation', () => {
+  test.beforeEach(({}, testInfo) => {
+    test.skip(!testInfo.project.use.isMobile, '모바일 프로젝트 전용 테스트예요.');
+  });
+
   test('@smoke 홈 진입 즉시 하단 내비 표시', async ({ page }) => {
     await page.goto('/');
     const nav = page.getByRole('navigation', {
