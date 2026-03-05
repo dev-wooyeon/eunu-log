@@ -226,7 +226,7 @@ export default function HeroSection({
   popularPosts,
 }: HeroSectionProps) {
   const [currentPage, setCurrentPage] = useState(1);
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useReducedMotion() ?? false;
   const articlePanelRef = useRef<HTMLElement>(null);
   const popularPanelRef = useRef<HTMLElement>(null);
   const seriesPanelRef = useRef<HTMLElement>(null);
