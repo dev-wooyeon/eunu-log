@@ -2,11 +2,13 @@ import { Metadata } from 'next';
 import { getSortedFeedData } from '@/features/blog/services/post-repository';
 import { Header, Container } from '@/shared/layout';
 import { PostList } from '@/features/blog/ui/components';
+import { createSitePageMetadata } from '@/shared/seo/metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createSitePageMetadata({
+  path: '/life',
   title: 'Life',
   description: '일상에서 배운 점과 오래 남은 생각을 차분하게 정리해요',
-};
+});
 
 export default function LifePage() {
   const lifePosts = getSortedFeedData().filter((post) => post.category === 'Life');

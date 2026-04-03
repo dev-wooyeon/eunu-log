@@ -1,1 +1,1 @@
-export { default } from '@/features/home/ui/pages/HomePage';
+export { metadata, default } from '@/features/home/ui/pages/HomePage';

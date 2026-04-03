@@ -2,12 +2,14 @@ import { Metadata } from 'next';
 import { Suspense } from 'react';
 import { getSortedFeedData } from '@/features/blog/services/post-repository';
 import { Header, Container } from '@/shared/layout';
+import { createSitePageMetadata } from '@/shared/seo/metadata';
 import EngineeringPageClient from './EngineeringPageClient';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createSitePageMetadata({
+  path: '/engineering',
   title: 'Engineering',
   description: '기술 글과 시리즈를 같은 흐름에서 살펴볼 수 있어요',
-};
+});
 
 export default function EngineeringPage() {
   const engineeringPosts = getSortedFeedData().filter(

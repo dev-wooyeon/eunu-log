@@ -1,27 +1,47 @@
 import { MetadataRoute } from 'next';
+import { SITE_URL } from '@/core/config/site';
 import { getSortedFeedData } from '@/features/blog/services/post-repository';
-
-const URL = 'https://eunu-log.vercel.app';
+import { toAbsoluteUrl } from '@/shared/seo/metadata';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const feeds = getSortedFeedData();
+  const latestFeedDate = feeds[0]?.date;
 
   const feedEntries = feeds.map((feed) => ({
-    url: `${URL}/blog/${feed.slug}`,
-    lastModified: feed.date, // Use actual post date
+    url: toAbsoluteUrl(`/blog/${feed.slug}`),
+    lastModified: feed.date,
     changeFrequency: 'weekly' as const,
     priority: 0.7,
   }));
 
-  const routes = ['', '/engineering', '/life', '/resume', '/feed.xml'].map(
-    (route) => ({
-      url: `${URL}${route}`,
-      lastModified: new Date().toISOString().split('T')[0],
-      changeFrequency:
-        route === '/feed.xml' ? ('daily' as const) : ('monthly' as const),
+  const routes: MetadataRoute.Sitemap = [
+    {
+      url: SITE_URL,
+      changeFrequency: 'monthly',
       priority: 1,
-    })
-  );
+    },
+    {
+      url: toAbsoluteUrl('/engineering'),
+      changeFrequency: 'monthly',
+      priority: 1,
+    },
+    {
+      url: toAbsoluteUrl('/life'),
+      changeFrequency: 'monthly',
+      priority: 1,
+    },
+    {
+      url: toAbsoluteUrl('/resume'),
+      changeFrequency: 'monthly',
+      priority: 1,
+    },
+    {
+      url: toAbsoluteUrl('/feed.xml'),
+      lastModified: latestFeedDate,
+      changeFrequency: 'daily',
+      priority: 1,
+    },
+  ];
 
   return [...routes, ...feedEntries];
 }

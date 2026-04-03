@@ -10,11 +10,13 @@ import {
   certifications,
 } from '@/features/resume/model/resume-data';
 import { orderExperienceStages } from '@/features/resume/model/order-experience-stages';
+import { createSitePageMetadata } from '@/shared/seo/metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createSitePageMetadata({
+  path: '/resume',
   title: 'Resume',
   description: `${personalInfo.name}의 이력서`,
-};
+});
 
 export default function ResumePage() {
   // Calculate years of experience (Start: Dec 2019)
@@ -43,7 +45,10 @@ export default function ResumePage() {
 
     if (!startDate || !endDate) return '';
 
-    let months = (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth()) + 1;
+    const months =
+      (endDate.getFullYear() - startDate.getFullYear()) * 12 +
+      (endDate.getMonth() - startDate.getMonth()) +
+      1;
     const calcYears = Math.floor(months / 12);
     const calcMonths = months % 12;
 
@@ -284,7 +289,10 @@ export default function ResumePage() {
             </h2>
 
             {personalProjects.map((project, index) => (
-              <article key={index} className="relative pl-4 md:pl-0 mb-12 last:mb-0">
+              <article
+                key={index}
+                className="relative pl-4 md:pl-0 mb-12 last:mb-0"
+              >
                 {/* Visual Timeline Line for mobile */}
                 <div className="absolute left-0 top-2 bottom-0 w-[2px] bg-[var(--color-border)] md:hidden"></div>
 
@@ -311,7 +319,6 @@ export default function ResumePage() {
 
                   {/* Right Column: Project Details */}
                   <div className="space-y-6">
-
                     <div>
                       <p className="text-[var(--color-text-secondary)] leading-relaxed mb-4">
                         {project.description}

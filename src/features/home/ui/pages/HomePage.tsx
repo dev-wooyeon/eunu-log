@@ -1,12 +1,18 @@
+import type { Metadata } from 'next';
 import { Header } from '@/shared/layout';
 import type { FeedData } from '@/domains/post/model/types';
 import { getPopularViewsInRecentDays } from '@/app/actions/view';
 import { getSortedFeedData } from '@/features/blog/services/post-repository';
 import { getSeriesSummaries } from '@/features/blog/model/series-group';
 import HeroSection from '@/features/home/ui/sections/HeroSection';
+import { createSitePageMetadata } from '@/shared/seo/metadata';
 
 const POPULAR_POST_LIMIT = 5;
 const POPULAR_VIEW_DAYS = 30;
+
+export const metadata: Metadata = createSitePageMetadata({
+  path: '/',
+});
 
 export interface HomePopularPost {
   post: FeedData;

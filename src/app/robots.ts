@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next';
+import { toAbsoluteUrl } from '@/shared/seo/metadata';
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -7,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/private/',
     },
-    sitemap: 'https://eunu-log.vercel.app/sitemap.xml',
+    sitemap: toAbsoluteUrl('/sitemap.xml'),
   };
 }

@@ -1,7 +1,14 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getFeedData, getAllFeedSlugs, getSeriesPosts } from '@/features/blog/services/post-repository';
-import { getMdxSource, parseHeadingsFromMdx } from '@/features/blog/services/markdown-parser';
+import {
+  getFeedData,
+  getAllFeedSlugs,
+  getSeriesPosts,
+} from '@/features/blog/services/post-repository';
+import {
+  getMdxSource,
+  parseHeadingsFromMdx,
+} from '@/features/blog/services/markdown-parser';
 import { Header, Container } from '@/shared/layout';
 import {
   ReadingProgress,
@@ -14,8 +21,8 @@ import PostViewTracker from '@/shared/analytics/components/PostViewTracker';
 import DwellTimeTracker from '@/shared/analytics/components/DwellTimeTracker';
 import ScrollDepthTracker from '@/shared/analytics/components/ScrollDepthTracker';
 import JsonLd from '@/shared/seo/JsonLd';
-import { useMDXComponents } from '@/features/blog/ui/mdx/components';
-import { SITE_URL } from '@/core/config/site';
+import { getMDXComponents } from '@/features/blog/ui/mdx/components';
+import { buildOgImageUrl, toAbsoluteUrl } from '@/shared/seo/metadata';
 
 export async function generateStaticParams() {
   return getAllFeedSlugs();
@@ -33,24 +40,41 @@ export async function generateMetadata({
     return { title: '글을 찾을 수 없습니다' };
   }
 
+  const canonicalUrl = toAbsoluteUrl(`/blog/${post.slug}`);
+  const socialImageUrl = buildOgImageUrl({
+    title: post.title,
+    date: post.date,
+    tags: post.tags,
+  });
+
   return {
     title: post.title,
     description: post.description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
       title: post.title,
       description: post.description,
+      url: canonicalUrl,
       type: 'article',
       publishedTime: post.date,
       authors: ['Eunu'],
       tags: post.tags,
       images: [
         {
-          url: `/api/og?title=${encodeURIComponent(post.title)}&date=${post.date}&tags=${post.tags?.join(',') || ''}`,
+          url: socialImageUrl,
           width: 1200,
           height: 630,
           alt: post.title,
         },
       ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description,
+      images: [socialImageUrl],
     },
   };
 }
@@ -74,12 +98,19 @@ export default async function BlogPostPage({
   const seriesPosts = post.series ? getSeriesPosts(post.series.id) : [];
 
   const { Content } = post;
+  const canonicalUrl = toAbsoluteUrl(`/blog/${post.slug}`);
+  const socialImageUrl = buildOgImageUrl({
+    title: post.title,
+    date: post.date,
+    tags: post.tags,
+  });
   const formattedDate = new Date(post.date).toLocaleDateString('ko-KR', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   });
   const readingTimeLabel = post.readingTime ? `약 ${post.readingTime}분` : null;
+  const mdxComponents = getMDXComponents({});
 
   return (
     <>
@@ -140,7 +171,7 @@ export default async function BlogPostPage({
 
           {/* Content */}
           <div className="prose">
-            <Content components={useMDXComponents({})} />
+            <Content components={mdxComponents} />
           </div>
         </Container>
       </article>
@@ -162,10 +193,10 @@ export default async function BlogPostPage({
             '@type': 'Person',
             name: 'Eunu',
           },
+          url: canonicalUrl,
+          mainEntityOfPage: canonicalUrl,
           datePublished: post.date,
-          image: [
-            `${SITE_URL}/api/og?title=${encodeURIComponent(post.title)}&date=${post.date}&tags=${post.tags?.join(',') || ''}`,
-          ],
+          image: [socialImageUrl],
         }}
       />
 
