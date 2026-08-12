@@ -1,0 +1,32 @@
+{
+  "title": "포켓몬 빵 하나에서 시작해 띠부씰 서비스를 만들기까지",
+  "slug": "chakchak-build-retrospective",
+  "description": "수작업으로 색칠하던 포켓몬 띠부씰 도감에서 구매·판매·교환 의도를 분명히 전달하는 모바일 수집·거래 도감, 착착을 만든 2주간의 제품 개발 회고.",
+  "date": "2026-08-12",
+  "category": "Tech",
+  "contentType": "retrospective",
+  "tags": [
+    "Product Development",
+    "Mobile UX",
+    "AI Native",
+    "Pokémon",
+    "Retrospective"
+  ],
+  "image": "/images/posts/chakchak-build-retrospective/labeled-trade-catalog.png",
+  "featured": false,
+  "visibility": "public",
+  "qualityReview": {
+    "philosophy": 4,
+    "design": 4,
+    "implementation": 4,
+    "brandFit": 4,
+    "clarity": 4,
+    "structure": 4,
+    "evidence": 4,
+    "usefulness": 4,
+    "originality": 4,
+    "polish": 4,
+    "reviewedAt": "2026-08-12",
+    "notes": "사용자 제공 스크린샷과 개인 개발 경험을 바탕으로 작성한 공개 회고."
+  }
+}
