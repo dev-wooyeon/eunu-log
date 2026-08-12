@@ -39,7 +39,7 @@ describe('AppShell', () => {
     ).toBeInTheDocument();
   });
 
-  it('treats existing post routes as part of Archive', () => {
+  it('treats existing post routes as part of Archive without a header mark', () => {
     vi.mocked(usePathname).mockReturnValue('/blog/ctr-pipeline');
     render(
       <AppShell>
@@ -51,9 +51,6 @@ describe('AppShell', () => {
       'aria-current',
       'page'
     );
-    expect(screen.getByAltText('')).toHaveAttribute(
-      'src',
-      '/brand/graphite-blossom-mark.svg'
-    );
+    expect(screen.queryByAltText('')).not.toBeInTheDocument();
   });
 });
