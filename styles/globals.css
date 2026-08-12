@@ -55,12 +55,6 @@
   pointer-events: auto;
 }
 
-.ark-site-brand-mark {
-  width: 1.75rem;
-  height: 1.75rem;
-  flex: none;
-}
-
 .ark-site-content {
   grid-column: 2;
   grid-row: 1;
