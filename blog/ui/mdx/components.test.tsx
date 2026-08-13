@@ -61,4 +61,18 @@ describe('getMDXComponents', () => {
       'text-[var(--color-text-primary)]'
     );
   });
+
+  it('keeps an explicit MDX image width on its wrapper', () => {
+    const { img: Image } = getMDXComponents({});
+
+    if (!Image) {
+      throw new Error('Expected image component to be defined');
+    }
+
+    const { container } = render(
+      <Image src="/images/example.png" alt="예시 이미지" width="25%" />
+    );
+
+    expect(container.firstElementChild).toHaveStyle({ width: '25%' });
+  });
 });

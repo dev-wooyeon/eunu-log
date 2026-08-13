@@ -80,7 +80,10 @@ export function getMDXComponents(components: MDXComponents): MDXComponents {
       if (!props.src) return null;
 
       return (
-        <span className="my-12 block overflow-hidden rounded-[var(--radius-content)]">
+        <span
+          className="my-12 block max-w-full overflow-hidden rounded-[var(--radius-content)]"
+          style={props.width ? { width: props.width } : undefined}
+        >
           <Image
             src={props.src}
             alt={props.alt || ''}
